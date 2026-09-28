@@ -17,8 +17,8 @@ public class EventModel {
 		this.place = place;
 		this.date = date;
 		this.description = description;
-		this.rating = rating;
-		this.isFinished = isFinished;
+		this.rating = 0;
+		this.isFinished = false;
 	}
 
 	public int getId() {
