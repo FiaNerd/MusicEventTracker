@@ -10,7 +10,7 @@ public class EventModel {
 	private int rating;
 	private boolean isFinished;
 
-	public EventModel(int id, String band, String genre, String place, String date, String description, int rating, boolean isFinished) {
+	public EventModel(int id, String band, String genre, String place, String date, String description) {
 		this.id = id;
 		this.band = band;
 		this.genre = genre;
