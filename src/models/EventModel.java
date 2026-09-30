@@ -2,7 +2,7 @@ package models;
 
 public class EventModel {
 	private int id;
-	private String band;
+	private String artist;
 	private String genre;
 	private String place;
 	private String date;
@@ -10,9 +10,18 @@ public class EventModel {
 	private int rating;
 	private boolean isFinished;
 
-	public EventModel(int id, String band, String genre, String place, String date, String description) {
+	/**
+	 * Constructor for
+	 * @param id
+	 * @param artist
+	 * @param genre
+	 * @param place
+	 * @param date
+	 * @param description
+	 */
+	public EventModel(int id, String artist, String genre, String place, String date, String description) {
 		this.id = id;
-		this.band = band;
+		this.artist = artist;
 		this.genre = genre;
 		this.place = place;
 		this.date = date;
@@ -29,12 +38,12 @@ public class EventModel {
 		this.id = id;
 	}
 
-	public String getBand() {
-		return band;
+	public String getartist() {
+		return artist;
 	}
 
-	public void setBand(String band) {
-		this.band = band;
+	public void setartist(String artist) {
+		this.artist = artist;
 	}
 
 	public String getGenre() {
