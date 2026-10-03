@@ -1,4 +1,8 @@
 package models;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a generic music event, acting as the base class (superclass)
  * for all specific event types such as Concerts and Festivals.
@@ -14,10 +18,9 @@ public class EventModel {
 	private String description;
 
 	// Default values initialized directly instead of requiring them in the constructor
-	private int rating = 0;
 	private boolean isFinished = false;
 	private boolean isOutdoor;
-	private String review = "No review yet";
+	private List<Review> reviews = new ArrayList<>();
 
 	/**
 	 * Constructs a new EventModel with all required core details.
@@ -156,22 +159,6 @@ public class EventModel {
 	}
 
 	/**
-	 * Gets the rating given to the event.
-	 * @return the rating (0 if not rated)
-	 */
-	public int getRating() {
-		return rating;
-	}
-
-	/**
-	 * Sets the rating for the event.
-	 * @param rating the rating value to set
-	 */
-	public void setRating(int rating) {
-		this.rating = rating;
-	}
-
-	/**
 	 * Checks if the event has already taken place.
 	 * @return true if finished, false otherwise
 	 */
@@ -203,19 +190,7 @@ public class EventModel {
 		isOutdoor = outdoor;
 	}
 
-	/**
-	 * Gets the written review for the event.
-	 * @return the review text
-	 */
-	public String getReview() {
-		return review;
-	}
-
-	/**
-	 * Sets the written review for the event.
-	 * @param review the review text to set
-	 */
-	public void setReview(String review) {
-		this.review = review;
+	public List<Review> getReviews() {
+		return reviews;
 	}
 }
