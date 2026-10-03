@@ -29,6 +29,7 @@ public class Concert extends EventModel {
 	public Concert(int id, String artist, String genre, String place, String country, String date, String description,
 	               boolean isOutdoor, String supportAct, String tourName, SeatingType seatingType) {
 		super(id, artist, genre, place, country, date, description, isOutdoor);
+
 		this.supportAct = supportAct;
 		this.tourName = tourName;
 		this.seatingType = seatingType;
