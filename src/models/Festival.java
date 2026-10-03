@@ -62,4 +62,34 @@ public class Festival extends EventModel {
 	public void setNumbersOfDays(int numbersOfDays){
 		this.numbersOfDays = numbersOfDays;
 	}
+
+
+	//---- OVERRIDE METHOD ----
+	/**
+	 * Returns a detailed description of the festival, including base event details,
+	 * whether camping is included, and the duration in days.
+	 * Overrides EventModel.getDescription() to add festival-specific information.
+	 *
+	 * @return formatted festival description string
+	 */
+	@Override
+	public String getDescription() {
+		return super.getDescription() +
+				"\nCamping included: " + (campingIncluded ? "Yes" : "No") +
+				"\nNumber of days: " + numbersOfDays;
+	}
+
+	/**
+	 * Returns a formatted text representation of the festival object.
+	 * Overrides EventModel.toString() to include festival-specific attributes
+	 * like camping status and number of days.
+	 *
+	 * @return formatted festival information as a String
+	 */
+	@Override
+	public String toString() {
+		return super.toString().replace("EventModel", "Festival") +
+				"\n  campingIncluded: " + campingIncluded +
+				"\n  numbersOfDays: " + numbersOfDays;
+	}
 }

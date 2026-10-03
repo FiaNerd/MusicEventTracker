@@ -74,8 +74,15 @@ public class ClubGig extends EventModel {
 		this.openingHours = openingHours;
 	}
 
-	//---- OVERIDE METHODS ----
-		
+
+	//---- OVERIDE METHODS ----ss
+	/**
+	 * Returns a detailed description of the club gig, including base event details,
+	 * age limit, entry fee, and opening hours.
+	 * Overrides EventModel.getDescription() to add club-specific information.
+	 *
+	 * @return formatted club gig description string
+	 */
 	@Override
 	public String getDescription(){
 		return super.getDescription() +
@@ -84,4 +91,19 @@ public class ClubGig extends EventModel {
 				"\nOpening hours: " + openingHours;
 	}
 
+	/**
+	 * Returns a short summary of the club event.
+	 * This override ensures that ClubGig objects display club-specific
+	 * information when printed, supporting polymorphic behavior.
+	 *
+	 * @return formatted club gig summary
+	 */
+	@Override
+	public String toString() {
+		return super.toString().replace("EventModel", "ClubGig") +
+				"\n  ageLimit: " + ageLimit +
+				"\n  entryFee: " + entryFee +
+				"\n  openingHours: " + openingHours +
+				"\n  averageRating: " + getAverageRating();
+	}
 }

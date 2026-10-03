@@ -193,4 +193,45 @@ public class EventModel {
 	public List<Review> getReviews() {
 		return reviews;
 	}
+
+	/**
+	 * Calculates the average rating for this event based on all submitted reviews.
+	 * If no reviews exist, the method returns 0.0 to avoid division by zero.
+	 *
+	 * @return the average rating as a double value
+	 */
+	public double getAverageRating() {
+		if (reviews.isEmpty()) {
+			return 0.0;
+		}
+
+		double sum = 0;
+		for (Review r : reviews) {
+			sum += r.getRating();
+		}
+
+		return sum / reviews.size();
+	}
+
+
+	//---- OVERRIDE METHOD ----
+	/**
+	 * Returns a formatted text representation of the event.
+	 * Overrides Object.toString() and serves as a base implementation
+	 * that can be extended and reused by subclasses.
+	 *
+	 * @return formatted event information as a String
+	 */
+	@Override
+	public String toString() {
+		return "EventModel" +
+				"\n  id: " + id +
+				"\n  artist: " + artist +
+				"\n  genre: " + genre +
+				"\n  place: " + place +
+				"\n  country: " + country +
+				"\n  date: " + date +
+				"\n  isOutdoor: " + isOutdoor +
+				"\n  isFinished: " + isFinished;
+	}
 }

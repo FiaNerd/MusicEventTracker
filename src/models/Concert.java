@@ -82,4 +82,35 @@ public class Concert extends EventModel {
 	public void setSeatingType(SeatingType seatingType) {
 		this.seatingType = seatingType;
 	}
+
+
+	//---- OVERRIDE METHODS ----
+	/**
+	 * Returns a detailed description of the concert.
+	 * Extends the base event description with concert-specific information.
+	 *
+	 * @return formatted concert description as a String
+	 */
+	@Override
+	public String getDescription() {
+		return super.getDescription() +
+				"\nSupport act: " + supportAct +
+				"\nTour name: " + tourName +
+				"\nSeating type: " + seatingType;
+	}
+
+	/**
+	 * Returns a formatted text representation of the concert.
+	 * Builds upon the EventModel toString() output by adding concert-specific fields.
+	 *
+	 * @return formatted concert information as a String
+	 */
+	@Override
+	public String toString() {
+		return super.toString().replace("EventModel", "Concert") +
+				"\n  supportAct: " + supportAct +
+				"\n  tourName: " + tourName +
+				"\n  seatingType: " + seatingType;
+	}
+
 }
