@@ -4,8 +4,8 @@ package models;
  * Represents a club-based music event, extending the generic EventModel.
  * A ClubGig typically has additional rules and characteristics such as
  * age restrictions, entry fees, and specific opening hours.
- *
- * This class demonstrates specialization through inheritance and
+
+ *  * This class demonstrates specialization through inheritance and
  * overrides methods to provide club-specific behavior.
  */
 public class ClubGig extends EventModel {
@@ -73,4 +73,15 @@ public class ClubGig extends EventModel {
 	public void setOpeningHours(String openingHours) {
 		this.openingHours = openingHours;
 	}
+
+	//---- OVERIDE METHODS ----
+		
+	@Override
+	public String getDescription(){
+		return super.getDescription() +
+				"\nAge limit: " + ageLimit +
+				"\nEntry fee: " + entryFee + " SEK" +
+				"\nOpening hours: " + openingHours;
+	}
+
 }
