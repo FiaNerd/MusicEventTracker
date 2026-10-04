@@ -28,7 +28,7 @@ public class ClubGig extends EventModel implements Reviewable {
 	 * @param genre         Music genre played at the event
 	 * @param venue         Venue name
 	 * @param city          City where the event takes place
-	 * @param country       Country where the event takes city
+	 * @param country       Country where the event takes place
 	 * @param date          Date of the event
 	 * @param description   Brief description of the event
 	 * @param isOutdoor     True if the event is outdoors, false otherwise

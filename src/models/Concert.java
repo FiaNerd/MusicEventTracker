@@ -1,15 +1,20 @@
 package models;
 
+import interfaces.Reviewable;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a Concert event, extending the EventModel superclass.
  * Adds unique attributes specific to concerts, such as support acts, tour names,
  * and seating arrangement types with enums.
  */
-public class Concert extends EventModel {
+public class Concert extends EventModel implements Reviewable {
 	private String supportAct;
 	private String tourName;
 	private SeatingType seatingType;
-
+	private List<Review> reviews = new ArrayList<>();
 	/**
 	 * Constructs a new Concert instance.
 	 * Uses super() to initialize inherited fields from EventModel.
@@ -17,8 +22,9 @@ public class Concert extends EventModel {
 	 * @param id          Unique identifier for the event
 	 * @param artist      The main artist or performing act
 	 * @param genre       Music genre
-	 * @param city        City or venue name
-	 * @param country     Country where the concert takes city
+	 * @param venue       Venue name
+	 * @param city        City where the concert takes place
+	 * @param country     Country where the concert takes place
 	 * @param date        Date of the concert
 	 * @param description Brief description of the event
 	 * @param isOutdoor   True if the concert is outdoors, false otherwise
@@ -110,7 +116,17 @@ public class Concert extends EventModel {
 		return super.toString().replace("EventModel", "Concert") +
 				"\n  supportAct: " + supportAct +
 				"\n  tourName: " + tourName +
-				"\n  seatingType: " + seatingType;
+				"\n  seatingType: " + seatingType +
+				"\n  averageRating: " + getAverageRating();
 	}
 
+	@Override
+	public void addReview(Review review) {
+		reviews.add(review);
+	}
+
+	@Override
+	public List<Review> getReviews() {
+		return reviews;
+	}
 }
