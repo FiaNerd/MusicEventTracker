@@ -17,7 +17,7 @@ public class Concert extends EventModel {
 	 * @param id          Unique identifier for the event
 	 * @param artist      The main artist or performing act
 	 * @param genre       Music genre
-	 * @param city       City or venue name
+	 * @param city        City or venue name
 	 * @param country     Country where the concert takes city
 	 * @param date        Date of the concert
 	 * @param description Brief description of the event

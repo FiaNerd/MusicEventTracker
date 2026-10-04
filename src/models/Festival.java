@@ -1,11 +1,18 @@
 package models;
+
+import interfaces.Reviewable;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a Festival event, extending the EventModel superclass.
  * Adds unique attributes specific to festivals, such as camping availability.
  */
-public class Festival extends EventModel {
+public class Festival extends EventModel implements Reviewable {
 	private boolean campingIncluded;
-	private int numbersOfDays;
+	private int numberOfDays;
+	private List<Review> reviews = new ArrayList<>();
 
 	/**
 	 * Constructs a new Festival instance.
@@ -21,13 +28,13 @@ public class Festival extends EventModel {
 	 * @param description     Brief description of the event
 	 * @param isOutdoor       True if the festival is outdoors, false otherwise
 	 * @param campingIncluded True if camping is included in the ticket, false otherwise
-	 * @param numbersOfDays   Number of days the festival lastst
+	 * @param numberOfDays   Number of days the festival lastst
 	 */
 	public Festival(int id, String artist, String genre, String venue, String city, String country, String date,
-	                String description, boolean isOutdoor, boolean campingIncluded, int numbersOfDays) {
+	                String description, boolean isOutdoor, boolean campingIncluded, int numberOfDays) {
 		super(id, artist, genre, venue, city, country, date, description, isOutdoor);
 		this.campingIncluded = campingIncluded;
-		this.numbersOfDays = numbersOfDays;
+		this.numberOfDays = numberOfDays;
 	}
 
 
@@ -52,16 +59,16 @@ public class Festival extends EventModel {
 	 * Gets the number of days the festival lasts.
 	 * @return the number of days
 	 */
-	public int getNumbersOfDays(){
-		return numbersOfDays;
+	public int getNumberOfDays(){
+		return numberOfDays;
 	}
 
 	/**
 	 * Sets the number of days the festival lasts.
-	 * @param numbersOfDays the number of days to set
+	 * @param numberOfDays the number of days to set
 	 */
-	public void setNumbersOfDays(int numbersOfDays){
-		this.numbersOfDays = numbersOfDays;
+	public void setNumberOfDays(int numberOfDays){
+		this.numberOfDays = numberOfDays;
 	}
 
 
@@ -77,7 +84,7 @@ public class Festival extends EventModel {
 	public String getDescription() {
 		return super.getDescription() +
 				"\nCamping included: " + (campingIncluded ? "Yes" : "No") +
-				"\nNumber of days: " + numbersOfDays;
+				"\nNumber of days: " + numberOfDays;
 	}
 
 	/**
@@ -91,6 +98,17 @@ public class Festival extends EventModel {
 	public String toString() {
 		return super.toString().replace("EventModel", "Festival") +
 				"\n  campingIncluded: " + campingIncluded +
-				"\n  numbersOfDays: " + numbersOfDays;
+				"\n  numberOfDays: " + numberOfDays +
+				"\n averageRating: " + getAverageRating();
+	}
+
+	@Override
+	public void addReview(Review review) {
+		reviews.add(review);
+	}
+
+	@Override
+	public List<Review> getReviews() {
+		return reviews;
 	}
 }
