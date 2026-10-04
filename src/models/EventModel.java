@@ -9,7 +9,8 @@ public class EventModel {
 	private int id;
 	private String artist;
 	private String genre;
-	private String place;
+	private String venue;
+	private String city;
 	private String country;
 	private String date;
 	private String description;
@@ -24,18 +25,20 @@ public class EventModel {
 	 * @param id          Unique identifier for the event
 	 * @param artist      The main artist or performing act
 	 * @param genre       Music genre
-	 * @param place       City or venue name
+	 * @param venue       Venue name
+	 * @param city        City where the event takes place
 	 * @param country     Country where the event takes place
 	 * @param date        Date of the event
 	 * @param description Brief description of the event
 	 * @param isOutdoor   True if the event is outdoors, false if indoors
 	 */
-	public EventModel(int id, String artist, String genre, String place, String country, String date,
+	public EventModel(int id, String artist, String genre, String venue, String city, String country, String date,
 	                  String description, boolean isOutdoor) {
 		this.id = id;
 		this.artist = artist;
 		this.genre = genre;
-		this.place = place;
+		this.venue = venue;
+		this.city = city;
 		this.country = country;
 		this.date = date;
 		this.description = description;
@@ -90,20 +93,24 @@ public class EventModel {
 		this.genre = genre;
 	}
 
+	public String getVenue(){ return venue; }
+
+	public void setVenue(String venue) { this.venue = venue; }
+
 	/**
 	 * Gets the venue or city where the event takes place.
 	 * @return the place name
 	 */
-	public String getPlace() {
-		return place;
+	public String getCity() {
+		return city;
 	}
 
 	/**
 	 * Sets the venue or city where the event takes place.
-	 * @param place the place to set
+	 * @param city the place to set
 	 */
-	public void setPlace(String place) {
-		this.place = place;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	/**
@@ -201,7 +208,8 @@ public class EventModel {
 				"\n  id: " + id +
 				"\n  artist: " + artist +
 				"\n  genre: " + genre +
-				"\n  place: " + place +
+				"\n  venue: " + venue +
+				"\n  city: " + city +
 				"\n  country: " + country +
 				"\n  date: " + date +
 				"\n  isOutdoor: " + isOutdoor +

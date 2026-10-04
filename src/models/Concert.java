@@ -17,8 +17,8 @@ public class Concert extends EventModel {
 	 * @param id          Unique identifier for the event
 	 * @param artist      The main artist or performing act
 	 * @param genre       Music genre
-	 * @param place       City or venue name
-	 * @param country     Country where the concert takes place
+	 * @param city       City or venue name
+	 * @param country     Country where the concert takes city
 	 * @param date        Date of the concert
 	 * @param description Brief description of the event
 	 * @param isOutdoor   True if the concert is outdoors, false otherwise
@@ -26,9 +26,9 @@ public class Concert extends EventModel {
 	 * @param tourName    The name of the tour
 	 * @param seatingType The seating arrangement (STANDING, SEATED, or BOOTH)
 	 */
-	public Concert(int id, String artist, String genre, String place, String country, String date, String description,
+	public Concert(int id, String artist, String genre, String venue, String city, String country, String date, String description,
 	               boolean isOutdoor, String supportAct, String tourName, SeatingType seatingType) {
-		super(id, artist, genre, place, country, date, description, isOutdoor);
+		super(id, artist, genre, venue, city, country, date, description, isOutdoor);
 
 		this.supportAct = supportAct;
 		this.tourName = tourName;

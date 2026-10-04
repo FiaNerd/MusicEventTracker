@@ -1,7 +1,6 @@
 package models;
 
 import interfaces.Reviewable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +26,9 @@ public class ClubGig extends EventModel implements Reviewable {
 	 * @param id            Unique identifier for the event
 	 * @param artist        Main performing artist or DJ
 	 * @param genre         Music genre played at the event
-	 * @param place         Venue or club name
-	 * @param country       Country where the event takes place
+	 * @param venue         Venue name
+	 * @param city          City where the event takes place
+	 * @param country       Country where the event takes city
 	 * @param date          Date of the event
 	 * @param description   Brief description of the event
 	 * @param isOutdoor     True if the event is outdoors, false otherwise
@@ -36,12 +36,12 @@ public class ClubGig extends EventModel implements Reviewable {
 	 * @param entryFee      Entry fee in SEK
 	 * @param openingHours  Opening hours for the club event
 	 */
-	public ClubGig(int id, String artist, String genre, String place, String country, String date,
+	public ClubGig(int id, String artist, String genre, String venue, String city, String country, String date,
 	               String description, boolean isOutdoor,
 	               int ageLimit, double entryFee, String openingHours) {
 
 		// Pass shared event data to the superclass constructor
-		super(id, artist, genre, place, country, date, description, isOutdoor);
+		super(id, artist, genre, venue, city, country, date, description, isOutdoor);
 
 		this.ageLimit = ageLimit;
 		this.entryFee = entryFee;

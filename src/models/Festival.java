@@ -14,7 +14,8 @@ public class Festival extends EventModel {
 	 * @param id              Unique identifier for the event
 	 * @param artist          The main artist or performing act
 	 * @param genre           Music genre
-	 * @param place           City or venue name
+	 * @param venue           Venue name
+	 * @param city            City where the event takes place
 	 * @param country         Country where the festival takes place
 	 * @param date            Date of the festival
 	 * @param description     Brief description of the event
@@ -22,9 +23,9 @@ public class Festival extends EventModel {
 	 * @param campingIncluded True if camping is included in the ticket, false otherwise
 	 * @param numbersOfDays   Number of days the festival lastst
 	 */
-	public Festival(int id, String artist, String genre, String place, String country, String date,
+	public Festival(int id, String artist, String genre, String venue, String city, String country, String date,
 	                String description, boolean isOutdoor, boolean campingIncluded, int numbersOfDays) {
-		super(id, artist, genre, place, country, date, description, isOutdoor);
+		super(id, artist, genre, venue, city, country, date, description, isOutdoor);
 		this.campingIncluded = campingIncluded;
 		this.numbersOfDays = numbersOfDays;
 	}
