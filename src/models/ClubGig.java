@@ -113,13 +113,23 @@ public class ClubGig extends EventModel implements Reviewable {
 				"\n  averageRating: " + getAverageRating();
 	}
 
+	/**
+	 * Adds a review to the list.
+	 *
+	 * @param review the review to add
+	 */
 	@Override
 	public void addReview(Review review) {
-		reviews.add(review); // Add review to list
+		reviews.add(review);
 	}
 
+	/**
+	 * Gets the list of reviews.
+	 *
+	 * @return the list of reviews
+	 */
 	@Override
 	public List<Review> getReviews() {
-		return reviews; // Return the list
+		return reviews;
 	}
 }
