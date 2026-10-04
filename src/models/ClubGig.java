@@ -1,5 +1,10 @@
 package models;
 
+import interfaces.Reviewable;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a club-based music event, extending the generic EventModel.
  * A ClubGig typically has additional rules and characteristics such as
@@ -8,11 +13,12 @@ package models;
  *  * This class demonstrates specialization through inheritance and
  * overrides methods to provide club-specific behavior.
  */
-public class ClubGig extends EventModel {
+public class ClubGig extends EventModel implements Reviewable {
 
 	private int ageLimit;        // Minimum age required to enter the club
 	private double entryFee;     // Entry price for the club event
 	private String openingHours; // Opening hours for the club night (e.g., "22:00–03:00")
+	private List<Review> reviews = new ArrayList<>();
 
 	/**
 	 * Constructs a new ClubGig with both general event details and
@@ -75,7 +81,7 @@ public class ClubGig extends EventModel {
 	}
 
 
-	//---- OVERIDE METHODS ----ss
+	//---- OVERIDE METHODS ----
 	/**
 	 * Returns a detailed description of the club gig, including base event details,
 	 * age limit, entry fee, and opening hours.
@@ -105,5 +111,15 @@ public class ClubGig extends EventModel {
 				"\n  entryFee: " + entryFee +
 				"\n  openingHours: " + openingHours +
 				"\n  averageRating: " + getAverageRating();
+	}
+
+	@Override
+	public void addReview(Review review) {
+		reviews.add(review); // Add review to list
+	}
+
+	@Override
+	public List<Review> getReviews() {
+		return reviews; // Return the list
 	}
 }
