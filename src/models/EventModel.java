@@ -1,8 +1,5 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Represents a generic music event, acting as the base class (superclass)
  * for all specific event types such as Concerts and Festivals.
@@ -20,7 +17,6 @@ public class EventModel {
 	// Default values initialized directly instead of requiring them in the constructor
 	private boolean isFinished = false;
 	private boolean isOutdoor;
-	private List<Review> reviews = new ArrayList<>();
 
 	/**
 	 * Constructs a new EventModel with all required core details.
@@ -188,29 +184,6 @@ public class EventModel {
 	 */
 	public void setOutdoor(boolean outdoor) {
 		isOutdoor = outdoor;
-	}
-
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-	/**
-	 * Calculates the average rating for this event based on all submitted reviews.
-	 * If no reviews exist, the method returns 0.0 to avoid division by zero.
-	 *
-	 * @return the average rating as a double value
-	 */
-	public double getAverageRating() {
-		if (reviews.isEmpty()) {
-			return 0.0;
-		}
-
-		double sum = 0;
-		for (Review r : reviews) {
-			sum += r.getRating();
-		}
-
-		return sum / reviews.size();
 	}
 
 
