@@ -27,4 +27,20 @@
 			}
 				return null;
 		}
+
+		public void updateEvent(int id, EventModel updateEvent){
+			if(updateEvent == null){
+				throw new IllegalArgumentException("Update event can't be null");
+			}
+
+			EventModel existingEvent = getEventById(id);
+
+			if(existingEvent == null){
+				throw new IllegalArgumentException("No event found by id: " + id);
+			}
+
+			int eventId = events.indexOf(existingEvent);
+
+			events.set(eventId, updateEvent);
+		}
 	}
