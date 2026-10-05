@@ -43,4 +43,14 @@
 
 			events.set(eventId, updateEvent);
 		}
+
+		public void deleteEvent(int id){
+			EventModel existingEvent = getEventById(id);
+
+			if(existingEvent == null){
+				throw new IllegalArgumentException("No event found by id: " + id);
+			}
+
+			events.remove(existingEvent);
+		}
 	}
