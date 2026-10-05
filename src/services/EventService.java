@@ -14,4 +14,8 @@ public class EventService {
 		}
 			events.add(event);
 	}
+
+	public List<EventModel> getAllEvents(){
+		return events;
+	}
 }
