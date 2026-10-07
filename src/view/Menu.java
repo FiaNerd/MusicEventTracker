@@ -18,6 +18,7 @@ public class Menu {
 	}
 
 	public void start(){
+		int choice = 0;
 
 		// Dummy data
 		eventService.addEvent(new Concert(1, "Evergrey", "Progressive Metal", "Mejeriet",
@@ -32,6 +33,32 @@ public class Menu {
 				"Swedish old detah metal group", false, 18, 150, "19:00-01:00"));
 
 		// TODO: Do a check so the user only puts in numbbers in the festival numbers of days
+
+		do {
+			printMenu();
+			System.out.print("Välj ett alternativ: "); // Valfritt: en liten text som visar var man skriver
+
+			try {
+				choice = Integer.parseInt(input.nextLine());
+
+				switch (choice) {
+					case 1:
+						System.out.println("Show alla events");
+						showAllaEvents();
+						break;
+					case 2:
+						System.out.println("Search event");
+						break;
+					default:
+						System.out.println("Not valid input. only number between 1-6");
+				}
+
+			} catch (NumberFormatException ex) {
+				System.out.println("You need to put in a number between 1-6. Try again");
+				choice = 0; // 0 so the loop will continue
+			}
+
+		} while(choice != 6); // until the user press 6, the loop will quit
 	}
 
 	private void printMenu(){
@@ -44,7 +71,19 @@ public class Menu {
 		System.out.println("[6] EXIT");
 	}
 
-	// TODO: If the user input does chose andything else for standing, sitting or booth, then it will print out a error.
+	// TODO: If the user input does chose anything else for standing, sitting or booth, then it will print out a error.
 
+	private void showAllaEvents(){
+		System.out.println("---- ALL EVENTS ----");
+
+		if(eventService.getAllEvents().isEmpty()){
+			System.out.println("No events at the moment");
+		}
+
+		for(var event: eventService.getAllEvents()){
+			System.out.println(event);
+			System.out.println("------------------------");
+		}
+	}
 
 }

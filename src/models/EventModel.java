@@ -205,14 +205,14 @@ public class EventModel {
 	@Override
 	public String toString() {
 		return "EventModel" +
-				"\n  id: " + id +
-				"\n  artist: " + artist +
-				"\n  genre: " + genre +
-				"\n  venue: " + venue +
-				"\n  city: " + city +
-				"\n  country: " + country +
-				"\n  date: " + date +
-				"\n  isOutdoor: " + isOutdoor +
-				"\n  isFinished: " + isFinished;
+				"\n  Id: " + id +
+				"\n  Artist: " + artist +
+				"\n  Genre: " + genre +
+				"\n  Venue: " + venue +
+				"\n  City: " + city +
+				"\n  Country: " + country +
+				"\n  Date: " + date +
+				"\n  Outdoor: " + (isOutdoor ? "Yes" : "No") +
+				"\n  Event is finished: " + (isFinished ? "Yes" : "No");
 	}
 }

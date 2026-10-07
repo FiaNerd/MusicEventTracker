@@ -107,10 +107,10 @@ public class ClubGig extends EventModel implements Reviewable {
 	@Override
 	public String toString() {
 		return super.toString().replace("EventModel", "ClubGig") +
-				"\n  ageLimit: " + ageLimit +
-				"\n  entryFee: " + entryFee +
-				"\n  openingHours: " + openingHours +
-				"\n  averageRating: " + getAverageRating();
+				"\n  Age limit: " + ageLimit +
+				"\n  Entry fee: " + entryFee +
+				"\n  Opening hours: " + openingHours +
+				"\n  Average rating: " + getAverageRating();
 	}
 
 	/**

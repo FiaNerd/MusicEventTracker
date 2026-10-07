@@ -100,9 +100,9 @@ public class Concert extends EventModel implements Reviewable {
 	@Override
 	public String getDescription() {
 		return super.getDescription() +
-				"\nSupport act: " + supportAct +
-				"\nTour name: " + tourName +
-				"\nSeating type: " + seatingType;
+				"\n  Support act: " + supportAct +
+				"\n  Tour name: " + tourName +
+				"\n  Seating type: " + seatingType;
 	}
 
 	/**
@@ -114,10 +114,10 @@ public class Concert extends EventModel implements Reviewable {
 	@Override
 	public String toString() {
 		return super.toString().replace("EventModel", "Concert") +
-				"\n  supportAct: " + supportAct +
-				"\n  tourName: " + tourName +
-				"\n  seatingType: " + seatingType +
-				"\n  averageRating: " + getAverageRating();
+				"\n  Support: " + supportAct +
+				"\n  TourName: " + tourName +
+				"\n  Seating type: " + seatingType +
+				"\n  Average rating: " + getAverageRating();
 	}
 
 	/**

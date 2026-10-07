@@ -97,9 +97,9 @@ public class Festival extends EventModel implements Reviewable {
 	@Override
 	public String toString() {
 		return super.toString().replace("EventModel", "Festival") +
-				"\n  campingIncluded: " + campingIncluded +
-				"\n  numberOfDays: " + numberOfDays +
-				"\n averageRating: " + getAverageRating();
+				"\n  Camping included: " + (campingIncluded ? "Yes" : "No") +
+				"\n  Number of Days: " + numberOfDays +
+				"\n  Average rating: " + getAverageRating();
 	}
 
 	/**
