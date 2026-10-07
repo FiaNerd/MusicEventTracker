@@ -96,10 +96,20 @@ public class Festival extends EventModel implements Reviewable {
 	 */
 	@Override
 	public String toString() {
+		double averageRating = getAverageRating();
+
+		String ratingText;
+
+		if (averageRating == 0.0) {
+			ratingText = "No ratings yet";
+		} else {
+			ratingText = String.format("%.1f", averageRating);
+		}
+
 		return super.toString().replace("EventModel", "Festival") +
 				"\n  Camping included: " + (campingIncluded ? "Yes" : "No") +
 				"\n  Number of Days: " + numberOfDays +
-				"\n  Average rating: " + getAverageRating();
+				"\n  Average rating: " + ratingText;
 	}
 
 	/**

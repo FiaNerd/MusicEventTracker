@@ -54,6 +54,9 @@ public class Menu {
 						System.out.println("Add Event");
 						addEvent();
 						break;
+					case 6:
+						System.out.println("Exit application. Welcome back soon!");
+						break;
 					default:
 						System.out.println("Not valid input. only number between 1-6");
 				}
@@ -62,7 +65,6 @@ public class Menu {
 				System.out.println("You need to put in a number between 1-6. Try again");
 				choice = 0; // 0 so the loop will continue
 			}
-
 		} while(choice != 6); // until the user press 6, the loop will quit
 	}
 
