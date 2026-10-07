@@ -92,15 +92,19 @@ public class Menu {
 		System.out.println("\n ---- SEARCH EVENT BY ID ----");
 		System.out.println("\n Enter event Id: ");
 
-		int id = Integer.parseInt(input.nextLine());
+		try {
+			int id = Integer.parseInt(input.nextLine());
 
-		var event = eventService.getEventById(id);
+			var event = eventService.getEventById(id);
 
-		if(event != null){
-			System.out.println("\n Event found: ");
-			System.out.println(event);
-		}else{
-			System.out.println("No event found based on id: " + id);
+			if(event != null){
+				System.out.println("\n Event found: ");
+				System.out.println(event);
+			}else{
+				System.out.println("No event found based on id: " + id);
+			}
+		}catch(NumberFormatException ex){
+			System.out.println("Inavlid input. Event id must be a number.");
 		}
 
 	}
