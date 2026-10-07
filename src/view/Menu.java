@@ -48,6 +48,7 @@ public class Menu {
 						break;
 					case 2:
 						System.out.println("Search event");
+						searchEvent();
 						break;
 					default:
 						System.out.println("Not valid input. only number between 1-6");
@@ -73,6 +74,7 @@ public class Menu {
 
 	// TODO: If the user input does chose anything else for standing, sitting or booth, then it will print out a error.
 
+	// TODO: See if its time for making count how many events it is in the list total
 	private void showAllaEvents(){
 		System.out.println("---- ALL EVENTS ----");
 
@@ -84,6 +86,23 @@ public class Menu {
 			System.out.println(event);
 			System.out.println("------------------------");
 		}
+	}
+
+	private void searchEvent(){
+		System.out.println("\n ---- SEARCH EVENT BY ID ----");
+		System.out.println("\n Enter event Id: ");
+
+		int id = Integer.parseInt(input.nextLine());
+
+		var event = eventService.getEventById(id);
+
+		if(event != null){
+			System.out.println("\n Event found: ");
+			System.out.println(event);
+		}else{
+			System.out.println("No event found based on id: " + id);
+		}
+
 	}
 
 }
