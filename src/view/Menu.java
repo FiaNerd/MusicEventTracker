@@ -50,6 +50,10 @@ public class Menu {
 						System.out.println("Search event");
 						searchEvent();
 						break;
+					case 3:
+						System.out.println("Add Event");
+						addEvent();
+						break;
 					default:
 						System.out.println("Not valid input. only number between 1-6");
 				}
@@ -106,7 +110,105 @@ public class Menu {
 		}catch(NumberFormatException ex){
 			System.out.println("Inavlid input. Event id must be a number.");
 		}
-
 	}
 
+
+	private void addEvent() {
+		System.out.println("\n---- ADD EVENT ----");
+		System.out.println("What Event do you wanna add:");
+		System.out.println("[1] Concert");
+		System.out.println("[2] Festival");
+		System.out.println("[3] Club gig");
+		System.out.print("Choose type (1-3): ");
+
+		try {
+			int numberEvent = Integer.parseInt(input.nextLine());
+
+			System.out.print("Enter ID: ");
+			int id = Integer.parseInt(input.nextLine());
+
+			System.out.print("Enter artist: ");
+			String artist = input.nextLine();
+
+			System.out.print("Enter genre: ");
+			String genre = input.nextLine();
+
+			System.out.print("Enter venue: ");
+			String venue = input.nextLine();
+
+			System.out.print("Enter city: ");
+			String city = input.nextLine();
+
+			System.out.print("Enter country: ");
+			String country = input.nextLine();
+
+			System.out.print("Enter date (YYYY-MM-DD): ");
+			String date = input.nextLine();
+
+			System.out.print("Enter description: ");
+			String description = input.nextLine();
+
+			System.out.print("Is it outdoors? (true/false): ");
+			boolean isOutdoor = Boolean.parseBoolean(input.nextLine());
+
+			switch (numberEvent) {
+				case 1: // Concert
+					System.out.print("Enter support act: ");
+					String supportAct = input.nextLine();
+
+					System.out.print("Enter tour name: ");
+					String tourName = input.nextLine();
+
+					System.out.print("Enter seating type (STANDING, SITTING, BOOTH): ");
+					String seatingInput = input.nextLine().trim();
+
+					// Checking enum for seating type
+					SeatingType seatingType = SeatingType.STANDING;
+					for (SeatingType type : SeatingType.values()) {
+						if (type.name().equalsIgnoreCase(seatingInput)) {
+							seatingType = type;
+							break;
+						}
+					}
+
+					Concert concert = new Concert(id, artist, genre, venue, city, country, date, description, isOutdoor, supportAct, tourName, seatingType);
+					eventService.addEvent(concert);
+					System.out.println("Concert added successfully!");
+					break;
+
+				case 2: // Festival
+					System.out.print("Enter number of days: ");
+					int numberOfDays = Integer.parseInt(input.nextLine());
+
+					System.out.print("Is camping included? (true/false): ");
+					boolean camping = Boolean.parseBoolean(input.nextLine());
+
+					Festival festival = new Festival(id, artist, genre, venue, city, country, date, description, isOutdoor, camping, numberOfDays);
+					eventService.addEvent(festival);
+					System.out.println("Festival added successfully!");
+					break;
+
+				case 3: // ClubGig
+					System.out.print("Enter age limit (e.g. 18): ");
+					int ageLimit = Integer.parseInt(input.nextLine());
+
+					System.out.print("Enter ticket price: ");
+					double ticketPrice = Double.parseDouble(input.nextLine());
+
+					System.out.print("Enter set times (e.g. 19:00-01:00): ");
+					String setTimes = input.nextLine();
+
+					ClubGig clubGig = new ClubGig(id, artist, genre, venue, city, country, date, description, isOutdoor, ageLimit, ticketPrice, setTimes);
+					eventService.addEvent(clubGig);
+					System.out.println("Club Gig added successfully!");
+					break;
+
+				default:
+					System.out.println("Invalid event type choice.");
+			}
+
+		} catch (NumberFormatException ex){
+			System.out.println("Not a valid number.");
+		}
+	}
 }
