@@ -36,27 +36,31 @@ public class Menu {
 
 		do {
 			printMenu();
-			System.out.print("Välj ett alternativ: ");
+			System.out.print("\n Välj ett alternativ: ");
 
 			try {
 				choice = Integer.parseInt(input.nextLine());
 
 				switch (choice) {
 					case 1:
-						System.out.println("Show alla events");
+						System.out.println("\n ---- SHOW ALLA EVENTS ----");
 						showAllaEvents();
 						break;
 					case 2:
-						System.out.println("Search event");
+						System.out.println("\n ---- SEARCH EVENT ----");
 						searchEvent();
 						break;
 					case 3:
-						System.out.println("Add Event");
+						System.out.println("\n ---- ADD EVENT ----");
 						addEvent();
 						break;
 					case 4:
-						System.out.println("Update Event");
+						System.out.println("\n ---- UPDATE EVENT ----");
 						updateEvent();
+						break;
+					case 5:
+						System.out.println("\n ---- DELETE EVENT ----");
+						deleteEvent();
 						break;
 					case 6:
 						System.out.println("Exit application. Welcome back soon!");
@@ -86,7 +90,6 @@ public class Menu {
 
 	// TODO: See if its time for making count how many events it is in the list total
 	private void showAllaEvents(){
-		System.out.println("---- ALL EVENTS ----");
 
 		if(eventService.getAllEvents().isEmpty()){
 			System.out.println("No events at the moment");
@@ -99,8 +102,7 @@ public class Menu {
 	}
 
 	private void searchEvent(){
-		System.out.println("\n ---- SEARCH EVENT BY ID ----");
-		System.out.println("\n Enter event Id: ");
+		System.out.println("Enter event Id: ");
 
 		try {
 			int id = Integer.parseInt(input.nextLine());
@@ -120,8 +122,7 @@ public class Menu {
 
 
 	private void addEvent() {
-		System.out.println("\n---- ADD EVENT ----");
-		System.out.println("What Event do you wanna add:");
+		System.out.println("\n What Event do you wanna add:");
 		System.out.println("[1] Concert");
 		System.out.println("[2] Festival");
 		System.out.println("[3] Club gig");
@@ -186,6 +187,8 @@ public class Menu {
 					System.out.print("Enter number of days: ");
 					int numberOfDays = Integer.parseInt(input.nextLine());
 
+					// TODO: Fix so it is YES or NO isntead for true / false
+
 					System.out.print("Is camping included? (true/false): ");
 					boolean camping = Boolean.parseBoolean(input.nextLine());
 
@@ -219,8 +222,7 @@ public class Menu {
 	}
 
 	private void updateEvent() {
-		System.out.println("\n---- UPDATE EVENT ----");
-		System.out.print("Enter event ID to update: ");
+		System.out.print("\n Enter event ID to update: ");
 
 		try {
 			int id = Integer.parseInt(input.nextLine());
@@ -316,10 +318,28 @@ public class Menu {
 				if (!setTimes.isEmpty()) clubGig.setOpeningHours(setTimes);
 			}
 
+			eventService.updateEvent(id, event);
+
 			System.out.println("Event updated successfully!");
 
 		} catch (NumberFormatException ex) {
 			System.out.println("Invalid number format. Please try again.");
+		}
+	}
+
+	private void deleteEvent() {
+		System.out.print("Enter event ID to delete: ");
+
+		try {
+			int deleteById = Integer.parseInt(input.nextLine());
+
+			eventService.deleteEvent(deleteById);
+			System.out.println("Event with ID " + deleteById + " deleted successfully!");
+
+		} catch (NumberFormatException ex) {
+			System.out.println("Invalid input. Event ID must be a number.");
+		} catch (IllegalArgumentException ex) {
+			System.out.println(ex.getMessage());
 		}
 	}
 }
