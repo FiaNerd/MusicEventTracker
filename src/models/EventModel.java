@@ -204,6 +204,7 @@ public class EventModel {
 	 */
 	@Override
 	public String toString() {
+
 		return "EventModel" +
 				"\n  Id: " + id +
 				"\n  Artist: " + artist +

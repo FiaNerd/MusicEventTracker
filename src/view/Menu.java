@@ -32,11 +32,11 @@ public class Menu {
 		eventService.addEvent(new ClubGig(3, "The Haunted", "Death Metal", "Garage", "Höganäs", "Sweden", "2026-11-21",
 				"Swedish old detah metal group", false, 18, 150, "19:00-01:00"));
 
-		// TODO: Do a check so the user only puts in numbbers in the festival numbers of days
+		// TODO: Do a check so the user only puts in numbers in the festival numbers of days
 
 		do {
 			printMenu();
-			System.out.print("Välj ett alternativ: "); // Valfritt: en liten text som visar var man skriver
+			System.out.print("Välj ett alternativ: ");
 
 			try {
 				choice = Integer.parseInt(input.nextLine());
@@ -53,6 +53,10 @@ public class Menu {
 					case 3:
 						System.out.println("Add Event");
 						addEvent();
+						break;
+					case 4:
+						System.out.println("Update Event");
+						updateEvent();
 						break;
 					case 6:
 						System.out.println("Exit application. Welcome back soon!");
@@ -211,6 +215,111 @@ public class Menu {
 
 		} catch (NumberFormatException ex){
 			System.out.println("Not a valid number.");
+		}
+	}
+
+	private void updateEvent() {
+		System.out.println("\n---- UPDATE EVENT ----");
+		System.out.print("Enter event ID to update: ");
+
+		try {
+			int id = Integer.parseInt(input.nextLine());
+			var event = eventService.getEventById(id);
+
+			if (event == null) {
+				System.out.println("No event found with ID " + id);
+				return;
+			}
+
+			System.out.println("Event found! Enter new details (leave blank to keep current):");
+
+			System.out.print("Enter new artist (current: " + event.getArtist() + "): ");
+			String artist = input.nextLine();
+			if (!artist.isEmpty()) event.setArtist(artist);
+
+			System.out.print("Enter new genre (current: " + event.getGenre() + "): ");
+			String genre = input.nextLine();
+			if (!genre.isEmpty()) event.setGenre(genre);
+
+			System.out.print("Enter new venue (current: " + event.getVenue() + "): ");
+			String venue = input.nextLine();
+			if (!venue.isEmpty()) event.setVenue(venue);
+
+			System.out.print("Enter new city (current: " + event.getCity() + "): ");
+			String city = input.nextLine();
+			if (!city.isEmpty()) event.setCity(city);
+
+			System.out.print("Enter new country (current: " + event.getCountry() + "): ");
+			String country = input.nextLine();
+			if (!country.isEmpty()) event.setCountry(country);
+
+			System.out.print("Enter new date (current: " + event.getDate() + "): ");
+			String date = input.nextLine();
+			if (!date.isEmpty()) event.setDate(date);
+
+			System.out.print("Enter new description (current: " + event.getDescription() + "): ");
+			String description = input.nextLine();
+			if (!description.isEmpty()) event.setDescription(description);
+
+			System.out.print("Is it outdoors? true/false (current: " + event.isOutdoor() + "): ");
+			String outdoorStr = input.nextLine();
+			if (!outdoorStr.isEmpty()) {
+				event.setOutdoor(Boolean.parseBoolean(outdoorStr));
+			}
+
+			if (event instanceof Concert) {
+				Concert concert = (Concert) event;
+
+				System.out.print("Enter new support act (current: " + concert.getSupportAct() + "): ");
+				String supportAct = input.nextLine();
+				if (!supportAct.isEmpty()) concert.setSupportAct(supportAct);
+
+				System.out.print("Enter new tour name (current: " + concert.getTourName() + "): ");
+				String tourName = input.nextLine();
+				if (!tourName.isEmpty()) concert.setTourName(tourName);
+
+				System.out.print("Enter new seating type STANDING/SITTING/BOOTH (current: " + concert.getSeatingType() + "): ");
+				String seatingInput = input.nextLine().trim();
+				if (!seatingInput.isEmpty()) {
+					for (SeatingType type : SeatingType.values()) {
+						if (type.name().equalsIgnoreCase(seatingInput)) {
+							concert.setSeatingType(type);
+							break;
+						}
+					}
+				}
+
+			} else if (event instanceof Festival) {
+				Festival festival = (Festival) event;
+
+				System.out.print("Enter new number of days (current: " + festival.getNumberOfDays() + "): ");
+				String daysStr = input.nextLine();
+				if (!daysStr.isEmpty()) festival.setNumberOfDays(Integer.parseInt(daysStr));
+
+				System.out.print("Is camping included? true/false (current: " + festival.isCampingIncluded() + "): ");
+				String campingStr = input.nextLine();
+				if (!campingStr.isEmpty()) festival.setCampingIncluded(Boolean.parseBoolean(campingStr));
+
+			} else if (event instanceof ClubGig) {
+				ClubGig clubGig = (ClubGig) event;
+
+				System.out.print("Enter new age limit (current: " + clubGig.getAgeLimit() + "): ");
+				String ageStr = input.nextLine();
+				if (!ageStr.isEmpty()) clubGig.setAgeLimit(Integer.parseInt(ageStr));
+
+				System.out.print("Enter new ticket price (current: " + clubGig.getEntryFee() + "): ");
+				String priceStr = input.nextLine();
+				if (!priceStr.isEmpty()) clubGig.setEntryFee(Double.parseDouble(priceStr));
+
+				System.out.print("Enter new set times (current: " + clubGig.getOpeningHours() + "): ");
+				String setTimes = input.nextLine();
+				if (!setTimes.isEmpty()) clubGig.setOpeningHours(setTimes);
+			}
+
+			System.out.println("Event updated successfully!");
+
+		} catch (NumberFormatException ex) {
+			System.out.println("Invalid number format. Please try again.");
 		}
 	}
 }
