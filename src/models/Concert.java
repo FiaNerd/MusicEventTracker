@@ -1,20 +1,15 @@
 package models;
 
-import interfaces.Reviewable;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Represents a Concert event, extending the EventModel superclass.
  * Adds unique attributes specific to concerts, such as support acts, tour names,
  * and seating arrangement types with enums.
  */
-public class Concert extends EventModel implements Reviewable {
+public class Concert extends EventModel {
 	private String supportAct;
 	private String tourName;
 	private SeatingType seatingType;
-	private List<Review> reviews = new ArrayList<>();
+
 	/**
 	 * Constructs a new Concert instance.
 	 * Uses super() to initialize inherited fields from EventModel.
@@ -116,27 +111,6 @@ public class Concert extends EventModel implements Reviewable {
 		return super.toString().replace("EventModel", "Concert") +
 				"\n  Support: " + supportAct +
 				"\n  TourName: " + tourName +
-				"\n  Seating type: " + seatingType +
-				"\n  Average rating: " + getAverageRating();
-	}
-
-	/**
-	 * Adds a review to the list.
-	 *
-	 * @param review the review to add
-	 */
-	@Override
-	public void addReview(Review review) {
-		reviews.add(review);
-	}
-
-	/**
-	 * Gets the list of reviews.
-	 *
-	 * @return the list of reviews
-	 */
-	@Override
-	public List<Review> getReviews() {
-		return reviews;
+				"\n  Seating type: " + seatingType;
 	}
 }

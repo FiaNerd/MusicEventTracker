@@ -1,18 +1,12 @@
 package models;
 
-import interfaces.Reviewable;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Represents a Festival event, extending the EventModel superclass.
  * Adds unique attributes specific to festivals, such as camping availability.
  */
-public class Festival extends EventModel implements Reviewable {
+public class Festival extends EventModel {
 	private boolean campingIncluded;
 	private int numberOfDays;
-	private List<Review> reviews = new ArrayList<>();
 
 	/**
 	 * Constructs a new Festival instance.
@@ -96,39 +90,9 @@ public class Festival extends EventModel implements Reviewable {
 	 */
 	@Override
 	public String toString() {
-		double averageRating = getAverageRating();
-
-		String ratingText;
-
-		if (averageRating == 0.0) {
-			ratingText = "No ratings yet";
-		} else {
-			ratingText = String.format("%.1f", averageRating);
-		}
 
 		return super.toString().replace("EventModel", "Festival") +
 				"\n  Camping included: " + (campingIncluded ? "Yes" : "No") +
-				"\n  Number of Days: " + numberOfDays +
-				"\n  Average rating: " + ratingText;
-	}
-
-	/**
-	 * Adds a review to the list.
-	 *
-	 * @param review the review to add
-	 */
-	@Override
-	public void addReview(Review review) {
-		reviews.add(review);
-	}
-
-	/**
-	 * Gets the list of reviews.
-	 *
-	 * @return the list of reviews
-	 */
-	@Override
-	public List<Review> getReviews() {
-		return reviews;
+				"\n  Number of Days: " + numberOfDays;
 	}
 }

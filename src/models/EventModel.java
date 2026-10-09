@@ -1,11 +1,15 @@
 package models;
 
+import interfaces.Reviewable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Represents a generic music event, acting as the base class (superclass)
  * for all specific event types such as Concerts and Festivals.
  * Handles core attributes and default values shared across all events.
  */
-public class EventModel {
+public abstract class EventModel implements Reviewable {
 	private int id;
 	private String artist;
 	private String genre;
@@ -18,6 +22,8 @@ public class EventModel {
 	// Default values initialized directly instead of requiring them in the constructor
 	private boolean isFinished = false;
 	private boolean isOutdoor;
+
+	private List<Review> reviews = new ArrayList<>();
 
 	/**
 	 * Constructs a new EventModel with all required core details.
@@ -195,6 +201,30 @@ public class EventModel {
 
 
 	//---- OVERRIDE METHOD ----
+
+	/**
+	 * Adds a review to the list.
+	 *
+	 * @param review the review to add
+	 */
+	@Override
+	public void addReview(Review review) {
+		if(review != null){
+			reviews.add(review);
+		}
+	}
+
+	/**
+	 * Gets the list of reviews.
+	 *
+	 * @return the list of reviews
+	 */
+	@Override
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+
 	/**
 	 * Returns a formatted text representation of the event.
 	 * Overrides Object.toString() and serves as a base implementation
@@ -205,6 +235,16 @@ public class EventModel {
 	@Override
 	public String toString() {
 
+		double averageRating = getAverageRating();
+
+		String ratingText;
+
+		if (averageRating == 0.0) {
+			ratingText = "No ratings yet";
+		} else {
+			ratingText = String.format("%.1f", averageRating);
+		}
+
 		return "EventModel" +
 				"\n  Id: " + id +
 				"\n  Artist: " + artist +
@@ -214,6 +254,7 @@ public class EventModel {
 				"\n  Country: " + country +
 				"\n  Date: " + date +
 				"\n  Outdoor: " + (isOutdoor ? "Yes" : "No") +
-				"\n  Event is finished: " + (isFinished ? "Yes" : "No");
+				"\n  Event is finished: " + (isFinished ? "Yes" : "No") +
+				"\n  Rating: " + ratingText;
 	}
 }
