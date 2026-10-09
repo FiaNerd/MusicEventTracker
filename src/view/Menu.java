@@ -63,6 +63,10 @@ public class Menu {
 						deleteEvent();
 						break;
 					case 6:
+						System.out.println("\n ---- ADD REVIEW ----");
+						reviewCases();
+						break;
+					case 7:
 						System.out.println("Exit application. Welcome back soon!");
 						break;
 					default:
@@ -76,6 +80,8 @@ public class Menu {
 		} while(choice != 6); // until the user press 6, the loop will quit
 	}
 
+
+
 	private void printMenu(){
 		System.out.println("\n ---- MUSIC EVENT TRACKER ----");
 		System.out.println("[1] SHOW ALL EVENTS");
@@ -83,6 +89,7 @@ public class Menu {
 		System.out.println("[3] ADD EVENT");
 		System.out.println("[4] UPDATE EVENT");
 		System.out.println("[5] DELETE EVENT");
+		System.out.println("[6] REVIEWS");
 		System.out.println("[6] EXIT");
 	}
 
@@ -341,5 +348,37 @@ public class Menu {
 		} catch (IllegalArgumentException ex) {
 			System.out.println(ex.getMessage());
 		}
+	}
+
+	private void reviewCases() {
+		int choice;
+		do {
+			System.out.println("\n ---- REVIEW MENU ----");
+			System.out.println("[2] Show reviews for an artist");
+			System.out.println("[1] Add review to event - (by ID)");
+			System.out.println("[3] Back to main menu");
+			System.out.print("Choose option (1-3): ");
+
+			try {
+				choice = Integer.parseInt(input.nextLine());
+
+				switch (choice) {
+					case 1:
+						System.out.println("SHOW review");
+						break;
+					case 2:
+						System.out.println("ADD review");
+						break;
+					case 3:
+						System.out.println("Returning to main menu...");
+						break;
+					default:
+						System.out.println("Invalid choice. Choose between 1-3.");
+				}
+			} catch (NumberFormatException ex) {
+				System.out.println("Invalid input. Please enter a number.");
+				choice = 0;
+			}
+		} while (choice != 3);
 	}
 }
