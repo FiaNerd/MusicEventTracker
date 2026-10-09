@@ -1,9 +1,6 @@
 package view;
 
-import models.ClubGig;
-import models.Concert;
-import models.Festival;
-import models.SeatingType;
+import models.*;
 import services.EventService;
 
 import java.util.Scanner;
@@ -20,23 +17,36 @@ public class Menu {
 	public void start(){
 		int choice = 0;
 
-		// Dummy data
-		eventService.addEvent(new Concert(1, "Evergrey", "Progressive Metal", "Mejeriet",
-				"Lund", "Sweden", "2026-11-11", "First class progressive metal from Gothenburg", true,
-				"","Architects of A New Wave tour", SeatingType.STANDING ));
+		// Dummy data for event and reviews
+		Concert evergrey = new Concert(1, "Evergrey", "Progressive Metal", "Mejeriet",
+				"Lund", "Sweden", "2026-11-11", "First class progressive metal from Gothenburg", false,
+				"", "Architects of A New Wave tour", SeatingType.STANDING);
 
-		eventService.addEvent(new Festival(2, "Hollywood Undead", "Hiphop, rap, metal", "Brutal Assault", "Jaromer",
+		evergrey.addReview(new Review(5, "Magical performance! Tom S. was on fire."));
+		evergrey.addReview(new Review(4, "Great sound at Mejeriet, but a bit crowded."));
+		eventService.addEvent(evergrey);
+
+		Festival hollywoodUndead = new Festival(2, "Hollywood Undead", "Hiphop, rap, metal", "Brutal Assault", "Jaromer",
 				"Czech Republic", "2026-08-08", "Hiphopper that loves metal, doing a mix between hiphop and metal.",
-				true, false, 4));
+				true, false, 4);
 
-		eventService.addEvent(new ClubGig(3, "The Haunted", "Death Metal", "Garage", "Höganäs", "Sweden", "2026-11-21",
-				"Swedish old detah metal group", false, 18, 150, "19:00-01:00"));
+		hollywoodUndead.addReview(new Review(5, "Best festival atmosphere ever!"));
+		hollywoodUndead.addReview(new Review(4, "A bit muddy, but an incredible show."));
+		eventService.addEvent(hollywoodUndead);
+
+		ClubGig theHaunted = new ClubGig(3, "The Haunted", "Death Metal", "Garage", "Höganäs", "Sweden", "2026-11-21",
+				"Swedish old death metal group", false, 18, 150, "19:00-01:00");
+
+		theHaunted.addReview(new Review(5, "Pure brutal energy in a small garage! Love it."));
+		theHaunted.addReview(new Review(4, "Loud, sweaty and perfect."));
+		eventService.addEvent(theHaunted);
+
 
 		// TODO: Do a check so the user only puts in numbers in the festival numbers of days
 
 		do {
 			printMenu();
-			System.out.print("\n Välj ett alternativ: ");
+			System.out.print("\n Enter your choice: ");
 
 			try {
 				choice = Integer.parseInt(input.nextLine());
@@ -63,21 +73,21 @@ public class Menu {
 						deleteEvent();
 						break;
 					case 6:
-						System.out.println("\n ---- ADD REVIEW ----");
+						System.out.println("\n ---- REVIEW ----");
 						reviewCases();
 						break;
 					case 7:
 						System.out.println("Exit application. Welcome back soon!");
 						break;
 					default:
-						System.out.println("Not valid input. only number between 1-6");
+						System.out.println("Not valid input. only number between 1-7");
 				}
 
 			} catch (NumberFormatException ex) {
-				System.out.println("You need to put in a number between 1-6. Try again");
+				System.out.println("You need to put in a number between 1-7. Try again");
 				choice = 0; // 0 so the loop will continue
 			}
-		} while(choice != 6); // until the user press 6, the loop will quit
+		} while(choice != 7); // until the user press 6, the loop will quit
 	}
 
 
@@ -90,11 +100,11 @@ public class Menu {
 		System.out.println("[4] UPDATE EVENT");
 		System.out.println("[5] DELETE EVENT");
 		System.out.println("[6] REVIEWS");
-		System.out.println("[6] EXIT");
+		System.out.println("[7] EXIT");
 	}
 
 	// TODO: If the user input does chose anything else for standing, sitting or booth, then it will print out a error.
-
+	// TODO: Connect everagerating to the events
 	// TODO: See if its time for making count how many events it is in the list total
 	private void showAllaEvents(){
 
@@ -350,12 +360,13 @@ public class Menu {
 		}
 	}
 
+	// ---- REVIEW ----
+
 	private void reviewCases() {
 		int choice;
 		do {
-			System.out.println("\n ---- REVIEW MENU ----");
-			System.out.println("[2] Show reviews for an artist");
-			System.out.println("[1] Add review to event - (by ID)");
+			System.out.println("[1] Show reviews for an artist");
+			System.out.println("[2] Add review to event - (by ID)");
 			System.out.println("[3] Back to main menu");
 			System.out.print("Choose option (1-3): ");
 
@@ -364,10 +375,11 @@ public class Menu {
 
 				switch (choice) {
 					case 1:
-						System.out.println("SHOW review");
+						System.out.println("SHOW REVIEWS");
+						showReviewsByArtist();
 						break;
 					case 2:
-						System.out.println("ADD review");
+						System.out.println("ADD REVIEW");
 						break;
 					case 3:
 						System.out.println("Returning to main menu...");
@@ -380,5 +392,48 @@ public class Menu {
 				choice = 0;
 			}
 		} while (choice != 3);
+	}
+
+	private void showReviewsByArtist() {
+		System.out.println("\n--- SHOW REVIEWS BY ARTIST ---");
+		System.out.print("Enter artist name: ");
+		String searchArtist = input.nextLine().trim();
+
+		if (searchArtist.isEmpty()) {
+			System.out.println("Artist name cannot be empty.");
+			return;
+		}
+
+		boolean foundEvent = false;
+		boolean foundReview = false;
+
+		for (var event : eventService.getAllEvents()) {
+			if (event.getArtist().equalsIgnoreCase(searchArtist)) {
+				foundEvent = true;
+				System.out.println("\n Event: " + event.getClass().getSimpleName() +
+						" at " + event.getVenue() + " (" + event.getDate() + ")");
+
+				var reviews = event.getReviews();
+
+				if (reviews.isEmpty()) {
+					System.out.println("  -> No reviews yet for this event.");
+				} else {
+					foundReview = true;
+
+					for (var review : reviews) {
+						System.out.println("  - Rating: " + review.getRating() + "/5");
+						System.out.println("    Comment: \"" + review.getComment() + "\"");
+						System.out.println("    Date: " + review.getCreatedAt().toLocalDate());
+						System.out.println("--------------------------------------------------");
+					}
+				}
+			}
+		}
+
+		if (!foundEvent) {
+			System.out.println("No events found for artist: " + searchArtist);
+		} else if (!foundReview) {
+			System.out.println("Events were found for " + searchArtist + ", but none of them have any reviews yet.");
+		}
 	}
 }

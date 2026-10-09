@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * Stores rating, written comment, and the timestamp when the review was created.
  * Used by EventModel to calculate average ratings and display user feedback.
  */
-public abstract class Review implements Reviewable {
+public class Review {
 
 	private int rating;                 // Numeric rating given by the reviewer (e.g., 1–5)
 	private String comment;             // Written feedback describing the experience
