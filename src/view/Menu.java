@@ -23,7 +23,10 @@ public class Menu {
 				"", "Architects of A New Wave tour", SeatingType.STANDING);
 
 		evergrey.addReview(new Review(5, "Magical performance! Tom S. was on fire."));
-		evergrey.addReview(new Review(4, "Great sound at Mejeriet, but a bit crowded."));
+		evergrey.addReview(new Review(3, "Great sound at Mejeriet, but a bit crowded."));
+		evergrey.addReview(new Review(2, "To litle place for the band. To crowded."));
+		evergrey.addReview(new Review(1, "It was to much litght on the stage and the sound was not great."));
+
 		eventService.addEvent(evergrey);
 
 		Festival hollywoodUndead = new Festival(2, "Hollywood Undead", "Hiphop, rap, metal", "Brutal Assault", "Jaromer",
@@ -380,6 +383,7 @@ public class Menu {
 						break;
 					case 2:
 						System.out.println("ADD REVIEW");
+						addReviewToEvent();
 						break;
 					case 3:
 						System.out.println("Returning to main menu...");
@@ -395,7 +399,7 @@ public class Menu {
 	}
 
 	private void showReviewsByArtist() {
-		System.out.println("\n--- SHOW REVIEWS BY ARTIST ---");
+		System.out.println("\n ---- SHOW REVIEWS BY ARTIST ----");
 		System.out.print("Enter artist name: ");
 		String searchArtist = input.nextLine().trim();
 
@@ -416,12 +420,12 @@ public class Menu {
 				var reviews = event.getReviews();
 
 				if (reviews.isEmpty()) {
-					System.out.println("  -> No reviews yet for this event.");
+					System.out.println("No reviews yet for this event.");
 				} else {
 					foundReview = true;
 
 					for (var review : reviews) {
-						System.out.println("  - Rating: " + review.getRating() + "/5");
+						System.out.println("    Rating: " + review.getRating() + "/5");
 						System.out.println("    Comment: \"" + review.getComment() + "\"");
 						System.out.println("    Date: " + review.getCreatedAt().toLocalDate());
 						System.out.println("--------------------------------------------------");
@@ -434,6 +438,47 @@ public class Menu {
 			System.out.println("No events found for artist: " + searchArtist);
 		} else if (!foundReview) {
 			System.out.println("Events were found for " + searchArtist + ", but none of them have any reviews yet.");
+		}
+	}
+
+	private void addReviewToEvent() {
+		System.out.println("\n ---- ADD REVIEW TO EVENT ----");
+		System.out.print("Enter event ID to review: ");
+
+		try {
+			int id = Integer.parseInt(input.nextLine());
+
+			var event = eventService.getEventById(id);
+
+			if (event == null) {
+				System.out.println("No event found with ID " + id);
+				return;
+			}
+
+			System.out.println("Found event: " + event.getArtist() + " at " + event.getVenue());
+
+			System.out.print("Enter rating (1 to 5): ");
+			int rating = Integer.parseInt(input.nextLine());
+
+			if (rating < 1 || rating > 5) {
+				System.out.println("Invalid rating! Rating must be between 1 and 5. Review cancelled.");
+				return;
+			}
+
+			System.out.print("Enter your review comment: ");
+			String comment = input.nextLine().trim();
+
+			if (comment.isEmpty()) {
+				comment = "No comment provided.";
+			}
+
+			Review newReview = new Review(rating, comment);
+			event.addReview(newReview);
+
+			System.out.println("Review added successfully!");
+
+		} catch (NumberFormatException ex) {
+			System.out.println("Invalid input. Please enter a valid number for ID and rating.");
 		}
 	}
 }
