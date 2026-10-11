@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Menu {
-    private EventService eventService;
+	private EventService eventService;
 	private Scanner input;
 
 	public Menu(EventService eventService, Scanner input) {
@@ -15,7 +15,7 @@ public class Menu {
 		this.input = input;
 	}
 
-	public void start(){
+	public void start() {
 		int choice = 0;
 
 		// Dummy data for event and reviews
@@ -77,7 +77,9 @@ public class Menu {
 						deleteEvent();
 						break;
 					case 6:
-						System.out.println("\n ---- REVIEW ----");
+						System.out.println("\n=====================================");
+						System.out.println("            REVIEW");
+
 						reviewCases();
 						break;
 					case 7:
@@ -91,12 +93,11 @@ public class Menu {
 				System.out.println("You need to put in a number between 1-7. Try again");
 				choice = 0; // 0 so the loop will continue
 			}
-		} while(choice != 7); // until the user press 6, the loop will quit
+		} while (choice != 7); // until the user press 6, the loop will quit
 	}
 
 
-
-	private void printMenu(){
+	private void printMenu() {
 		System.out.println("\n ---- MUSIC EVENT TRACKER ----");
 		System.out.println("[1] SHOW ALL EVENTS");
 		System.out.println("[2] SEARCH EVENT");
@@ -110,13 +111,13 @@ public class Menu {
 	// TODO: If the user input does chose anything else for standing, sitting or booth, then it will print out a error.
 	// TODO: Connect everagerating to the events
 	// TODO: See if its time for making count how many events it is in the list total
-	private void showAllaEvents(){
+	private void showAllaEvents() {
 
-		if(eventService.getAllEvents().isEmpty()){
+		if (eventService.getAllEvents().isEmpty()) {
 			System.out.println("No events at the moment");
 		}
 
-		for(var event: eventService.getAllEvents()){
+		for (var event : eventService.getAllEvents()) {
 			System.out.println(event);
 			System.out.println("--------------------------------------------------");
 		}
@@ -137,8 +138,8 @@ public class Menu {
 
 		for (var event : eventService.getAllEvents()) {
 			if (event.getArtist().toLowerCase().contains(searchTerm.toLowerCase())
-				|| event.getVenue().toLowerCase().contains(searchTerm.toLowerCase())
-				|| event.getCity().toLowerCase().contains(searchTerm.toLowerCase())) {
+					|| event.getVenue().toLowerCase().contains(searchTerm.toLowerCase())
+					|| event.getCity().toLowerCase().contains(searchTerm.toLowerCase())) {
 				found = true;
 				System.out.println(event);
 				System.out.println("--------------------------------------------------");
@@ -245,7 +246,7 @@ public class Menu {
 					System.out.println("Invalid event type choice.");
 			}
 
-		} catch (NumberFormatException ex){
+		} catch (NumberFormatException ex) {
 			System.out.println("Not a valid number.");
 		}
 	}
@@ -377,9 +378,11 @@ public class Menu {
 	private void reviewCases() {
 		int choice;
 		do {
+			System.out.println("=====================================");
 			System.out.println("[1] Show reviews for an artist");
 			System.out.println("[2] Add review to event - (by ID)");
 			System.out.println("[3] Back to main menu");
+			System.out.println("=====================================");
 			System.out.print("Choose option (1-3): ");
 
 			try {
@@ -398,7 +401,7 @@ public class Menu {
 						System.out.println("Returning to main menu...");
 						break;
 					default:
-						System.out.println("Invalid choice. Choose between 1-3.");
+						System.out.println("\nInvalid choice. Choose between 1-3. \n");
 				}
 			} catch (NumberFormatException ex) {
 				System.out.println("Invalid input. Please enter a number.");
@@ -444,19 +447,25 @@ public class Menu {
 		}
 
 		if (!foundEvent) {
-			System.out.println("No events found for artist: " + searchArtist);
+			System.out.println("\n No events found for artist: " + searchArtist);
 		} else if (!foundReview) {
 			System.out.println("Events were found for " + searchArtist + ", but none of them have any reviews yet.");
 		}
 	}
 
 	private void addReviewToEvent() {
-		System.out.println("\n ---- ADD REVIEW TO EVENT ----");
-		System.out.print("Enter event ID to review: ");
+		System.out.println("\n--- ADD REVIEW TO EVENT ---");
 
+		System.out.println("Available events:");
+		for (var event : eventService.getAllEvents()) {
+			System.out.println("  ID " + event.getId() + ": " + event.getArtist() +
+					" @ " + event.getVenue() + " (" + event.getDate() + ")");
+		}
+		System.out.println("--------------------------------------------------");
+
+		System.out.print("Enter Event ID to review: ");
 		try {
 			int id = Integer.parseInt(input.nextLine());
-
 			var event = eventService.getEventById(id);
 
 			if (event == null) {
@@ -464,30 +473,24 @@ public class Menu {
 				return;
 			}
 
-			System.out.println("Found event: " + event.getArtist() + " at " + event.getVenue());
+			System.out.println("Selected: " + event.getArtist() + " at " + event.getVenue());
 
 			System.out.print("Enter rating (1 to 5): ");
 			int rating = Integer.parseInt(input.nextLine());
 
 			if (rating < 1 || rating > 5) {
-				System.out.println("Invalid rating! Rating must be between 1 and 5. Review cancelled.");
+				System.out.println("Invalid rating! Must be 1-5.");
 				return;
 			}
 
-			System.out.print("Enter your review comment: ");
+			System.out.print("Enter comment: ");
 			String comment = input.nextLine().trim();
 
-			if (comment.isEmpty()) {
-				comment = "No comment provided.";
-			}
-
-			Review newReview = new Review(rating, comment);
-			event.addReview(newReview);
-
+			event.addReview(new Review(rating, comment.isEmpty() ? "No comment" : comment));
 			System.out.println("Review added successfully!");
 
 		} catch (NumberFormatException ex) {
-			System.out.println("Invalid input. Please enter a valid number for ID and rating.");
+			System.out.println("Invalid input! ID and rating must be numbers.");
 		}
 	}
 }
