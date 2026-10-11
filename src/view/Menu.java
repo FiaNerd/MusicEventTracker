@@ -3,6 +3,7 @@ package view;
 import models.*;
 import services.EventService;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Menu {
@@ -37,7 +38,7 @@ public class Menu {
 		hollywoodUndead.addReview(new Review(4, "A bit muddy, but an incredible show."));
 		eventService.addEvent(hollywoodUndead);
 
-		ClubGig theHaunted = new ClubGig(3, "The Haunted", "Death Metal", "Garage", "Höganäs", "Sweden", "2026-11-21",
+		ClubGig theHaunted = new ClubGig(3, "The Haunted", "Death Metal", "Mejeriet", "Lund", "Sweden", "2026-11-21",
 				"Swedish old death metal group", false, 18, 150, "19:00-01:00");
 
 		theHaunted.addReview(new Review(5, "Pure brutal energy in a small garage! Love it."));
@@ -117,29 +118,37 @@ public class Menu {
 
 		for(var event: eventService.getAllEvents()){
 			System.out.println(event);
-			System.out.println("------------------------");
+			System.out.println("--------------------------------------------------");
 		}
 	}
 
-	private void searchEvent(){
-		System.out.println("Enter event Id: ");
+	private void searchEvent() {
+		System.out.print("Searrch for artist / band or venue or city: ");
+		String searchTerm = input.nextLine().trim();
 
-		try {
-			int id = Integer.parseInt(input.nextLine());
+		if (searchTerm.isEmpty()) {
+			System.out.println("Search term cannot be empty.");
+			return;
+		}
 
-			var event = eventService.getEventById(id);
+		boolean found = false;
 
-			if(event != null){
-				System.out.println("\n Event found: ");
+		System.out.println("\n ---- SEARCH RESULTS ----");
+
+		for (var event : eventService.getAllEvents()) {
+			if (event.getArtist().toLowerCase().contains(searchTerm.toLowerCase())
+				|| event.getVenue().toLowerCase().contains(searchTerm.toLowerCase())
+				|| event.getCity().toLowerCase().contains(searchTerm.toLowerCase())) {
+				found = true;
 				System.out.println(event);
-			}else{
-				System.out.println("No event found based on id: " + id);
+				System.out.println("--------------------------------------------------");
 			}
-		}catch(NumberFormatException ex){
-			System.out.println("Inavlid input. Event id must be a number.");
+		}
+
+		if (!found) {
+			System.out.println("No events found matching: \"" + searchTerm + "\"");
 		}
 	}
-
 
 	private void addEvent() {
 		System.out.println("\n What Event do you wanna add:");
