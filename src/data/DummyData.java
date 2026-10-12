@@ -1,4 +1,3 @@
-
 package data;
 
 import models.ClubGig;
@@ -8,11 +7,17 @@ import models.SeatingType;
 import models.Review;
 import services.EventService;
 
+/**
+ * Provides sample events and reviews for testing the application.
+ */
 public class DummyData {
 
+	/**
+	 * @param eventService the service used to add events to the application
+	 */
 	public static void loadData(EventService eventService) {
 
-		// Dummy data for events and reviews
+		// Create a concert and add sample reviews
 		Concert evergrey = new Concert(
 				1, "Evergrey", "Progressive Metal", "Mejeriet",
 				"Lund", "Sweden", "2026-11-11",
@@ -28,6 +33,7 @@ public class DummyData {
 
 		eventService.addEvent(evergrey);
 
+		// Create a festival and add sample reviews
 		Festival hollywoodUndead = new Festival(
 				2, "Hollywood Undead", "Hiphop, rap, metal",
 				"Brutal Assault", "Jaromer", "Czech Republic",
@@ -41,6 +47,7 @@ public class DummyData {
 
 		eventService.addEvent(hollywoodUndead);
 
+		// Create a club gig and add sample reviews
 		ClubGig theHaunted = new ClubGig(
 				3, "The Haunted", "Death Metal", "Mejeriet",
 				"Lund", "Sweden", "2026-11-21",

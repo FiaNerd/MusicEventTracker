@@ -19,6 +19,7 @@ public class Menu {
 	public void start() {
 		int choice = 0;
 
+		// Loading the dummy data
 		DummyData.loadData(eventService);
 
 		// TODO: Do a check so the user only puts in numbers in the festival numbers of days
