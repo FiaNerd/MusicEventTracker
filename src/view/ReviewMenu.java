@@ -2,6 +2,7 @@ package view;
 
 import models.Review;
 import services.EventService;
+import utils.InputValidation;
 import utils.MenuUtils;
 
 import java.util.Scanner;
@@ -25,10 +26,9 @@ public class ReviewMenu {
 			System.out.println("[2] Add review to event - (by ID)");
 			System.out.println("[3] Back to main menu");
 			System.out.println("=====================================");
-			System.out.print("Choose option (1-3): ");
 
 			try {
-				choice = Integer.parseInt(input.nextLine());
+				choice = InputValidation.getNumberInRange(input, 1, 3);
 
 				switch (choice) {
 					case 1:

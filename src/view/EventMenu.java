@@ -5,6 +5,7 @@ import models.Concert;
 import models.Festival;
 import models.SeatingType;
 import services.EventService;
+import utils.InputValidation;
 import utils.MenuUtils;
 
 import java.util.Scanner;
@@ -27,10 +28,9 @@ public class EventMenu {
 
 		do {
 			printMenu();
-			System.out.print("\n Enter your choice: ");
 
 			try {
-				choice = Integer.parseInt(input.nextLine());
+				choice = InputValidation.getNumberInRange(input, 1, 6);
 
 				switch (choice) {
 					case 1:
@@ -139,11 +139,11 @@ public class EventMenu {
 		System.out.println("[1] Concert");
 		System.out.println("[2] Festival");
 		System.out.println("[3] Club gig");
-		System.out.print("Choose type (1-3): ");
 
 		try {
-			int numberEvent = Integer.parseInt(input.nextLine());
+			int numberEvent = InputValidation.getNumberInRange(input, 1, 3);
 
+			// TODO: Check if you are going to skip ID or genera random id and only add by artis name?
 			System.out.print("Enter ID: ");
 			int id = Integer.parseInt(input.nextLine());
 
@@ -168,6 +168,7 @@ public class EventMenu {
 			System.out.print("Enter description: ");
 			String description = input.nextLine();
 
+			// TODO: Add "Yes" or "No" instead
 			System.out.print("Is it outdoors? (true/false): ");
 			boolean isOutdoor = Boolean.parseBoolean(input.nextLine());
 
@@ -179,6 +180,7 @@ public class EventMenu {
 					System.out.print("Enter tour name: ");
 					String tourName = input.nextLine();
 
+					// TODO: Do this better so i dont need to write it myself. Maybe number bases as when i add a new artist
 					System.out.print("Enter seating type (STANDING, SITTING, BOOTH): ");
 					String seatingInput = input.nextLine().trim();
 

@@ -2,6 +2,7 @@ package view;
 
 import models.*;
 import services.EventService;
+import utils.InputValidation;
 
 import java.util.Scanner;
 
@@ -24,10 +25,9 @@ public class Menu {
 
 		do {
 			printMenu();
-			System.out.print("\n Enter your choice: ");
 
 			try {
-				choice = Integer.parseInt(input.nextLine());
+				choice = InputValidation.getNumberInRange(input, 1, 3);
 
 				switch (choice) {
 					case 1:
@@ -47,7 +47,7 @@ public class Menu {
 				System.out.println("You need to put in a number between 1-3. Try again");
 				choice = 0; // 0 so the loop will continue
 			}
-		} while (choice != 3); // until the user press 6, the loop will quit
+		} while (choice != 3);
 	}
 
 
