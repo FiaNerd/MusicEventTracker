@@ -35,48 +35,43 @@ public class EventMenu {
 						showAllaEvents();
 						break;
 					case 2:
-						System.out.println("\n ---- SEARCH EVENT ----");
 						searchEvent();
 						break;
 					case 3:
-						System.out.println("\n ---- ADD EVENT ----");
 						addEvent();
 						break;
 					case 4:
-						System.out.println("\n ---- UPDATE EVENT ----");
 						updateEvent();
 						break;
 					case 5:
-						System.out.println("\n ---- DELETE EVENT ----");
 						deleteEvent();
 						break;
 					case 6:
-						System.out.println("Exit application. Welcome back soon!");
 						break;
 					default:
-						System.out.println("Not valid input. only number between 1-7");
+						System.out.println("Not valid input. only number between 1-6");
 				}
 
 			} catch (NumberFormatException ex) {
 				System.out.println("You need to put in a number between 1-7. Try again");
 				choice = 0; // 0 so the loop will continue
 			}
-			// TODO: Get Back to main menu
+
 		} while (choice != 6); // until the user press 6, the loop will quit
 	}
 
 
 	private void printMenu() {
-		System.out.println("\n =================================");
-		System.out.println("        MUSIC EVENT");
-		System.out.println(" =================================");
+		System.out.println("\n===========================");
+		System.out.println("       MUSIC EVENT");
+		System.out.println("============================");
 		System.out.println(" [1] SHOW ALL EVENTS");
 		System.out.println(" [2] SEARCH EVENT");
 		System.out.println(" [3] ADD EVENT");
 		System.out.println(" [4] UPDATE EVENT");
 		System.out.println(" [5] DELETE EVENT");
 		System.out.println(" [6] BACK TO MAIN MENU");
-		System.out.println(" =================================");
+		System.out.println("=============================");
 	}
 
 	// TODO: If the user input does chose anything else for standing, sitting or booth, then it will print out a error.
@@ -99,6 +94,9 @@ public class EventMenu {
 	}
 
 	private void searchEvent() {
+		System.out.println("\n==========================");
+		System.out.println("       SEARCH EVENT");
+		System.out.println("==========================");
 		System.out.print("Searrch for artist / band or venue or city: ");
 		String searchTerm = input.nextLine().trim();
 
@@ -129,6 +127,9 @@ public class EventMenu {
 	}
 
 	private void addEvent() {
+		System.out.println("\n==========================");
+		System.out.println("          ADD EVENT");
+		System.out.println("==========================");
 		System.out.println("\n What Event do you wanna add:");
 		System.out.println("[1] Concert");
 		System.out.println("[2] Festival");
@@ -229,6 +230,9 @@ public class EventMenu {
 	}
 
 	private void updateEvent() {
+		System.out.println("\n==========================");
+		System.out.println("       UPDATE EVENT");
+		System.out.println("==========================");
 		System.out.print("\n Enter event ID to update: ");
 
 		try {
@@ -335,7 +339,10 @@ public class EventMenu {
 	}
 
 	private void deleteEvent() {
-		System.out.print("Enter event ID to delete: ");
+		System.out.println("\n==========================");
+		System.out.println("         DELETE EVENT");
+		System.out.println("==========================");
+		System.out.print("\n Enter event ID to delete: ");
 
 		try {
 			int deleteById = Integer.parseInt(input.nextLine());
