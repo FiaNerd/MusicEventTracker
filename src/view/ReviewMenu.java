@@ -2,6 +2,7 @@ package view;
 
 import models.Review;
 import services.EventService;
+import utils.MenuUtils;
 
 import java.util.Scanner;
 
@@ -32,6 +33,7 @@ public class ReviewMenu {
 				switch (choice) {
 					case 1:
 						showReviewsByArtist();
+						MenuUtils.pressEnterToContinue(input);
 						break;
 					case 2:
 						addReviewToEvent();

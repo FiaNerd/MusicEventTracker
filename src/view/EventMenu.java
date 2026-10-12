@@ -5,6 +5,8 @@ import models.Concert;
 import models.Festival;
 import models.SeatingType;
 import services.EventService;
+import utils.MenuUtils;
+
 import java.util.Scanner;
 
 public class EventMenu {
@@ -33,6 +35,7 @@ public class EventMenu {
 				switch (choice) {
 					case 1:
 						showAllaEvents();
+						MenuUtils.pressEnterToContinue(input);
 						break;
 					case 2:
 						searchEvent();
@@ -53,7 +56,7 @@ public class EventMenu {
 				}
 
 			} catch (NumberFormatException ex) {
-				System.out.println("You need to put in a number between 1-7. Try again");
+				System.out.println("You need to put in a number between 1-6. Try again");
 				choice = 0; // 0 so the loop will continue
 			}
 
@@ -73,6 +76,8 @@ public class EventMenu {
 		System.out.println(" [6] BACK TO MAIN MENU");
 		System.out.println("=============================");
 	}
+
+
 
 	// TODO: If the user input does chose anything else for standing, sitting or booth, then it will print out a error.
 	// TODO: Connect everagerating to the events

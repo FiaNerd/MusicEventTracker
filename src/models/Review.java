@@ -1,7 +1,5 @@
 package models;
 
-import interfaces.Reviewable;
-
 import java.time.LocalDateTime;
 
 /**
