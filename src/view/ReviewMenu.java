@@ -19,6 +19,7 @@ public class ReviewMenu {
 
 	public void start() {
 		int choice;
+
 		do {
 			System.out.println("=====================================");
 			System.out.println("               REVIEW");
@@ -28,7 +29,6 @@ public class ReviewMenu {
 			System.out.println("[3] Back to main menu");
 			System.out.println("=====================================");
 
-			try {
 				choice = InputValidation.getNumberInRange(input, 1, 3,"\nChoose an option (1-3): " );
 
 				switch (choice) {
@@ -41,13 +41,7 @@ public class ReviewMenu {
 						break;
 					case 3:
 						break;
-					default:
-						System.out.println("\nInvalid choice. Choose between 1-3. \n");
 				}
-			} catch (NumberFormatException ex) {
-				System.out.println("Invalid input. Please enter a number.");
-				choice = 0;
-			}
 		} while (choice != 3);
 	}
 

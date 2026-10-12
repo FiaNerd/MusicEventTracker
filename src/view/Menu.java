@@ -26,8 +26,7 @@ public class Menu {
 		do {
 			printMenu();
 
-			try {
-				choice = InputValidation.getNumberInRange(input, 1, 3,"Choose an option (1-3): ");
+				choice = InputValidation.getNumberInRange(input, 1, 3,"\nChoose an option (1-3): ");
 
 				switch (choice) {
 					case 1:
@@ -42,11 +41,6 @@ public class Menu {
 					default:
 						System.out.println("Not valid input. only number between 1-3");
 				}
-
-			} catch (NumberFormatException ex) {
-				System.out.println("You need to put in a number between 1-3. Try again");
-				choice = 0; // 0 so the loop will continue
-			}
 		} while (choice != 3);
 	}
 
@@ -61,5 +55,4 @@ public class Menu {
 		System.out.println(" [3] EXIT");
 		System.out.println("==========================");
 	}
-
 }

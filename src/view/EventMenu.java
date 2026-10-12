@@ -29,7 +29,6 @@ public class EventMenu {
 		do {
 			printMenu();
 
-			try {
 				choice = InputValidation.getNumberInRange(input, 1, 6,"\nChoose an option (1-6): ");
 
 				switch (choice) {
@@ -52,14 +51,7 @@ public class EventMenu {
 						break;
 					case 6:
 						break;
-					default:
-						System.out.println("Not valid input. only number between 1-6");
 				}
-
-			} catch (NumberFormatException ex) {
-				System.out.println("You need to put in a number between 1-6. Try again");
-				choice = 0; // 0 so the loop will continue
-			}
 
 		} while (choice != 6); // until the user press 6, the loop will quit
 	}
