@@ -4,14 +4,12 @@ import java.util.Scanner;
 
 public class InputValidation {
 
-		public static int getNumberInRange(Scanner input, int min, int max) {
+		public static int getNumberInRange(Scanner input, int min, int max, String prompt) {
 
 			int choice;
 
 			do {
-				System.out.print(
-						"\n Choose a number (" + min + "-" + max + "): ");
-
+				System.out.print(prompt);
 				String userInput = input.nextLine().trim();
 
 				try {
@@ -19,13 +17,13 @@ public class InputValidation {
 
 					if (choice < min || choice > max) {
 						System.out.println(
-								"\n[!] Invalid choice. Choose between "
+								"[!] Invalid choice. Choose between "
 										+ min + "-" + max + ". " );
 					}
 
 				} catch (NumberFormatException ex) {
 					System.out.println(
-							"\n[!] Invalid input. Please enter a number. ");
+							"[!] Invalid input. Please enter a number. ");
 					choice = min - 1;
 				}
 

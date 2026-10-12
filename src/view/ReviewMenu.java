@@ -1,5 +1,6 @@
 package view;
 
+import models.EventModel;
 import models.Review;
 import services.EventService;
 import utils.InputValidation;
@@ -28,7 +29,7 @@ public class ReviewMenu {
 			System.out.println("=====================================");
 
 			try {
-				choice = InputValidation.getNumberInRange(input, 1, 3);
+				choice = InputValidation.getNumberInRange(input, 1, 3,"\nChoose an option (1-3): " );
 
 				switch (choice) {
 					case 1:
@@ -95,47 +96,51 @@ public class ReviewMenu {
 		}
 	}
 
+
 	private void addReviewToEvent() {
 
 		System.out.println("\n===============================");
 		System.out.println("      ADD REVIEW TO EVENT ");
-		System.out.println("================================ ");
+		System.out.println("================================");
 
 		System.out.println("Available events:");
+
 		for (var event : eventService.getAllEvents()) {
-			System.out.println("  ID " + event.getId() + ": " + event.getArtist() +
-					" @ " + event.getVenue() + " (" + event.getDate() + ")");
+			System.out.println("  ID " + event.getId() + ": "
+					+ event.getArtist() + " @ " + event.getVenue()
+					+ " (" + event.getDate() + ")");
 		}
+
 		System.out.println("--------------------------------------------------");
 
-		System.out.print("Enter Event ID to review: ");
-		try {
-			int id = Integer.parseInt(input.nextLine());
-			var event = eventService.getEventById(id);
+		var selectedEvent = (EventModel) null;
 
-			if (event == null) {
-				System.out.println("No event found with ID " + id);
-				return;
+		while (selectedEvent == null) {
+
+			int id = InputValidation.getNumberInRange(
+					input, 1, Integer.MAX_VALUE, "\nEnter Event ID to review: ");
+
+			selectedEvent = eventService.getEventById(id);
+
+			if (selectedEvent == null) {
+				System.out.println(
+						"No event found with ID " + id + ". Please try again.");
 			}
-
-			System.out.println("Selected: " + event.getArtist() + " at " + event.getVenue());
-
-			System.out.print("Enter rating (1 to 5): ");
-			int rating = Integer.parseInt(input.nextLine());
-
-			if (rating < 1 || rating > 5) {
-				System.out.println("Invalid rating! Must be 1-5.");
-				return;
-			}
-
-			System.out.print("Enter comment: ");
-			String comment = input.nextLine().trim();
-
-			event.addReview(new Review(rating, comment.isEmpty() ? "No comment" : comment));
-			System.out.println("Review added successfully!");
-
-		} catch (NumberFormatException ex) {
-			System.out.println("Invalid input! ID and rating must be numbers.");
 		}
+		System.out.println("Selected: " + selectedEvent.getArtist()
+				+ " at " + selectedEvent.getVenue());
+
+		// Get rating
+		int rating = InputValidation.getNumberInRange(input, 1, 5, "Enter rating between (1- 5): " );
+
+		// Get optional comment
+		System.out.print("Enter comment (optional): ");
+		String comment = input.nextLine().trim();
+
+		String reviewComment = comment.isEmpty() ? "No comment" : comment;
+
+		selectedEvent.addReview(new Review(rating, reviewComment));
+
+		System.out.println("Review added successfully!");
 	}
 }

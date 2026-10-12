@@ -27,7 +27,7 @@ public class Menu {
 			printMenu();
 
 			try {
-				choice = InputValidation.getNumberInRange(input, 1, 3);
+				choice = InputValidation.getNumberInRange(input, 1, 3,"Choose an option (1-3): ");
 
 				switch (choice) {
 					case 1:

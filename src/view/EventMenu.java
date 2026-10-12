@@ -30,7 +30,7 @@ public class EventMenu {
 			printMenu();
 
 			try {
-				choice = InputValidation.getNumberInRange(input, 1, 6);
+				choice = InputValidation.getNumberInRange(input, 1, 6,"\nChoose an option (1-6): ");
 
 				switch (choice) {
 					case 1:
@@ -39,6 +39,7 @@ public class EventMenu {
 						break;
 					case 2:
 						searchEvent();
+						MenuUtils.pressEnterToContinue(input);
 						break;
 					case 3:
 						addEvent();
@@ -141,7 +142,7 @@ public class EventMenu {
 		System.out.println("[3] Club gig");
 
 		try {
-			int numberEvent = InputValidation.getNumberInRange(input, 1, 3);
+			int numberEvent = InputValidation.getNumberInRange(input, 1, 3,  "Choose an option (1-3): ");
 
 			// TODO: Check if you are going to skip ID or genera random id and only add by artis name?
 			System.out.print("Enter ID: ");
