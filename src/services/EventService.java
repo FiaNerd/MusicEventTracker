@@ -110,7 +110,4 @@ public class EventService {
 
 		events.remove(existingEvent);
 	}
-
-	//---- REVIEW ----
-	// TODO: add Review functionality for adding, fetching, updating, and deleting reviews.
 }

@@ -163,18 +163,34 @@ public class EventMenu {
 					System.out.print("Enter tour name: ");
 					String tourName = input.nextLine();
 
-					// TODO: Do this better so i dont need to write it myself. Maybe number bases as when i add a new artist
-					System.out.print("Enter seating type (STANDING, SITTING, BOOTH): ");
+					System.out.println("Choose seating type:");
+					System.out.println("[1] Standing");
+					System.out.println("[2] Sitting");
+					System.out.println("[3] Booth");
+					System.out.println("[Enter] Standing (default)");
+
+					System.out.print("\nChoose an option (1-3): ");
 					String seatingInput = input.nextLine().trim();
 
-					// Checking enum for seating type
-					SeatingType seatingType = SeatingType.STANDING;
-					for (SeatingType type : SeatingType.values()) {
-						if (type.name().equalsIgnoreCase(seatingInput)) {
-							seatingType = type;
+					SeatingType seatingType;
+
+					switch (seatingInput) {
+						case "2":
+							seatingType = SeatingType.SEATED;
 							break;
-						}
+						case "3":
+							seatingType = SeatingType.MIXED;
+							break;
+						case "":
+						case "1":
+							seatingType = SeatingType.STANDING;
+							break;
+						default:
+							System.out.println("Invalid choice. Defaulting to Standing.");
+							seatingType = SeatingType.STANDING;
+							break;
 					}
+
 
 					Concert concert = new Concert( artist, genre, venue, city, country, date, description, isOutdoor, supportAct, tourName, seatingType);
 					eventService.addEvent(concert);
@@ -182,8 +198,8 @@ public class EventMenu {
 					break;
 
 				case 2: // Festival
-					System.out.print("Enter number of days: ");
-					int numberOfDays = Integer.parseInt(input.nextLine());
+					int numberOfDays = InputValidation.getNumberInRange(input, 1, 10, "Enter number of days (1-10): "
+					);
 
 					boolean camping = InputValidation.getYesNoInput(
 							input, "Is camping included? (Yes/No): ", null);
@@ -197,17 +213,38 @@ public class EventMenu {
 					System.out.println("Festival added successfully!");
 					break;
 
+
 				case 3: // ClubGig
-					System.out.print("Enter age limit (e.g. 18): ");
-					int ageLimit = Integer.parseInt(input.nextLine());
+					int ageLimit = InputValidation.getNumberInRange(
+							input, 0, 100, "Enter age limit (0-100): "
+					);
 
-					System.out.print("Enter ticket price: ");
-					double ticketPrice = Double.parseDouble(input.nextLine());
+					double ticketPrice;
 
-					System.out.print("Enter set times (e.g. 19:00-01:00): ");
-					String setTimes = input.nextLine();
+					while (true) {
+						System.out.print("Enter ticket price (e.g. 150.50): ");
+						String priceInput = input.nextLine().trim();
 
-					ClubGig clubGig = new ClubGig( artist, genre, venue, city, country, date, description, isOutdoor, ageLimit, ticketPrice, setTimes);
+						try {
+							ticketPrice = Double.parseDouble(priceInput);
+							if (ticketPrice >= 0) {
+								break;
+							}
+							System.out.println("Ticket price cannot be negative.");
+						} catch (NumberFormatException ex) {
+							System.out.println("Please enter a valid price, e.g. 150.50.");
+						}
+					}
+
+					String setTimes = InputValidation.getOptionalTimeRange(
+							input, "Enter set times (e.g. 19:00-01:00): "
+					);
+
+					ClubGig clubGig = new ClubGig(
+							artist, genre, venue, city, country, date,
+							description, isOutdoor, ageLimit, ticketPrice, setTimes
+					);
+
 					eventService.addEvent(clubGig);
 					System.out.println("Club Gig added successfully!");
 					break;

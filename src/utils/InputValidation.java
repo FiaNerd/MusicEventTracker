@@ -15,7 +15,7 @@ public class InputValidation {
 			String userInput = input.nextLine().trim();
 
 			if (userInput.isEmpty()) {
-				System.out.println("[!] Please enter a menu option.");
+				System.out.println("[!] Please enter a number option.");
 				choice = min - 1;
 				continue;
 			}
@@ -94,6 +94,27 @@ public class InputValidation {
 			}
 
 			System.out.println("[!] This field is required. Please try again.");
+		}
+	}
+
+	public static String getOptionalTimeRange(Scanner input, String prompt) {
+		while (true) {
+			System.out.print(prompt);
+			String value = input.nextLine().trim();
+
+			// Empty input is allowed
+			if (value.isEmpty()) {
+				return value;
+			}
+
+			// Validate HH:mm-HH:mm
+			if (value.matches("([01]\\d|2[0-3]):[0-5]\\d-([01]\\d|2[0-3]):[0-5]\\d")) {
+				return value;
+			}
+
+			System.out.println(
+					"[!] Invalid format. Use HH:mm-HH:mm, e.g. 19:00-00:00."
+			);
 		}
 	}
 
