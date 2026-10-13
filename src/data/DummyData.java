@@ -19,7 +19,7 @@ public class DummyData {
 
 		// Create a concert and add sample reviews
 		Concert evergrey = new Concert(
-				1, "Evergrey", "Progressive Metal", "Mejeriet",
+				"Evergrey", "Progressive Metal", "Mejeriet",
 				"Lund", "Sweden", "2026-11-11",
 				"First class progressive metal from Gothenburg",
 				false, "", "Architects of A New Wave tour",
@@ -35,7 +35,7 @@ public class DummyData {
 
 		// Create a festival and add sample reviews
 		Festival hollywoodUndead = new Festival(
-				2, "Hollywood Undead", "Hiphop, rap, metal",
+				"Hollywood Undead", "Hiphop, rap, metal",
 				"Brutal Assault", "Jaromer", "Czech Republic",
 				"2026-08-08",
 				"Hiphopper that loves metal, doing a mix between hiphop and metal.",
@@ -49,7 +49,7 @@ public class DummyData {
 
 		// Create a club gig and add sample reviews
 		ClubGig theHaunted = new ClubGig(
-				3, "The Haunted", "Death Metal", "Mejeriet",
+				"The Haunted", "Death Metal", "Mejeriet",
 				"Lund", "Sweden", "2026-11-21",
 				"Swedish old death metal group", false,
 				18, 150, "19:00-01:00"

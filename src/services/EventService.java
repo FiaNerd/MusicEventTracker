@@ -14,6 +14,7 @@ public class EventService {
 
 	/** In-memory storage list containing all registered events. */
 	private List<EventModel> events = new ArrayList<>();
+	private int nextId = 1;
 
 	// ---- EVENT ----
 
@@ -28,6 +29,10 @@ public class EventService {
 		if (event == null) {
 			throw new IllegalArgumentException("Event can't be null.");
 		}
+
+		event.setId(nextId);
+		nextId++;
+
 		events.add(event);
 	}
 

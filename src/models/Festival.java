@@ -12,7 +12,6 @@ public class Festival extends EventModel {
 	 * Constructs a new Festival instance.
 	 * Uses super() to initialize inherited fields from EventModel.
 	 *
-	 * @param id              Unique identifier for the event
 	 * @param artist          The main artist or performing act
 	 * @param genre           Music genre
 	 * @param venue           Venue name
@@ -24,9 +23,9 @@ public class Festival extends EventModel {
 	 * @param campingIncluded True if camping is included in the ticket, false otherwise
 	 * @param numberOfDays   Number of days the festival lastst
 	 */
-	public Festival(int id, String artist, String genre, String venue, String city, String country, String date,
+	public Festival( String artist, String genre, String venue, String city, String country, String date,
 	                String description, boolean isOutdoor, boolean campingIncluded, int numberOfDays) {
-		super(id, artist, genre, venue, city, country, date, description, isOutdoor);
+		super(artist, genre, venue, city, country, date, description, isOutdoor);
 		this.campingIncluded = campingIncluded;
 		this.numberOfDays = numberOfDays;
 	}

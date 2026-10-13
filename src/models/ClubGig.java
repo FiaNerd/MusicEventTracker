@@ -35,12 +35,12 @@ public class ClubGig extends EventModel {
 	 * @param entryFee      Entry fee in SEK
 	 * @param openingHours  Opening hours for the club event
 	 */
-	public ClubGig(int id, String artist, String genre, String venue, String city, String country, String date,
+	public ClubGig(String artist, String genre, String venue, String city, String country, String date,
 	               String description, boolean isOutdoor,
 	               int ageLimit, double entryFee, String openingHours) {
 
 		// Pass shared event data to the superclass constructor
-		super(id, artist, genre, venue, city, country, date, description, isOutdoor);
+		super(artist, genre, venue, city, country, date, description, isOutdoor);
 
 		this.ageLimit = ageLimit;
 		this.entryFee = entryFee;

@@ -137,8 +137,8 @@ public class EventMenu {
 			int numberEvent = InputValidation.getNumberInRange(input, 1, 3,  "Choose an option (1-3): ");
 
 			// TODO: Check if you are going to skip ID or genera random id and only add by artis name?
-			System.out.print("Enter ID: ");
-			int id = Integer.parseInt(input.nextLine());
+			// System.out.print("Enter ID: ");
+			// int id = Integer.parseInt(input.nextLine());
 
 			System.out.print("Enter artist: ");
 			String artist = input.nextLine();
@@ -183,7 +183,7 @@ public class EventMenu {
 						}
 					}
 
-					Concert concert = new Concert(id, artist, genre, venue, city, country, date, description, isOutdoor, supportAct, tourName, seatingType);
+					Concert concert = new Concert( artist, genre, venue, city, country, date, description, isOutdoor, supportAct, tourName, seatingType);
 					eventService.addEvent(concert);
 					System.out.println("Concert added successfully!");
 					break;
@@ -196,7 +196,7 @@ public class EventMenu {
 							input, "Is camping included? (Yes/No): ", null);
 
 					Festival festival = new Festival(
-							id, artist, genre, venue, city, country, date,
+							artist, genre, venue, city, country, date,
 							description, isOutdoor, camping, numberOfDays
 					);
 
@@ -214,7 +214,7 @@ public class EventMenu {
 					System.out.print("Enter set times (e.g. 19:00-01:00): ");
 					String setTimes = input.nextLine();
 
-					ClubGig clubGig = new ClubGig(id, artist, genre, venue, city, country, date, description, isOutdoor, ageLimit, ticketPrice, setTimes);
+					ClubGig clubGig = new ClubGig( artist, genre, venue, city, country, date, description, isOutdoor, ageLimit, ticketPrice, setTimes);
 					eventService.addEvent(clubGig);
 					System.out.println("Club Gig added successfully!");
 					break;

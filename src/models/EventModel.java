@@ -39,9 +39,8 @@ public abstract class EventModel implements Reviewable {
 	 * @param description Brief description of the event
 	 * @param isOutdoor   True if the event is outdoors, false if indoors
 	 */
-	public EventModel(int id, String artist, String genre, String venue, String city, String country, String date,
+	public EventModel(String artist, String genre, String venue, String city, String country, String date,
 	                  String description, boolean isOutdoor) {
-		this.id = id;
 		this.artist = artist;
 		this.genre = genre;
 		this.venue = venue;

@@ -27,9 +27,9 @@ public class Concert extends EventModel {
 	 * @param tourName    The name of the tour
 	 * @param seatingType The seating arrangement (STANDING, SEATED, or BOOTH)
 	 */
-	public Concert(int id, String artist, String genre, String venue, String city, String country, String date, String description,
+	public Concert( String artist, String genre, String venue, String city, String country, String date, String description,
 	               boolean isOutdoor, String supportAct, String tourName, SeatingType seatingType) {
-		super(id, artist, genre, venue, city, country, date, description, isOutdoor);
+		super(artist, genre, venue, city, country, date, description, isOutdoor);
 
 		this.supportAct = supportAct;
 		this.tourName = tourName;
