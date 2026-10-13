@@ -9,8 +9,19 @@ import java.util.List;
 
 public class ReviewService {
 
-	private List<Review> reviews = new ArrayList<>();
 
+
+	public List<Review> getReviewsByArtist(List<EventModel> events, String artist) {
+		List<Review> artistReviews = new ArrayList<>();
+
+		for (EventModel event : events) {
+			if (event.getArtist().equalsIgnoreCase(artist)) {
+				artistReviews.addAll(event.getReviews());
+			}
+		}
+
+		return artistReviews;
+	}
 
 	public void addReview(EventModel event, Review review) {
 		if (event == null) {
@@ -28,6 +39,5 @@ public class ReviewService {
 		}
 
 		event.addReview(review);
-		reviews.add(review);
 	}
 }
