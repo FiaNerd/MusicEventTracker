@@ -6,33 +6,40 @@ import java.util.Scanner;
 
 public class InputValidation {
 
-		public static int getNumberInRange(Scanner input, int min, int max, String prompt) {
 
-			int choice;
+	public static int getNumberInRange(Scanner input, int min, int max, String prompt) {
+		int choice;
 
-			do {
-				System.out.print(prompt);
-				String userInput = input.nextLine().trim();
+		do {
+			System.out.print(prompt);
+			String userInput = input.nextLine().trim();
 
-				try {
-					choice = Integer.parseInt(userInput);
+			if (userInput.isEmpty()) {
+				System.out.println("[!] Please enter a menu option.");
+				choice = min - 1;
+				continue;
+			}
 
-					if (choice < min || choice > max) {
-						System.out.println(
-								"[!] Invalid choice. Choose between "
-										+ min + "-" + max + ". " );
-					}
+			try {
+				choice = Integer.parseInt(userInput);
 
-				} catch (NumberFormatException ex) {
+				if (choice < min || choice > max) {
 					System.out.println(
-							"[!] Invalid input. Please enter a number. ");
-					choice = min - 1;
+							"[!] Invalid choice. Choose between "
+									+ min + "-" + max + "."
+					);
 				}
 
-			} while (choice < min || choice > max);
+			} catch (NumberFormatException ex) {
+				System.out.println("[!] Invalid input. Please enter a number.");
+				choice = min - 1;
+			}
 
-			return choice;
-		}
+		} while (choice < min || choice > max);
+
+		return choice;
+	}
+
 
 	public static boolean getYesNoInput(
 			Scanner input, String prompt, Boolean currentValue) {
