@@ -3,6 +3,7 @@ package views;
 import models.EventModel;
 import models.Review;
 import services.EventService;
+import services.ReviewService;
 import utils.InputValidation;
 import utils.MenuUtils;
 
@@ -10,10 +11,12 @@ import java.util.Scanner;
 
 public class ReviewMenu {
 	private EventService eventService;
+	private ReviewService reviewService;
 	private Scanner input;
 
-	public ReviewMenu(EventService eventService, Scanner input) {
+	public ReviewMenu(EventService eventService, ReviewService reviewService, Scanner input) {
 		this.eventService = eventService;
+		this.reviewService = reviewService;
 		this.input = input;
 	}
 

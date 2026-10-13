@@ -1,22 +1,25 @@
 package views;
 
 import services.EventService;
+import services.ReviewService;
 import utils.InputValidation;
 
 import java.util.Scanner;
 
 public class Menu {
 	private EventService eventService;
+	private ReviewService reviewService;
 	private Scanner input;
 	private EventMenu eventMenu;
 	private ReviewMenu reviewMenu;
 
-	public Menu(EventService eventService, Scanner input) {
+	public Menu(EventService eventService, ReviewService reviewService, Scanner input) {
 		this.eventService = eventService;
+		this.reviewService = reviewService;
 		this.input = input;
 
 		this.eventMenu = new EventMenu(eventService, input);
-		this.reviewMenu = new ReviewMenu(eventService, input);
+		this.reviewMenu = new ReviewMenu(eventService, reviewService, input);
 	}
 
 	public void start() {
