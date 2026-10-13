@@ -40,8 +40,6 @@ public class Menu {
 					case 3:
 						System.out.println("Exit application. Welcome back soon!");
 						break;
-					default:
-						System.out.println("Not valid input. only number between 1-3");
 				}
 		} while (choice != 3);
 	}

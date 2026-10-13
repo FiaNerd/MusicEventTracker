@@ -11,6 +11,7 @@ public class ReviewService {
 
 	private List<Review> reviews = new ArrayList<>();
 
+
 	public void addReview(EventModel event, Review review) {
 		if (event == null) {
 			throw new IllegalArgumentException("Event can't be null.");

@@ -134,10 +134,13 @@ public class ReviewMenu {
 		System.out.print("Enter comment (optional): ");
 		String comment = input.nextLine().trim();
 
+
 		String reviewComment = comment.isEmpty() ? "No comment" : comment;
 
-		selectedEvent.addReview(new Review(rating, reviewComment));
+		Review review = new Review(rating, reviewComment);
+		reviewService.addReview(selectedEvent, review);
 
 		System.out.println("Review added successfully!");
+
 	}
 }
