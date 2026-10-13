@@ -1,6 +1,6 @@
 import data.DummyData;
 import services.EventService;
-import view.Menu;
+import views.Menu;
 import java.util.Scanner;
 
 public class Main{

@@ -1,4 +1,4 @@
-package view;
+package views;
 
 import models.ClubGig;
 import models.Concert;
@@ -161,9 +161,7 @@ public class EventMenu {
 			System.out.print("Enter description: ");
 			String description = input.nextLine();
 
-			// TODO: Add "Yes" or "No" instead
-			System.out.print("Is it outdoors? (true/false): ");
-			boolean isOutdoor = Boolean.parseBoolean(input.nextLine());
+			boolean isOutdoor  = InputValidation.getYesNoInput(input, "Is it outdoor? (Yes/No): ", null);
 
 			switch (numberEvent) {
 				case 1: // Concert
@@ -195,12 +193,14 @@ public class EventMenu {
 					System.out.print("Enter number of days: ");
 					int numberOfDays = Integer.parseInt(input.nextLine());
 
-					// TODO: Fix so it is YES or NO isntead for true / false
+					boolean camping = InputValidation.getYesNoInput(
+							input, "Is camping included? (Yes/No): ", null);
 
-					System.out.print("Is camping included? (true/false): ");
-					boolean camping = Boolean.parseBoolean(input.nextLine());
+					Festival festival = new Festival(
+							id, artist, genre, venue, city, country, date,
+							description, isOutdoor, camping, numberOfDays
+					);
 
-					Festival festival = new Festival(id, artist, genre, venue, city, country, date, description, isOutdoor, camping, numberOfDays);
 					eventService.addEvent(festival);
 					System.out.println("Festival added successfully!");
 					break;
@@ -244,9 +244,9 @@ public class EventMenu {
 				return;
 			}
 
-			System.out.println("Event found! Enter new details (leave blank to keep current):");
+			System.out.println("Event found " + event.getArtist() + "! Enter new details (press enter to keep current)");
 
-			System.out.print("Enter new artist (current: " + event.getArtist() + "): ");
+			System.out.print("\nEnter new artist (current: " + event.getArtist() + "): ");
 			String artist = input.nextLine();
 			if (!artist.isEmpty()) event.setArtist(artist);
 
@@ -256,36 +256,49 @@ public class EventMenu {
 
 			System.out.print("Enter new venue (current: " + event.getVenue() + "): ");
 			String venue = input.nextLine();
-			if (!venue.isEmpty()) event.setVenue(venue);
+			if (!venue.isEmpty()) {
+				event.setVenue(venue);
+			}
 
 			System.out.print("Enter new city (current: " + event.getCity() + "): ");
 			String city = input.nextLine();
-			if (!city.isEmpty()) event.setCity(city);
+			if (!city.isEmpty()) {
+				event.setCity(city);
+			}
 
 			System.out.print("Enter new country (current: " + event.getCountry() + "): ");
 			String country = input.nextLine();
-			if (!country.isEmpty()) event.setCountry(country);
+			if (!country.isEmpty()) {
+				event.setCountry(country);
+			}
 
 			System.out.print("Enter new date (current: " + event.getDate() + "): ");
 			String date = input.nextLine();
-			if (!date.isEmpty()) event.setDate(date);
-
-			System.out.print("Enter new description (current: " + event.getDescription() + "): ");
-			String description = input.nextLine();
-			if (!description.isEmpty()) event.setDescription(description);
-
-			System.out.print("Is it outdoors? true/false (current: " + event.isOutdoor() + "): ");
-			String outdoorStr = input.nextLine();
-			if (!outdoorStr.isEmpty()) {
-				event.setOutdoor(Boolean.parseBoolean(outdoorStr));
+			if (!date.isEmpty()) {
+				event.setDate(date);
 			}
+
+			System.out.print("\nEnter new description (current: " + event.getDescription() + ")") ;
+			String description = input.nextLine();
+
+			if (!description.isEmpty()) {
+				event.setDescription(description);
+			}
+
+			boolean isOutdoor = InputValidation.getYesNoInput(input, "Is it outdoors? (Yes/No, current: " + event.isOutdoor() + "): ",
+					event.isOutdoor());
+
+			event.setOutdoor(isOutdoor);
 
 			if (event instanceof Concert) {
 				Concert concert = (Concert) event;
 
 				System.out.print("Enter new support act (current: " + concert.getSupportAct() + "): ");
 				String supportAct = input.nextLine();
-				if (!supportAct.isEmpty()) concert.setSupportAct(supportAct);
+
+				if (!supportAct.isEmpty()) {
+					concert.setSupportAct(supportAct);
+				}
 
 				System.out.print("Enter new tour name (current: " + concert.getTourName() + "): ");
 				String tourName = input.nextLine();

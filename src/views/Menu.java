@@ -1,6 +1,5 @@
-package view;
+package views;
 
-import models.*;
 import services.EventService;
 import utils.InputValidation;
 

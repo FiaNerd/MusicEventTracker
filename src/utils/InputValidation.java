@@ -31,4 +31,23 @@ public class InputValidation {
 
 			return choice;
 		}
+
+	public static boolean getYesNoInput(
+			Scanner input, String prompt, Boolean currentValue) {
+
+		while (true) {
+			System.out.print(prompt);
+			String answer = input.nextLine().trim();
+
+			if (answer.isEmpty() && currentValue != null) {
+				return currentValue;
+			} else if (answer.equalsIgnoreCase("yes")) {
+				return true;
+			} else if (answer.equalsIgnoreCase("no")) {
+				return false;
+			} else {
+				System.out.println("Please enter Yes or No.");
+			}
+		}
+	}
 }

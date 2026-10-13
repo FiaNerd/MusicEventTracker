@@ -1,4 +1,4 @@
-package view;
+package views;
 
 import models.EventModel;
 import models.Review;
