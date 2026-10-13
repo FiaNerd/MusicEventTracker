@@ -137,23 +137,16 @@ public class EventMenu {
 			int numberEvent = InputValidation.getNumberInRange(input, 1, 3,  "Choose an option (1-3): ");
 
 			// TODO: Check if you are going to skip ID or genera random id and only add by artis name?
-			// System.out.print("Enter ID: ");
-			// int id = Integer.parseInt(input.nextLine());
 
-			System.out.print("Enter artist: ");
-			String artist = input.nextLine();
+			String artist = InputValidation.getRequiredInput(input, "Enter artis: ");
 
-			System.out.print("Enter genre: ");
-			String genre = input.nextLine();
+			String genre = InputValidation.getRequiredInput(input, "Enter genre: ");
 
-			System.out.print("Enter venue: ");
-			String venue = input.nextLine();
+			String venue = InputValidation.getRequiredInput(input, "Enter venue:  ");
 
-			System.out.print("Enter city: ");
-			String city = input.nextLine();
+			String city = InputValidation.getRequiredInput(input, "Enter city: ");
 
-			System.out.print("Enter country: ");
-			String country = input.nextLine();
+			String country = InputValidation.getRequiredInput(input, "Enter country:  ");
 
 			String date = InputValidation.getDateInput(input, "Enter event date (yyyy-MM-dd): ", null);
 
@@ -225,6 +218,9 @@ public class EventMenu {
 
 		} catch (NumberFormatException ex) {
 			System.out.println("Not a valid number.");
+		} catch (IllegalArgumentException ex) {
+			System.out.println("Could not add event:");
+			System.out.println(ex.getMessage());
 		}
 	}
 

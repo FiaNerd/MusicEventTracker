@@ -83,4 +83,18 @@ public class InputValidation {
 			}
 		}
 	}
+
+	public static String getRequiredInput(Scanner input, String prompt) {
+		while (true) {
+			System.out.print(prompt);
+			String value = input.nextLine().trim();
+
+			if (!value.isEmpty()) {
+				return value;
+			}
+
+			System.out.println("[!] This field is required. Please try again.");
+		}
+	}
+
 }

@@ -2,6 +2,7 @@ package services;
 
 import models.EventModel;
 import models.Review;
+import utils.EventValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,18 @@ public class EventService {
 	 * @param event the EventModel object to add
 	 * @throws IllegalArgumentException if the provided event is null
 	 */
+
 	public void addEvent(EventModel event) {
 		if (event == null) {
 			throw new IllegalArgumentException("Event can't be null.");
+		}
+
+		List<String> errors = EventValidator.validate(event);
+
+		if (!errors.isEmpty()) {
+			throw new IllegalArgumentException(
+					String.join("\n", errors)
+			);
 		}
 
 		event.setId(nextId);
@@ -35,6 +45,7 @@ public class EventService {
 
 		events.add(event);
 	}
+
 
 	/**
 	 * Retrieves a list of all registered events.
