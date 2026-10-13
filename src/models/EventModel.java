@@ -1,6 +1,8 @@
 package models;
 
 import interfaces.Reviewable;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,6 @@ public abstract class EventModel implements Reviewable {
 	private String description;
 
 	// Default values initialized directly instead of requiring them in the constructor
-	private boolean isFinished = false;
 	private boolean isOutdoor;
 
 	private List<Review> reviews = new ArrayList<>();
@@ -172,15 +173,8 @@ public abstract class EventModel implements Reviewable {
 	 * @return true if finished, false otherwise
 	 */
 	public boolean isFinished() {
-		return isFinished;
-	}
-
-	/**
-	 * Sets the finished status of the event.
-	 * @param finished boolean value for event completion
-	 */
-	public void setFinished(boolean finished) {
-		isFinished = finished;
+		LocalDate eventDate = LocalDate.parse(date);
+		return eventDate.isBefore(LocalDate.now());
 	}
 
 	/**
@@ -254,7 +248,7 @@ public abstract class EventModel implements Reviewable {
 				"\n  Country: " + country +
 				"\n  Date: " + date +
 				"\n  Outdoor: " + (isOutdoor ? "Yes" : "No") +
-				"\n  Event is finished: " + (isFinished ? "Yes" : "No") +
+				"\n  Event is finished: " + (isFinished() ? "Yes" : "No") +
 				"\n  Rating: " + ratingText;
 	}
 }

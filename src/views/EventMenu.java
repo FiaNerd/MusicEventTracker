@@ -244,7 +244,7 @@ public class EventMenu {
 				return;
 			}
 
-			System.out.println("Event found " + event.getArtist() + "! Enter new details (press enter to keep current)");
+			System.out.println("Event found - " + event.getArtist() + "!\nEnter new details (press enter to keep current)");
 
 			System.out.print("\nEnter new artist (current: " + event.getArtist() + "): ");
 			String artist = input.nextLine();
@@ -278,7 +278,7 @@ public class EventMenu {
 				event.setDate(date);
 			}
 
-			System.out.print("\nEnter new description (current: " + event.getDescription() + ")") ;
+			System.out.print("\nEnter new description (current: " + event.getDescription() + "): ") ;
 			String description = input.nextLine();
 
 			if (!description.isEmpty()) {
