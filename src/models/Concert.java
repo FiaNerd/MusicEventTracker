@@ -94,10 +94,7 @@ public class Concert extends EventModel {
 	 */
 	@Override
 	public String getDescription() {
-		return super.getDescription() +
-				"\n  Support act: " + supportAct +
-				"\n  Tour name: " + tourName +
-				"\n  Seating type: " + seatingType;
+		return super.getDescription();
 	}
 
 	/**
