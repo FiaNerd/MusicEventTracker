@@ -155,8 +155,7 @@ public class EventMenu {
 			System.out.print("Enter country: ");
 			String country = input.nextLine();
 
-			System.out.print("Enter date (YYYY-MM-DD): ");
-			String date = input.nextLine();
+			String date = InputValidation.getDateInput(input, "Enter event date (yyyy-MM-dd): ", null);
 
 			System.out.print("Enter description: ");
 			String description = input.nextLine();
@@ -272,11 +271,11 @@ public class EventMenu {
 				event.setCountry(country);
 			}
 
-			System.out.print("Enter new date (current: " + event.getDate() + "): ");
-			String date = input.nextLine();
-			if (!date.isEmpty()) {
-				event.setDate(date);
-			}
+			String date = InputValidation.getDateInput(input, "Enter new date (current: " + event.getDate() + "): ",
+					event.getDate()
+			);
+
+			event.setDate(date);
 
 			System.out.print("\nEnter new description (current: " + event.getDescription() + "): ") ;
 			String description = input.nextLine();

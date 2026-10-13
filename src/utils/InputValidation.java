@@ -1,5 +1,7 @@
 package utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class InputValidation {
@@ -47,6 +49,30 @@ public class InputValidation {
 				return false;
 			} else {
 				System.out.println("Please enter Yes or No.");
+			}
+		}
+	}
+	public static String getDateInput(Scanner input, String prompt, String currentDate) {
+		while (true) {
+			System.out.print(prompt);
+			String dateInput = input.nextLine().trim();
+
+			if (dateInput.isEmpty() && currentDate != null) {
+				return currentDate;
+			}
+
+			try {
+				LocalDate date = LocalDate.parse(dateInput);
+
+				if (!date.toString().equals(dateInput)) {
+					System.out.println("Invalid date format. Use yyyy-MM-dd.");
+					continue;
+				}
+
+				return dateInput;
+
+			} catch (DateTimeParseException e) {
+				System.out.println("Invalid date. Use yyyy-MM-dd.");
 			}
 		}
 	}
