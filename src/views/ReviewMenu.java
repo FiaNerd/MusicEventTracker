@@ -37,7 +37,6 @@ public class ReviewMenu {
 				switch (choice) {
 					case 1:
 						showReviewsByArtist();
-						MenuUtils.pressEnterToContinue(input);
 						break;
 					case 2:
 						addReviewToEvent();
@@ -50,47 +49,31 @@ public class ReviewMenu {
 
 	private void showReviewsByArtist() {
 		System.out.println("\n ================================");
-		System.out.println("      SHOW REVIEWS BY ARTIST ");
+		System.out.println("      SHOW REVIEWS OF ARTIST ");
 		System.out.println(" ==================================");
 		System.out.print("Enter artist name: ");
 		String searchArtist = input.nextLine().trim();
 
-		if (searchArtist.isEmpty()) {
-			System.out.println("Artist name cannot be empty.");
-			return;
-		}
-
-		boolean foundEvent = false;
-		boolean foundReview = false;
-
-		for (var event : eventService.getAllEvents()) {
-			if (event.getArtist().equalsIgnoreCase(searchArtist)) {
-				foundEvent = true;
-				System.out.println("\n Event: " + event.getClass().getSimpleName() +
-						" at " + event.getVenue() + " (" + event.getDate() + ")");
-
-				var reviews = event.getReviews();
-
-				if (reviews.isEmpty()) {
-					System.out.println("No reviews yet for this event.");
-				} else {
-					foundReview = true;
-
-					for (var review : reviews) {
-						System.out.println("    Rating: " + review.getRating() + "/5");
-						System.out.println("    Comment: \"" + review.getComment() + "\"");
-						System.out.println("    Date: " + review.getCreatedAt().toLocalDate());
-						System.out.println("--------------------------------------------------");
-					}
-				}
+			if (searchArtist.isEmpty()) {
+				return;
 			}
-		}
 
-		if (!foundEvent) {
-			System.out.println("\n No events found for artist: " + searchArtist);
-		} else if (!foundReview) {
-			System.out.println("Events were found for " + searchArtist + ", but none of them have any reviews yet.");
-		}
+			var reviews = reviewService.getReviewsByArtist(
+					eventService.getAllEvents(), searchArtist);
+
+			if (reviews.isEmpty()) {
+				System.out.println("No reviews found for " + searchArtist + ".");
+				return;
+			}
+
+			for (var review : reviews) {
+				System.out.println("Rating: " + review.getRating() + "/5");
+				System.out.println("Comment: \"" + review.getComment() + "\"");
+				System.out.println("Date: " + review.getCreatedAt().toLocalDate());
+				System.out.println("------------------------------------------");
+			}
+
+		MenuUtils.pressEnterToContinue(input);
 	}
 
 
@@ -128,7 +111,7 @@ public class ReviewMenu {
 				+ " at " + selectedEvent.getVenue());
 
 		// Get rating
-		int rating = InputValidation.getNumberInRange(input, 1, 5, "Enter rating between (1- 5): " );
+		int rating = InputValidation.getNumberInRange(input, 1, 5, "Enter rating between (1- 5): ");
 
 		// Get optional comment
 		System.out.print("Enter comment (optional): ");
