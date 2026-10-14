@@ -58,20 +58,37 @@ public class ReviewMenu {
 				return;
 			}
 
-			var reviews = reviewService.getReviewsByArtist(
-					eventService.getAllEvents(), searchArtist);
+			var reviews =
+					reviewService.getEventsWithReviewsByArtist(
+							eventService.getAllEvents(), searchArtist);
+
 
 			if (reviews.isEmpty()) {
 				System.out.println("No reviews found for " + searchArtist + ".");
+				MenuUtils.pressEnterToContinue(input);
 				return;
 			}
 
-			for (var review : reviews) {
+		for (EventModel event : reviews) {
+			System.out.println("\n================================");
+			System.out.println("Artist: " + event.getArtist());
+			System.out.println("Venue: " + event.getVenue());
+			System.out.println("Location: " + event.getCity()
+					+ ", " + event.getCountry());
+			System.out.println("Event date: " + event.getDate());
+			System.out.println("Description: " + event.getDescription());
+			System.out.println("================================");
+
+			for (Review review : event.getReviews()) {
 				System.out.println("Rating: " + review.getRating() + "/5");
 				System.out.println("Comment: \"" + review.getComment() + "\"");
-				System.out.println("Date: " + review.getCreatedAt().toLocalDate());
-				System.out.println("------------------------------------------");
+				System.out.println("--------------------------------");
 			}
+		}
+
+		int totalReviews = reviewService.getTotalReviews(reviews);
+
+		System.out.println("\nTotal reviews: " + totalReviews + "\n");
 
 		MenuUtils.pressEnterToContinue(input);
 	}

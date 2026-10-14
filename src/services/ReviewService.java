@@ -9,19 +9,21 @@ import java.util.List;
 
 public class ReviewService {
 
+	public List<EventModel> getEventsWithReviewsByArtist(
+			List<EventModel> events, String artist) {
 
-
-	public List<Review> getReviewsByArtist(List<EventModel> events, String artist) {
-		List<Review> artistReviews = new ArrayList<>();
+		List<EventModel> matchingEvents = new ArrayList<>();
 
 		for (EventModel event : events) {
-			if (event.getArtist().equalsIgnoreCase(artist)) {
-				artistReviews.addAll(event.getReviews());
+			if (event.getArtist().equalsIgnoreCase(artist)
+					&& !event.getReviews().isEmpty()) {
+				matchingEvents.add(event);
 			}
 		}
 
-		return artistReviews;
+		return matchingEvents;
 	}
+
 
 	public void addReview(EventModel event, Review review) {
 		if (event == null) {
@@ -39,21 +41,6 @@ public class ReviewService {
 		}
 
 		event.addReview(review);
-	}
-
-	public List<EventModel> getEventsWithReviewsByArtist(
-			List<EventModel> events, String artist) {
-
-		List<EventModel> matchingEvents = new ArrayList<>();
-
-		for (EventModel event : events) {
-			if (event.getArtist().equalsIgnoreCase(artist)
-					&& !event.getReviews().isEmpty()) {
-				matchingEvents.add(event);
-			}
-		}
-
-		return matchingEvents;
 	}
 
 	public int getTotalReviews(List<EventModel> events) {

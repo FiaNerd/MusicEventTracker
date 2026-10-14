@@ -387,6 +387,7 @@ public class EventMenu {
 		System.out.println("\n==========================");
 		System.out.println("         DELETE EVENT");
 		System.out.println("==========================");
+
 		System.out.print("\n Enter event ID to delete: ");
 
 		try {
