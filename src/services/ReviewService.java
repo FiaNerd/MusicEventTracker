@@ -40,4 +40,29 @@ public class ReviewService {
 
 		event.addReview(review);
 	}
+
+	public List<EventModel> getEventsWithReviewsByArtist(
+			List<EventModel> events, String artist) {
+
+		List<EventModel> matchingEvents = new ArrayList<>();
+
+		for (EventModel event : events) {
+			if (event.getArtist().equalsIgnoreCase(artist)
+					&& !event.getReviews().isEmpty()) {
+				matchingEvents.add(event);
+			}
+		}
+
+		return matchingEvents;
+	}
+
+	public int getTotalReviews(List<EventModel> events) {
+		int total = 0;
+
+		for (EventModel event : events) {
+			total += event.getReviews().size();
+		}
+
+		return total;
+	}
 }

@@ -27,9 +27,9 @@ public class DummyData {
 		);
 
 		evergrey.addReview(new Review(5, "Magical performance! Tom S. was on fire."));
-		evergrey.addReview(new Review(3, "Great sound at Mejeriet, but a bit crowded."));
-		evergrey.addReview(new Review(2, "Too little space for the band. Too crowded."));
-		evergrey.addReview(new Review(1, "Too much light on stage and the sound was not great."));
+		evergrey.addReview(new Review(4, "Great sound at Mejeriet, but a bit crowded."));
+		evergrey.addReview(new Review(3, "Too little space for the band. Too crowded."));
+		evergrey.addReview(new Review(5, "Too much light on stage and the sound was not great."));
 
 		eventService.addEvent(evergrey);
 

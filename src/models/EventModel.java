@@ -29,7 +29,6 @@ public abstract class EventModel implements Reviewable {
 	/**
 	 * Constructs a new EventModel with all required core details.
 	 *
-	 * @param id          Unique identifier for the event
 	 * @param artist      The main artist or performing act
 	 * @param genre       Music genre
 	 * @param venue       Venue name
