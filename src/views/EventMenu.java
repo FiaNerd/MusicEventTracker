@@ -90,12 +90,6 @@ public class EventMenu {
 
 		for (EventModel event : eventService.getAllEvents()) {
 			System.out.println(event);
-
-			Reviewable reviewable = event;
-			System.out.println(
-					"Average rating: " + reviewable.getAverageRating()
-			);
-
 			System.out.println("--------------------------------------------------");
 		}
 	}

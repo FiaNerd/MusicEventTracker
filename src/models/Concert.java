@@ -118,6 +118,7 @@ public class Concert extends EventModel {
 		return super.toString().replace("EventModel", "Concert") +
 				"\n  Support: " + supportAct +
 				"\n  TourName: " + tourName +
-				"\n  Seating type: " + seatingType;
+				"\n  Seating type: " + seatingType +
+				"\n  Average rating: " + getRatingText();
 	}
 }

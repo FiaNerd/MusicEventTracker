@@ -92,6 +92,7 @@ public class Festival extends EventModel {
 
 		return super.toString().replace("EventModel", "Festival") +
 				"\n  Camping included: " + (campingIncluded ? "Yes" : "No") +
-				"\n  Number of Days: " + numberOfDays;
+				"\n  Number of Days: " + numberOfDays +
+				"\n  Average rating: " + getRatingText();
 	}
 }

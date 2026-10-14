@@ -192,6 +192,16 @@ public abstract class EventModel implements Reviewable {
 	}
 
 
+	public String getRatingText() {
+		double averageRating = getAverageRating();
+
+		if (averageRating == 0.0) {
+			return "No ratings yet";
+		}
+
+		return String.format("%.1f", averageRating);
+	}
+
 	//---- OVERRIDE METHOD ----
 
 	/**
@@ -217,6 +227,7 @@ public abstract class EventModel implements Reviewable {
 	}
 
 
+
 	/**
 	 * Returns a formatted text representation of the event.
 	 * Overrides Object.toString() and serves as a base implementation
@@ -226,16 +237,11 @@ public abstract class EventModel implements Reviewable {
 	 */
 	@Override
 	public String toString() {
-
 		double averageRating = getAverageRating();
 
-		String ratingText;
-
-		if (averageRating == 0.0) {
-			ratingText = "No ratings yet";
-		} else {
-			ratingText = String.format("%.1f", averageRating);
-		}
+		String ratingText = averageRating == 0.0
+				? "No ratings yet"
+				: String.format("%.1f", averageRating);
 
 		return "EventModel" +
 				"\n  Id: " + id +

@@ -107,6 +107,8 @@ public class ClubGig extends EventModel {
 		return super.toString().replace("EventModel", "ClubGig") +
 				"\n  Age limit: " + ageLimit +
 				"\n  Entry fee: " + entryFee +
-				"\n  Opening hours: " + openingHours;
+				"\n  Opening hours: " + openingHours +
+				"\n  Average rating: " + getRatingText();
+
 	}
 }
