@@ -148,7 +148,7 @@ public class EventMenu {
 
 			String country = InputValidation.getRequiredInput(input, "Enter country:  ");
 
-			String date = InputValidation.getDateInput(input, "Enter event date (yyyy-MM-dd): ", null);
+			String date = InputValidation.getRequiredInput(input, "Enter event date (yyyy-MM-dd): ");
 
 			System.out.print("Enter description: ");
 			String description = input.nextLine();
@@ -194,7 +194,7 @@ public class EventMenu {
 
 					Concert concert = new Concert( artist, genre, venue, city, country, date, description, isOutdoor, supportAct, tourName, seatingType);
 					eventService.addEvent(concert);
-					System.out.println("Concert added successfully!");
+					System.out.println("\nConcert added successfully!");
 					break;
 
 				case 2: // Festival
@@ -210,7 +210,7 @@ public class EventMenu {
 					);
 
 					eventService.addEvent(festival);
-					System.out.println("Festival added successfully!");
+					System.out.println("\nFestival added successfully!");
 					break;
 
 
@@ -265,6 +265,14 @@ public class EventMenu {
 		System.out.println("\n==========================");
 		System.out.println("       UPDATE EVENT");
 		System.out.println("==========================");
+
+		for (var event : eventService.getAllEvents()) {
+			System.out.println("  ID " + event.getId() + ": "
+					+ event.getArtist() + " @ " + event.getVenue()
+					+ " (" + event.getDate() + ")");
+		}
+
+
 		System.out.print("\n Enter event ID to update: ");
 
 		try {
@@ -317,8 +325,13 @@ public class EventMenu {
 				event.setDescription(description);
 			}
 
-			boolean isOutdoor = InputValidation.getYesNoInput(input, "Is it outdoors? (Yes/No, current: " + event.isOutdoor() + "): ",
-					event.isOutdoor());
+
+			boolean isOutdoor = InputValidation.getYesNoInput(
+					input,
+					"Is it outdoors? (Yes/No, current: "
+							+ (event.isOutdoor() ? "Yes" : "No") + "): ",
+					event.isOutdoor()
+			);
 
 			event.setOutdoor(isOutdoor);
 
@@ -354,7 +367,7 @@ public class EventMenu {
 				String daysStr = input.nextLine();
 				if (!daysStr.isEmpty()) festival.setNumberOfDays(Integer.parseInt(daysStr));
 
-				System.out.print("Is camping included? true/false (current: " + festival.isCampingIncluded() + "): ");
+				System.out.print("Is camping included? Yses/No (current: " + festival.isCampingIncluded() + "): ");
 				String campingStr = input.nextLine();
 				if (!campingStr.isEmpty()) festival.setCampingIncluded(Boolean.parseBoolean(campingStr));
 
@@ -376,7 +389,7 @@ public class EventMenu {
 
 			eventService.updateEvent(id, event);
 
-			System.out.println("Event updated successfully!");
+			System.out.println("\nEvent updated successfully!");
 
 		} catch (NumberFormatException ex) {
 			System.out.println("Invalid number format. Please try again.");
@@ -387,6 +400,13 @@ public class EventMenu {
 		System.out.println("\n==========================");
 		System.out.println("         DELETE EVENT");
 		System.out.println("==========================");
+
+		for (var event : eventService.getAllEvents()) {
+			System.out.println("  ID " + event.getId() + ": "
+					+ event.getArtist() + " @ " + event.getVenue()
+					+ " (" + event.getDate() + ")");
+		}
+
 
 		System.out.print("\n Enter event ID to delete: ");
 

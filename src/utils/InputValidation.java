@@ -84,6 +84,7 @@ public class InputValidation {
 		}
 	}
 
+
 	public static String getRequiredInput(Scanner input, String prompt) {
 		while (true) {
 			System.out.print(prompt);
@@ -96,6 +97,34 @@ public class InputValidation {
 			System.out.println("[!] This field is required. Please try again.");
 		}
 	}
+
+	public static String getRequiredDateInput(Scanner input, String prompt) {
+		while (true) {
+			System.out.print(prompt);
+			String dateInput = input.nextLine().trim();
+
+			if (dateInput.isEmpty()) {
+				System.out.println("[!] Date is required. Please enter a date.");
+				continue;
+			}
+
+			try {
+				LocalDate date = LocalDate.parse(dateInput);
+
+				if (!date.toString().equals(dateInput)) {
+					System.out.println("Invalid date format. Use yyyy-MM-dd.");
+					continue;
+				}
+
+				return dateInput;
+
+			} catch (DateTimeParseException e) {
+				System.out.println("Invalid date. Use yyyy-MM-dd.");
+			}
+		}
+	}
+
+
 
 	public static String getOptionalTimeRange(Scanner input, String prompt) {
 		while (true) {
