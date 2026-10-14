@@ -22,7 +22,6 @@ public class ClubGig extends EventModel {
 	 * Constructs a new ClubGig with both general event details and
 	 * club-specific attributes.
 	 *
-	 * @param id            Unique identifier for the event
 	 * @param artist        Main performing artist or DJ
 	 * @param genre         Music genre played at the event
 	 * @param venue         Venue name

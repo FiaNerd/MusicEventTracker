@@ -148,7 +148,7 @@ public class EventMenu {
 
 			String country = InputValidation.getRequiredInput(input, "Enter country:  ");
 
-			String date = InputValidation.getRequiredInput(input, "Enter event date (yyyy-MM-dd): ");
+			String date = InputValidation.getRequiredDateInput(input, "Enter event date (yyyy-MM-dd): ");
 
 			System.out.print("Enter description: ");
 			String description = input.nextLine();

@@ -14,7 +14,6 @@ public class Concert extends EventModel {
 	 * Constructs a new Concert instance.
 	 * Uses super() to initialize inherited fields from EventModel.
 	 *
-	 * @param id          Unique identifier for the event
 	 * @param artist      The main artist or performing act
 	 * @param genre       Music genre
 	 * @param venue       Venue name
@@ -92,9 +91,20 @@ public class Concert extends EventModel {
 	 *
 	 * @return formatted concert description as a String
 	 */
+
 	@Override
 	public String getDescription() {
-		return super.getDescription();
+		String description = super.getDescription();
+
+		if (supportAct != null && !supportAct.isBlank()) {
+			description += "\nSupport act: " + supportAct;
+		}
+
+		if (tourName != null && !tourName.isBlank()) {
+			description += "\nTour: " + tourName;
+		}
+
+		return description;
 	}
 
 	/**
