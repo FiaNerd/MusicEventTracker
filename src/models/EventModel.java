@@ -246,7 +246,6 @@ public abstract class EventModel implements Reviewable {
 				"\n  Country: " + country +
 				"\n  Date: " + date +
 				"\n  Outdoor: " + (isOutdoor ? "Yes" : "No") +
-				"\n  Event is finished: " + (isFinished() ? "Yes" : "No") +
-				"\n  Rating: " + ratingText;
+				"\n  Event is finished: " + (isFinished() ? "Yes" : "No");
 	}
 }

@@ -1,6 +1,7 @@
 
 package services;
 
+import interfaces.Reviewable;
 import models.EventModel;
 import models.Review;
 
@@ -52,4 +53,6 @@ public class ReviewService {
 
 		return total;
 	}
+
+
 }

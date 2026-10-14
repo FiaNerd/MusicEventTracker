@@ -7,7 +7,8 @@ import models.SeatingType;
 import services.EventService;
 import utils.InputValidation;
 import utils.MenuUtils;
-
+import interfaces.Reviewable;
+import models.EventModel;
 import java.util.Scanner;
 
 public class EventMenu {
@@ -75,6 +76,7 @@ public class EventMenu {
 	// TODO: If the user input does chose anything else for standing, sitting or booth, then it will print out a error.
 	// TODO: Connect everagerating to the events
 	// TODO: See if its time for making count how many events it is in the list total
+
 	private void showAllaEvents() {
 
 		System.out.println("\n==========================");
@@ -83,13 +85,21 @@ public class EventMenu {
 
 		if (eventService.getAllEvents().isEmpty()) {
 			System.out.println("No events at the moment");
+			return;
 		}
 
-		for (var event : eventService.getAllEvents()) {
+		for (EventModel event : eventService.getAllEvents()) {
 			System.out.println(event);
+
+			Reviewable reviewable = event;
+			System.out.println(
+					"Average rating: " + reviewable.getAverageRating()
+			);
+
 			System.out.println("--------------------------------------------------");
 		}
 	}
+
 
 	private void searchEvent() {
 		System.out.println("\n==========================");

@@ -55,8 +55,8 @@ public class DummyData {
 				18, 150, "19:00-01:00"
 		);
 
-		theHaunted.addReview(new Review(5, "Pure brutal energy in a small garage! Love it."));
-		theHaunted.addReview(new Review(4, "Loud, sweaty and perfect."));
+		theHaunted.addReview(new Review(1, "Pure brutal energy in a small garage!"));
+		theHaunted.addReview(new Review(2, "Loud, sweaty and perfect."));
 
 		eventService.addEvent(theHaunted);
 	}
