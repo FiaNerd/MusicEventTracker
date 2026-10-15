@@ -12,6 +12,7 @@ import java.util.List;
  * Handles core attributes and default values shared across all events.
  */
 public abstract class EventModel implements Reviewable {
+	// Attributes
 	private int id;
 	private String artist;
 	private String genre;
@@ -20,14 +21,14 @@ public abstract class EventModel implements Reviewable {
 	private String country;
 	private String date;
 	private String description;
-
-	// Default values initialized directly instead of requiring them in the constructor
 	private boolean isOutdoor;
 
 	private List<Review> reviews = new ArrayList<>();
 
 	/**
 	 * Constructs a new EventModel with all required core details.
+	 *
+	 *  Creates a new EventModel with the required event details.
 	 *
 	 * @param artist      The main artist or performing act
 	 * @param genre       Music genre
@@ -158,6 +159,10 @@ public abstract class EventModel implements Reviewable {
 		return description;
 	}
 
+	public String getBaseDescription() {
+		return description;
+	}
+
 	/**
 	 * Sets a brief description of the event.
 	 * @param description the description to set
@@ -167,6 +172,7 @@ public abstract class EventModel implements Reviewable {
 	}
 
 	/**
+	 * Method
 	 * Checks if the event has already taken place.
 	 * @return true if finished, false otherwise
 	 */
@@ -204,8 +210,10 @@ public abstract class EventModel implements Reviewable {
 
 	//---- OVERRIDE METHOD ----
 
+	// method from the Reviewable interface.
 	/**
-	 * Adds a review to the list.
+	 * Implements the addReview method from the Reviewable interface.
+	 * Adds the review to the list if it is not null.
 	 *
 	 * @param review the review to add
 	 */
@@ -237,11 +245,6 @@ public abstract class EventModel implements Reviewable {
 	 */
 	@Override
 	public String toString() {
-		double averageRating = getAverageRating();
-
-		String ratingText = averageRating == 0.0
-				? "No ratings yet"
-				: String.format("%.1f", averageRating);
 
 		return "EventModel" +
 				"\n  Id: " + id +

@@ -7,7 +7,6 @@ import models.SeatingType;
 import services.EventService;
 import utils.InputValidation;
 import utils.MenuUtils;
-import interfaces.Reviewable;
 import models.EventModel;
 import java.util.Scanner;
 
@@ -71,10 +70,6 @@ public class EventMenu {
 		System.out.println("=============================");
 	}
 
-
-
-	// TODO: If the user input does chose anything else for standing, sitting or booth, then it will print out a error.
-	// TODO: Connect everagerating to the events
 	// TODO: See if its time for making count how many events it is in the list total
 
 	private void showAllaEvents() {
@@ -90,9 +85,11 @@ public class EventMenu {
 
 		for (EventModel event : eventService.getAllEvents()) {
 			System.out.println(event);
+
 			System.out.println("--------------------------------------------------");
 		}
 	}
+
 
 
 	private void searchEvent() {
@@ -139,8 +136,6 @@ public class EventMenu {
 
 		try {
 			int numberEvent = InputValidation.getNumberInRange(input, 1, 3,  "Choose an option (1-3): ");
-
-			// TODO: Check if you are going to skip ID or genera random id and only add by artis name?
 
 			String artist = InputValidation.getRequiredInput(input, "Enter artis: ");
 
@@ -231,9 +226,11 @@ public class EventMenu {
 
 						try {
 							ticketPrice = Double.parseDouble(priceInput);
+
 							if (ticketPrice >= 0) {
 								break;
 							}
+
 							System.out.println("Ticket price cannot be negative.");
 						} catch (NumberFormatException ex) {
 							System.out.println("Please enter a valid price, e.g. 150.50.");
@@ -292,26 +289,35 @@ public class EventMenu {
 
 			System.out.print("\nEnter new artist (current: " + event.getArtist() + "): ");
 			String artist = input.nextLine();
-			if (!artist.isEmpty()) event.setArtist(artist);
+
+			if (!artist.isEmpty()){
+				event.setArtist(artist);
+			}
 
 			System.out.print("Enter new genre (current: " + event.getGenre() + "): ");
 			String genre = input.nextLine();
-			if (!genre.isEmpty()) event.setGenre(genre);
+
+			if (!genre.isEmpty()){
+				event.setGenre(genre);
+			}
 
 			System.out.print("Enter new venue (current: " + event.getVenue() + "): ");
 			String venue = input.nextLine();
+
 			if (!venue.isEmpty()) {
 				event.setVenue(venue);
 			}
 
 			System.out.print("Enter new city (current: " + event.getCity() + "): ");
 			String city = input.nextLine();
+
 			if (!city.isEmpty()) {
 				event.setCity(city);
 			}
 
 			System.out.print("Enter new country (current: " + event.getCountry() + "): ");
 			String country = input.nextLine();
+
 			if (!country.isEmpty()) {
 				event.setCountry(country);
 			}
@@ -322,7 +328,7 @@ public class EventMenu {
 
 			event.setDate(date);
 
-			System.out.print("\nEnter new description (current: " + event.getDescription() + "): ") ;
+			System.out.print("\nEnter new description (current: " + event.getBaseDescription() + "): ") ;
 			String description = input.nextLine();
 
 			if (!description.isEmpty()) {
@@ -378,6 +384,7 @@ public class EventMenu {
 			} else if (event instanceof ClubGig) {
 				ClubGig clubGig = (ClubGig) event;
 
+				System.out.print("Enter new age limit (current: " + clubGig.getAgeLimit() + "): ");
 				System.out.print("Enter new age limit (current: " + clubGig.getAgeLimit() + "): ");
 				String ageStr = input.nextLine();
 				if (!ageStr.isEmpty()) clubGig.setAgeLimit(Integer.parseInt(ageStr));

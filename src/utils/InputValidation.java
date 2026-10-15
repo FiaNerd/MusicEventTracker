@@ -17,6 +17,7 @@ public class InputValidation {
 			if (userInput.isEmpty()) {
 				System.out.println("[!] Please enter a number option.");
 				choice = min - 1;
+
 				continue;
 			}
 
@@ -59,6 +60,21 @@ public class InputValidation {
 			}
 		}
 	}
+
+
+	public static String getRequiredInput(Scanner input, String prompt) {
+		while (true) {
+			System.out.print(prompt);
+			String value = input.nextLine().trim();
+
+			if (!value.isEmpty()) {
+				return value;
+			}
+
+			System.out.println("[!] This field is required. Please try again.");
+		}
+	}
+
 	public static String getDateInput(Scanner input, String prompt, String currentDate) {
 		while (true) {
 			System.out.print(prompt);
@@ -84,19 +100,6 @@ public class InputValidation {
 		}
 	}
 
-
-	public static String getRequiredInput(Scanner input, String prompt) {
-		while (true) {
-			System.out.print(prompt);
-			String value = input.nextLine().trim();
-
-			if (!value.isEmpty()) {
-				return value;
-			}
-
-			System.out.println("[!] This field is required. Please try again.");
-		}
-	}
 
 	public static String getRequiredDateInput(Scanner input, String prompt) {
 		while (true) {

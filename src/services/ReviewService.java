@@ -44,15 +44,13 @@ public class ReviewService {
 		event.addReview(review);
 	}
 
-	public int getTotalReviews(List<EventModel> events) {
+	public int getTotalReviews(List<? extends Reviewable> items) {
 		int total = 0;
 
-		for (EventModel event : events) {
-			total += event.getReviews().size();
+		for (Reviewable item : items) {
+			total += item.getReviews().size();
 		}
 
 		return total;
 	}
-
-
 }

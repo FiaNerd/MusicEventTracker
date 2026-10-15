@@ -28,6 +28,7 @@ public class EventService {
 	 */
 
 	public void addEvent(EventModel event) {
+
 		if (event == null) {
 			throw new IllegalArgumentException("Event can't be null.");
 		}

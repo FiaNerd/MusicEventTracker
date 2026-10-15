@@ -16,7 +16,6 @@ public class ClubGig extends EventModel {
 	private int ageLimit;        // Minimum age required to enter the club
 	private double entryFee;     // Entry price for the club event
 	private String openingHours; // Opening hours for the club night (e.g., "22:00–03:00")
-	private List<Review> reviews = new ArrayList<>();
 
 	/**
 	 * Constructs a new ClubGig with both general event details and

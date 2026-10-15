@@ -13,6 +13,9 @@ public class Main{
 		DummyData.loadData(eventService);
 
 		Menu menu = new Menu(eventService, reviewService, input);
+
 		menu.start();
+
+		input.close();
 	}
 }
