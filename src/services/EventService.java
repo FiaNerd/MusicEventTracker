@@ -91,6 +91,16 @@ public class EventService {
 			throw new IllegalArgumentException("No event found by id: " + id);
 		}
 
+		List<String> errors = EventValidator.validate(updateEvent);
+
+		if (!errors.isEmpty()) {
+			throw new IllegalArgumentException(
+					String.join("\n", errors)
+			);
+		}
+
+		updateEvent.setId(existingEvent.getId());
+		
 		int eventId = events.indexOf(existingEvent);
 		events.set(eventId, updateEvent);
 	}
