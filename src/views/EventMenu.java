@@ -145,13 +145,19 @@ public class EventMenu {
 		System.out.println("          ADD EVENT");
 		System.out.println("==========================");
 		System.out.println("\n What Event do you wanna add:");
-		System.out.println("[1] Concert");
-		System.out.println("[2] Festival");
-		System.out.println("[3] Club gig");
+		System.out.println("[1] CONCERT");
+		System.out.println("[2] FESIVAL");
+		System.out.println("[3] CLUB GIG");
 		System.out.println("[4] BACK TO EVENT");
 
+		// MenuUtils.printCancelInfo();
+
 		try {
-			int numberEvent = InputValidation.getNumberInRange(input, 1, 3,  "Choose an option (1-3): ");
+			int numberEvent = InputValidation.getNumberInRange(input, 1, 4,  "Choose an option (1-4): ");
+
+				if (numberEvent == 4) {
+					return;
+				}
 
 			String artist = InputValidation.getRequiredInput(input, "Enter artis: ");
 
@@ -264,8 +270,6 @@ public class EventMenu {
 
 					eventService.addEvent(clubGig);
 					System.out.println("Club Gig added successfully!");
-					break;
-				case 4:
 					break;
 				default:
 					System.out.println("Invalid event type choice.");
@@ -429,6 +433,8 @@ public class EventMenu {
 		System.out.println("         DELETE EVENT");
 		System.out.println("==========================");
 
+		MenuUtils.printCancelInfo();
+
 		for (var event : eventService.getAllEvents()) {
 			System.out.println("  ID " + event.getId() + ": "
 					+ event.getArtist() + " @ " + event.getVenue()
@@ -439,7 +445,7 @@ public class EventMenu {
 		System.out.print("\n Enter event ID to delete: ");
 
 		try {
-			int deleteById = Integer.parseInt(input.nextLine());
+			int deleteById = Integer.parseInt(MenuUtils.cancelInput(input));
 
 			eventService.deleteEvent(deleteById);
 			System.out.println("Event with ID " + deleteById + " deleted successfully!");
