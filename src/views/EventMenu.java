@@ -9,6 +9,7 @@ import utils.InputValidation;
 import utils.MenuUtils;
 import models.EventModel;
 import java.util.Scanner;
+import java.util.concurrent.CancellationException;
 
 public class EventMenu {
 	private EventService eventService;
@@ -22,15 +23,12 @@ public class EventMenu {
 	public void start() {
 		int choice = 0;
 
-
-
-		// TODO: Do a check so the user only puts in numbers in the festival numbers of days
-
 		do {
 			printMenu();
 
 				choice = InputValidation.getNumberInRange(input, 1, 6,"\nChoose an option (1-6): ");
 
+			try {
 				switch (choice) {
 					case 1:
 						showAllaEvents();
@@ -38,7 +36,6 @@ public class EventMenu {
 						break;
 					case 2:
 						searchEvent();
-						MenuUtils.pressEnterToContinue(input);
 						break;
 					case 3:
 						addEvent();
@@ -52,6 +49,10 @@ public class EventMenu {
 					case 6:
 						break;
 				}
+			} catch (CancellationException ex) {
+				System.out.println("\nAction cancelled. Returning to event menu...");
+			}
+
 
 		} while (choice != 6); // until the user press 6, the loop will quit
 	}
@@ -91,39 +92,53 @@ public class EventMenu {
 	}
 
 
-
 	private void searchEvent() {
 		System.out.println("\n==========================");
 		System.out.println("       SEARCH EVENT");
 		System.out.println("==========================");
-		System.out.print("Searrch for artist / band or venue or city: ");
-		String searchTerm = input.nextLine().trim();
 
-		if (searchTerm.isEmpty()) {
-			System.out.println("Search term cannot be empty.");
-			return;
-		}
+		MenuUtils.printCancelInfo();
 
-		boolean found = false;
+		while (true) {
+			System.out.print("Search for artist / band, venue or city: ");
 
-		System.out.println("\n==========================");
-		System.out.println("      SEARCH RESULT");
-		System.out.println("==========================");
+			String searchTerm = MenuUtils.cancelInput(input);
 
-		for (var event : eventService.getAllEvents()) {
-			if (event.getArtist().toLowerCase().contains(searchTerm.toLowerCase())
-					|| event.getVenue().toLowerCase().contains(searchTerm.toLowerCase())
-					|| event.getCity().toLowerCase().contains(searchTerm.toLowerCase())) {
-				found = true;
-				System.out.println(event);
-				System.out.println("--------------------------------------------------");
+			if (searchTerm.isEmpty()) {
+				System.out.println("Search term cannot be empty. Please try again.\n");
+				continue;
 			}
-		}
 
-		if (!found) {
+			boolean found = false;
+
+			System.out.println("\n==========================");
+			System.out.println("      SEARCH RESULT");
+			System.out.println("==========================");
+
+			for (var event : eventService.getAllEvents()) {
+				if (event.getArtist().toLowerCase().contains(searchTerm.toLowerCase())
+						|| event.getVenue().toLowerCase().contains(searchTerm.toLowerCase())
+						|| event.getCity().toLowerCase().contains(searchTerm.toLowerCase())) {
+
+					found = true;
+					System.out.println(event);
+					System.out.println("--------------------------------------------------");
+				}
+			}
+
+			if (found) {
+				return;
+			}
+
 			System.out.println("No events found matching: \"" + searchTerm + "\"");
+			System.out.println("Please try another search term, or type ESC to return.");
+
+			System.out.println();
 		}
 	}
+
+
+
 
 	private void addEvent() {
 		System.out.println("\n==========================");
@@ -133,6 +148,7 @@ public class EventMenu {
 		System.out.println("[1] Concert");
 		System.out.println("[2] Festival");
 		System.out.println("[3] Club gig");
+		System.out.println("[4] BACK TO EVENT");
 
 		try {
 			int numberEvent = InputValidation.getNumberInRange(input, 1, 3,  "Choose an option (1-3): ");
@@ -168,7 +184,7 @@ public class EventMenu {
 					System.out.println("[3] Booth");
 					System.out.println("[Enter] Standing (default)");
 
-					System.out.print("\nChoose an option (1-3): ");
+					System.out.print("\nChoose an option (1-4): ");
 					String seatingInput = input.nextLine().trim();
 
 					SeatingType seatingType;
@@ -249,7 +265,8 @@ public class EventMenu {
 					eventService.addEvent(clubGig);
 					System.out.println("Club Gig added successfully!");
 					break;
-
+				case 4:
+					break;
 				default:
 					System.out.println("Invalid event type choice.");
 			}

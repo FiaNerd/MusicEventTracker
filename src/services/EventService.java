@@ -99,8 +99,10 @@ public class EventService {
 			);
 		}
 
+		// Preserve the original ID when updating an event
 		updateEvent.setId(existingEvent.getId());
-		
+
+		// Replace the existing event in the list
 		int eventId = events.indexOf(existingEvent);
 		events.set(eventId, updateEvent);
 	}
