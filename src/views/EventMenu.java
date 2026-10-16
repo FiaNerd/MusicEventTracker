@@ -187,7 +187,7 @@ public class EventMenu {
 
 			MenuUtils.printCancelInfo();
 
-			String artist = InputValidation.getInput(input, "Enter artis: ", true);
+			String artist = InputValidation.getInput(input, "Enter artist: ", true);
 
 			String genre = InputValidation.getInput(input, "Enter genre: ", true);
 
