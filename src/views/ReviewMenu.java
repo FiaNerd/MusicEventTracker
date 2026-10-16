@@ -33,6 +33,8 @@ public class ReviewMenu {
 			System.out.println("[3] Back to main menu");
 			System.out.println("=====================================");
 
+			c
+
 				choice = InputValidation.getNumberInRange(input, 1, 3,"\nChoose an option (1-3): " );
 
 				switch (choice) {
@@ -126,7 +128,7 @@ public class ReviewMenu {
 		}
 
 		System.out.println("--------------------------------------------------");
-
+		try {
 		var selectedEvent = (EventModel) null;
 
 		while (selectedEvent == null) {
@@ -141,6 +143,7 @@ public class ReviewMenu {
 						"No event found with ID " + id + ". Please try again.");
 			}
 		}
+
 		System.out.println("Selected: " + selectedEvent.getArtist()
 				+ " at " + selectedEvent.getVenue());
 
@@ -148,23 +151,24 @@ public class ReviewMenu {
 		int rating = InputValidation.getNumberInRange(input, 1, 5, "Enter rating between (1- 5): ");
 
 		// Get optional comment
-		// Get optional comment
 		System.out.print("Enter comment (optional): ");
 
 		String comment;
 
-		try {
+
 			comment = MenuUtils.cancelInput(input);
-		} catch (CancellationException ex) {
-			return;
-		}
+
 
 		String reviewComment = comment.isEmpty() ? "No comment" : comment;
 
 		Review review = new Review(rating, reviewComment);
 		reviewService.addReview(selectedEvent, review);
 
-		System.out.println("Review added successfully!");
+		} catch (CancellationException ex) {
+			return;
+		}
+
+		System.out.println("\nReview added successfully!");
 
 	}
 }

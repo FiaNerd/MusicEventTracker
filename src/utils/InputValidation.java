@@ -12,7 +12,7 @@ public class InputValidation {
 
 		do {
 			System.out.print(prompt);
-			String userInput = input.nextLine().trim();
+			String userInput = MenuUtils.cancelInput(input);
 
 			if (userInput.isEmpty()) {
 				System.out.println("[!] Please enter a number option. \n");
