@@ -34,9 +34,6 @@ public class ReviewMenu {
 			System.out.println("[3] Back to main menu");
 			System.out.println("=====================================");
 
-			MenuUtils.printCancelInfo();
-
-			try {
 				choice = InputValidation.getNumberInRange(
 						input, 1, 3, "\nChoose an option (1-3): ");
 
@@ -50,11 +47,6 @@ public class ReviewMenu {
 					case 3:
 						break;
 				}
-
-			} catch (CancellationException ex) {
-				return;
-			}
-
 		} while (choice != 3);
 	}
 
