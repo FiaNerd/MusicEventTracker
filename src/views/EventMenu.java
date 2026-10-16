@@ -26,7 +26,7 @@ public class EventMenu {
 		do {
 			printMenu();
 
-				choice = InputValidation.getNumberInRange(input, 1, 6,"\nChoose an option (1-6): ");
+			choice = InputValidation.getNumberInRange(input, 1, 6, "\nChoose an option (1-6): ");
 
 			try {
 				switch (choice) {
@@ -139,8 +139,6 @@ public class EventMenu {
 	}
 
 
-
-
 	private void addEvent() {
 		System.out.println("\n==========================");
 		System.out.println("          ADD EVENT");
@@ -153,11 +151,11 @@ public class EventMenu {
 
 		try {
 
-			int numberEvent = InputValidation.getNumberInRange(input, 1, 4,  "\nChoose an option (1-4): ");
+			int numberEvent = InputValidation.getNumberInRange(input, 1, 4, "\nChoose an option (1-4): ");
 
-				if (numberEvent == 4) {
-					return;
-				}
+			if (numberEvent == 4) {
+				return;
+			}
 
 			MenuUtils.printCancelInfo();
 
@@ -175,7 +173,7 @@ public class EventMenu {
 
 			String description = InputValidation.getInput(input, "Enter description (optional): ", false);
 
-			boolean isOutdoor  = InputValidation.getYesNoInput(input, "Is it outdoor? (Yes/No): ", null,true);
+			boolean isOutdoor = InputValidation.getYesNoInput(input, "Is it outdoor? (Yes/No): ", null, true);
 
 			switch (numberEvent) {
 				case 1: // Concert
@@ -213,7 +211,7 @@ public class EventMenu {
 							break;
 					}
 
-					Concert concert = new Concert( artist, genre, venue, city, country, date, description, isOutdoor, supportAct, tourName, seatingType);
+					Concert concert = new Concert(artist, genre, venue, city, country, date, description, isOutdoor, supportAct, tourName, seatingType);
 					eventService.addEvent(concert);
 					System.out.println("\nConcert added successfully!");
 					break;
@@ -596,28 +594,43 @@ public class EventMenu {
 		System.out.println("         DELETE EVENT");
 		System.out.println("==========================");
 
-		MenuUtils.printCancelInfo();
-
 		for (var event : eventService.getAllEvents()) {
 			System.out.println("  ID " + event.getId() + ": "
 					+ event.getArtist() + " @ " + event.getVenue()
 					+ " (" + event.getDate() + ")");
 		}
 
+		MenuUtils.printCancelInfo();
 
-		System.out.print("\n Enter event ID to delete: ");
+		while (true) {
+			System.out.print("\nEnter event ID to delete: ");
 
-		try {
-			int deleteById = Integer.parseInt(MenuUtils.cancelInput(input));
+			try {
+				String userInput = MenuUtils.cancelInput(input);
+				int deleteById = Integer.parseInt(userInput);
 
-			eventService.deleteEvent(deleteById);
-			System.out.println("Event with ID " + deleteById + " deleted successfully!");
+				var event = eventService.getEventById(deleteById);
 
-		} catch (NumberFormatException ex) {
-			System.out.println("Invalid input. Event ID must be a number.");
-		} catch (IllegalArgumentException ex) {
-			System.out.println(ex.getMessage());
+				if (event == null) {
+					System.out.println("No event found with ID " + deleteById
+							+ ". Please try again.");
+					continue;
+				}
+
+				eventService.deleteEvent(deleteById);
+
+				System.out.println("Event with ID " + deleteById
+						+ " deleted successfully!");
+
+				break;
+
+			} catch (NumberFormatException ex) {
+				System.out.println("Invalid input. Event ID must be a number.");
+
+			} catch (IllegalArgumentException ex) {
+				System.out.println(ex.getMessage());
+			}
 		}
 	}
-	}
+}
 
