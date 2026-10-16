@@ -26,6 +26,7 @@ public class DummyData {
 				SeatingType.STANDING
 		);
 
+		// Add sample reviews to the Evergrey event.
 		evergrey.addReview(new Review(5, "Magical performance! Tom S. was on fire."));
 		evergrey.addReview(new Review(4, "Great sound at Mejeriet, but a bit crowded."));
 		evergrey.addReview(new Review(3, "Too little space for the band. Too crowded."));

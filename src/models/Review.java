@@ -46,6 +46,11 @@ public class Review implements Summarizable {
 		return createdAt;
 	}
 
+	/**
+	 * Returns a summary of the review, including its rating and comment.
+	 *
+	 * @return a formatted string containing the rating and comment
+	 */
 	@Override
 	public String getSummary() {
 		return "Rating: " + rating + "/5 - " + comment;
