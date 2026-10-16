@@ -35,7 +35,9 @@ public class ReviewService {
 		for (EventModel event : events) {
 			// Match artist names regardless of letter case
 			// and exclude events without reviews.
-			if (event.getArtist().equalsIgnoreCase(artist)
+			if (event != null
+					&& event.getArtist() != null
+					&& event.getArtist().equalsIgnoreCase(artist)
 					&& !event.getReviews().isEmpty()) {
 				matchingEvents.add(event);
 			}

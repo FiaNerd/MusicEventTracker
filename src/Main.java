@@ -20,7 +20,7 @@ public class Main {
 		Scanner input = new Scanner(System.in);
 
 		// Load sample events into the application.
-		DummyData.loadData(eventService);
+		// DummyData.loadData(eventService);
 
 		// Create and start the main menu.
 		Menu menu = new Menu(eventService, reviewService, input);
