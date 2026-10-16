@@ -3,6 +3,7 @@ package utils;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.concurrent.CancellationException;
 
 /**
  * Handles and validates user input, including numbers,
@@ -17,7 +18,15 @@ public class InputValidation {
 
 		do {
 			System.out.print(prompt);
-			String userInput = MenuUtils.cancelInput(input);
+			String userInput;
+
+			try {
+				userInput = MenuUtils.cancelInput(input);
+			} catch (CancellationException ex) {
+				System.out.println("[!] Invalid input. Please enter a number.\n");
+				choice = min - 1;
+				continue;
+			}
 
 			if (userInput.isEmpty()) {
 				System.out.println("[!] Please enter a number option. \n");
