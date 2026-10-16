@@ -175,7 +175,7 @@ public class EventMenu {
 
 			String description = InputValidation.getInput(input, "Enter description (optional): ", false);
 
-			boolean isOutdoor  = InputValidation.getYesNoInput(input, "Is it outdoor? (Yes/No): ", null);
+			boolean isOutdoor  = InputValidation.getYesNoInput(input, "Is it outdoor? (Yes/No): ", null,true);
 
 			switch (numberEvent) {
 				case 1: // Concert
@@ -223,7 +223,7 @@ public class EventMenu {
 					);
 
 					boolean camping = InputValidation.getYesNoInput(
-							input, "Is camping included? (Yes/No): ", null);
+							input, "Is camping included? (Yes/No): ", null, true);
 
 					Festival festival = new Festival(
 							artist, genre, venue, city, country, date,
@@ -327,14 +327,14 @@ public class EventMenu {
 		}
 
 
-		System.out.print("\n Enter event ID to update: ");
+		System.out.print("\nEnter event ID to update: ");
 
 		try {
 			int id = Integer.parseInt(input.nextLine());
 			var event = eventService.getEventById(id);
 
 			if (event == null) {
-				System.out.println("No event found with ID " + id);
+				System.out.println("No event found with ID " + id + "\n");
 				MenuUtils.pressEnterToContinue(input);
 				//return;
 			}
@@ -382,7 +382,7 @@ public class EventMenu {
 
 			event.setDate(date);
 
-			System.out.print("\nEnter new description (current: " + event.getBaseDescription() + "): ") ;
+			System.out.print("Enter new description (current: " + event.getBaseDescription() + "): ") ;
 			String description = input.nextLine();
 
 			if (!description.isEmpty()) {
@@ -394,7 +394,7 @@ public class EventMenu {
 					input,
 					"Is it outdoors? (Yes/No, current: "
 							+ (event.isOutdoor() ? "Yes" : "No") + "): ",
-					event.isOutdoor()
+					event.isOutdoor(), true
 			);
 
 			event.setOutdoor(isOutdoor);
@@ -438,7 +438,6 @@ public class EventMenu {
 			} else if (event instanceof ClubGig) {
 				ClubGig clubGig = (ClubGig) event;
 
-				System.out.print("Enter new age limit (current: " + clubGig.getAgeLimit() + "): ");
 				System.out.print("Enter new age limit (current: " + clubGig.getAgeLimit() + "): ");
 				String ageStr = input.nextLine();
 				if (!ageStr.isEmpty()) clubGig.setAgeLimit(Integer.parseInt(ageStr));

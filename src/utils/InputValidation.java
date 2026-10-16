@@ -43,13 +43,14 @@ public class InputValidation {
 
 
 	public static boolean getYesNoInput(
-			Scanner input, String prompt, Boolean currentValue) {
+			Scanner input, String prompt, Boolean currentValue, boolean required) {
 
 		while (true) {
 			System.out.print(prompt);
-			String answer = input.nextLine().trim();
 
-			if (answer.isEmpty() && currentValue != null) {
+			String answer = MenuUtils.cancelInput(input);
+
+			if (answer.isEmpty() && currentValue != null || !required) {
 				return currentValue;
 			} else if (answer.equalsIgnoreCase("yes")) {
 				return true;

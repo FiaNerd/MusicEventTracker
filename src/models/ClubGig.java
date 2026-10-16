@@ -1,6 +1,8 @@
 package models;
 
 
+import java.util.Objects;
+
 /**
  * Represents a club-based music event, extending the generic EventModel.
  * A ClubGig typically has additional rules and characteristics such as
@@ -85,11 +87,13 @@ public class ClubGig extends EventModel {
 	 * @return formatted club gig description string
 	 */
 	@Override
-	public String getDescription(){
+	public String getDescription() {
 		return super.getDescription() +
-				"\nAge limit: " + ageLimit +
-				"\nEntry fee: " + entryFee + " SEK" +
-				"\nOpening hours: " + openingHours;
+				"\nAge limit: " + Objects.toString(ageLimit, "Not specified") +
+				"\nEntry fee: " + (entryFee == null
+				? "Not specified"
+				: String.format("%.2f SEK", entryFee)) +
+				"\nOpening hours: " + Objects.toString(openingHours, "Not specified");
 	}
 
 	/**
@@ -102,10 +106,11 @@ public class ClubGig extends EventModel {
 	@Override
 	public String toString() {
 		return super.toString().replace("EventModel", "ClubGig") +
-				"\n  Age limit: " + ageLimit +
-				"\n  Entry fee: " + entryFee +
-				"\n  Opening hours: " + openingHours +
+				"\n  Age limit: " + Objects.toString(ageLimit, "Not specified") +
+				"\n  Entry fee: " + (entryFee == null
+				? "Not specified"
+				: String.format("%.2f SEK", entryFee)) +
+				"\n  Opening hours: " + Objects.toString(openingHours, "Not specified") +
 				"\n  Average rating: " + getRatingText();
-
 	}
 }
