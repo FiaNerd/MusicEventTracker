@@ -8,6 +8,7 @@ import utils.InputValidation;
 import utils.MenuUtils;
 
 import java.util.Scanner;
+import java.util.concurrent.CancellationException;
 
 public class ReviewMenu {
 	private EventService eventService;
@@ -47,50 +48,64 @@ public class ReviewMenu {
 		} while (choice != 3);
 	}
 
+
 	private void showReviewsByArtist() {
 		System.out.println("\n ================================");
 		System.out.println("      SHOW REVIEWS OF ARTIST ");
 		System.out.println(" ==================================");
-		System.out.print("Enter artist name: ");
-		String searchArtist = input.nextLine().trim();
+
+		MenuUtils.printCancelInfo();
+
+		while (true) {
+			System.out.print("\nEnter artist name: ");
+
+			String searchArtist;
+
+			try {
+				searchArtist = MenuUtils.cancelInput(input);
+			} catch (CancellationException ex) {
+				return;
+			}
 
 			if (searchArtist.isEmpty()) {
-				return;
+				System.out.println("Artist name cannot be empty. Please try again.");
+				continue;
 			}
 
-			var reviews =
-					reviewService.getEventsWithReviewsByArtist(
-							eventService.getAllEvents(), searchArtist);
-
+			var reviews = reviewService.getEventsWithReviewsByArtist(
+					eventService.getAllEvents(), searchArtist);
 
 			if (reviews.isEmpty()) {
-				System.out.println("No reviews found for " + searchArtist + ".");
-				MenuUtils.pressEnterToContinue(input);
-				return;
+				System.out.println("No reviews found for " + searchArtist
+						+ ". Please try again.\n");
+				continue;
 			}
 
-		for (EventModel event : reviews) {
-			System.out.println("\n================================");
-			System.out.println("Artist: " + event.getArtist());
-			System.out.println("Venue: " + event.getVenue());
-			System.out.println("Location: " + event.getCity()
-					+ ", " + event.getCountry());
-			System.out.println("Event date: " + event.getDate());
-			System.out.println("Description: " + event.getDescription());
-			System.out.println("================================");
+			// Display events and their reviews
+			for (EventModel event : reviews) {
+				System.out.println("\n================================");
+				System.out.println("Artist: " + event.getArtist());
+				System.out.println("Venue: " + event.getVenue());
+				System.out.println("Location: " + event.getCity()
+						+ ", " + event.getCountry());
+				System.out.println("Event date: " + event.getDate());
+				System.out.println("Description: " + event.getDescription());
+				System.out.println("================================");
 
-			for (Review review : event.getReviews()) {
-				System.out.println("Rating: " + review.getRating() + "/5");
-				System.out.println("Comment: \"" + review.getComment() + "\"");
-				System.out.println("--------------------------------");
+				for (Review review : event.getReviews()) {
+					System.out.println("Rating: " + review.getRating() + "/5");
+					System.out.println("Comment: \"" + review.getComment() + "\"");
+					System.out.println("--------------------------------");
+				}
 			}
+
+			int totalReviews = reviewService.getTotalReviews(reviews);
+
+			System.out.println("\nTotal reviews: " + totalReviews + "\n");
+
+			MenuUtils.pressEnterToContinue(input);
+			return;
 		}
-
-		int totalReviews = reviewService.getTotalReviews(reviews);
-
-		System.out.println("\nTotal reviews: " + totalReviews + "\n");
-
-		MenuUtils.pressEnterToContinue(input);
 	}
 
 
