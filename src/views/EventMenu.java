@@ -315,150 +315,281 @@ public class EventMenu {
 		}
 	}
 
+
 	private void updateEvent() {
 		System.out.println("\n==========================");
 		System.out.println("       UPDATE EVENT");
 		System.out.println("==========================");
 
-		for (var event : eventService.getAllEvents()) {
-			System.out.println("  ID " + event.getId() + ": "
-					+ event.getArtist() + " @ " + event.getVenue()
-					+ " (" + event.getDate() + ")");
+		for (var item : eventService.getAllEvents()) {
+			System.out.println("  ID " + item.getId() + ": "
+					+ item.getArtist() + " @ " + item.getVenue()
+					+ " (" + item.getDate() + ")");
 		}
 
+		MenuUtils.printCancelInfo();
 
-		System.out.print("\nEnter event ID to update: ");
+		int id = -1;
+		EventModel event = null;
 
-		try {
-			int id = Integer.parseInt(input.nextLine());
-			var event = eventService.getEventById(id);
+		// Find an existing event
+		while (event == null) {
+			System.out.print("\nEnter event ID to update: ");
 
-			if (event == null) {
-				System.out.println("No event found with ID " + id + "\n");
-				MenuUtils.pressEnterToContinue(input);
-				//return;
-			}
+			try {
+				String userInput = MenuUtils.cancelInput(input);
+				id = Integer.parseInt(userInput);
 
-			System.out.println("Event found - " + event.getArtist() + "!\nEnter new details (press enter to keep current)");
+				event = eventService.getEventById(id);
 
-			System.out.print("\nEnter new artist (current: " + event.getArtist() + "): ");
-			String artist = input.nextLine();
-
-			if (!artist.isEmpty()){
-				event.setArtist(artist);
-			}
-
-			System.out.print("Enter new genre (current: " + event.getGenre() + "): ");
-			String genre = input.nextLine();
-
-			if (!genre.isEmpty()){
-				event.setGenre(genre);
-			}
-
-			System.out.print("Enter new venue (current: " + event.getVenue() + "): ");
-			String venue = input.nextLine();
-
-			if (!venue.isEmpty()) {
-				event.setVenue(venue);
-			}
-
-			System.out.print("Enter new city (current: " + event.getCity() + "): ");
-			String city = input.nextLine();
-
-			if (!city.isEmpty()) {
-				event.setCity(city);
-			}
-
-			System.out.print("Enter new country (current: " + event.getCountry() + "): ");
-			String country = input.nextLine();
-
-			if (!country.isEmpty()) {
-				event.setCountry(country);
-			}
-
-			String date = InputValidation.getDateInput(input, "Enter new date (current: " + event.getDate() + "): ",
-					event.getDate()
-			);
-
-			event.setDate(date);
-
-			System.out.print("Enter new description (current: " + event.getBaseDescription() + "): ") ;
-			String description = input.nextLine();
-
-			if (!description.isEmpty()) {
-				event.setDescription(description);
-			}
-
-
-			boolean isOutdoor = InputValidation.getYesNoInput(
-					input,
-					"Is it outdoors? (Yes/No, current: "
-							+ (event.isOutdoor() ? "Yes" : "No") + "): ",
-					event.isOutdoor(), true
-			);
-
-			event.setOutdoor(isOutdoor);
-
-			if (event instanceof Concert) {
-				Concert concert = (Concert) event;
-
-				System.out.print("Enter new support act (current: " + concert.getSupportAct() + "): ");
-				String supportAct = input.nextLine();
-
-				if (!supportAct.isEmpty()) {
-					concert.setSupportAct(supportAct);
+				if (event == null) {
+					System.out.println(
+							"No event found with ID " + id
+									+ ". Please try again.\n"
+					);
 				}
 
-				System.out.print("Enter new tour name (current: " + concert.getTourName() + "): ");
-				String tourName = input.nextLine();
-				if (!tourName.isEmpty()) concert.setTourName(tourName);
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid ID. Please enter a number.\n");
+			}
+		}
 
-				System.out.print("Enter new seating type STANDING/SITTING/BOOTH (current: " + concert.getSeatingType() + "): ");
-				String seatingInput = input.nextLine().trim();
-				if (!seatingInput.isEmpty()) {
-					for (SeatingType type : SeatingType.values()) {
-						if (type.name().equalsIgnoreCase(seatingInput)) {
-							concert.setSeatingType(type);
-							break;
-						}
+		System.out.println("\nEvent found - " + event.getArtist()
+				+ "!\nEnter new details (press Enter to keep current).");
+
+		// Artist
+		System.out.print("\nEnter new artist (current: "
+				+ event.getArtist() + "): ");
+		String artist = MenuUtils.cancelInput(input);
+
+		if (!artist.isEmpty()) {
+			event.setArtist(artist);
+		}
+
+		// Genre
+		System.out.print("Enter new genre (current: "
+				+ event.getGenre() + "): ");
+		String genre = MenuUtils.cancelInput(input);
+
+		if (!genre.isEmpty()) {
+			event.setGenre(genre);
+		}
+
+		// Venue
+		System.out.print("Enter new venue (current: "
+				+ event.getVenue() + "): ");
+		String venue = MenuUtils.cancelInput(input);
+
+		if (!venue.isEmpty()) {
+			event.setVenue(venue);
+		}
+
+		// City
+		System.out.print("Enter new city (current: "
+				+ event.getCity() + "): ");
+		String city = MenuUtils.cancelInput(input);
+
+		if (!city.isEmpty()) {
+			event.setCity(city);
+		}
+
+		// Country
+		System.out.print("Enter new country (current: "
+				+ event.getCountry() + "): ");
+		String country = MenuUtils.cancelInput(input);
+
+		if (!country.isEmpty()) {
+			event.setCountry(country);
+		}
+
+		// Date
+		String date = InputValidation.getDateInput(
+				input,
+				"Enter new date (current: " + event.getDate() + "): ",
+				event.getDate()
+		);
+		event.setDate(date);
+
+		// Description
+		System.out.print("Enter new description (current: "
+				+ event.getBaseDescription() + "): ");
+		String description = MenuUtils.cancelInput(input);
+
+		if (!description.isEmpty()) {
+			event.setDescription(description);
+		}
+
+		// Outdoor
+		boolean isOutdoor = InputValidation.getYesNoInput(
+				input,
+				"Is it outdoors? (Yes/No, current: "
+						+ (event.isOutdoor() ? "Yes" : "No") + "): ",
+				event.isOutdoor(),
+				true
+		);
+		event.setOutdoor(isOutdoor);
+
+		// Concert
+		if (event instanceof Concert) {
+			Concert concert = (Concert) event;
+
+			System.out.print("Enter new support act (current: "
+					+ concert.getSupportAct() + "): ");
+			String supportAct = MenuUtils.cancelInput(input);
+
+			if (!supportAct.isEmpty()) {
+				concert.setSupportAct(supportAct);
+			}
+
+			System.out.print("Enter new tour name (current: "
+					+ concert.getTourName() + "): ");
+			String tourName = MenuUtils.cancelInput(input);
+
+			if (!tourName.isEmpty()) {
+				concert.setTourName(tourName);
+			}
+
+			while (true) {
+				System.out.print(
+						"Enter seating type STANDING/SITTING/BOOTH "
+								+ "(current: " + concert.getSeatingType() + "): "
+				);
+
+				String seatingInput = MenuUtils.cancelInput(input);
+
+				if (seatingInput.isEmpty()) {
+					break;
+				}
+
+				boolean valid = false;
+
+				for (SeatingType type : SeatingType.values()) {
+					if (type.name().equalsIgnoreCase(seatingInput)) {
+						concert.setSeatingType(type);
+						valid = true;
+						break;
 					}
 				}
 
-			} else if (event instanceof Festival) {
-				Festival festival = (Festival) event;
+				if (valid) {
+					break;
+				}
 
-				System.out.print("Enter new number of days (current: " + festival.getNumberOfDays() + "): ");
-				String daysStr = input.nextLine();
-				if (!daysStr.isEmpty()) festival.setNumberOfDays(Integer.parseInt(daysStr));
-
-				System.out.print("Is camping included? Yses/No (current: " + festival.isCampingIncluded() + "): ");
-				String campingStr = input.nextLine();
-				if (!campingStr.isEmpty()) festival.setCampingIncluded(Boolean.parseBoolean(campingStr));
-
-			} else if (event instanceof ClubGig) {
-				ClubGig clubGig = (ClubGig) event;
-
-				System.out.print("Enter new age limit (current: " + clubGig.getAgeLimit() + "): ");
-				String ageStr = input.nextLine();
-				if (!ageStr.isEmpty()) clubGig.setAgeLimit(Integer.parseInt(ageStr));
-
-				System.out.print("Enter new ticket price (current: " + clubGig.getEntryFee() + "): ");
-				String priceStr = input.nextLine();
-				if (!priceStr.isEmpty()) clubGig.setEntryFee(Double.parseDouble(priceStr));
-
-				System.out.print("Enter new set times (current: " + clubGig.getOpeningHours() + "): ");
-				String setTimes = input.nextLine();
-				if (!setTimes.isEmpty()) clubGig.setOpeningHours(setTimes);
+				System.out.println(
+						"Invalid seating type. Choose STANDING, SITTING or BOOTH.\n"
+				);
 			}
 
-			eventService.updateEvent(id, event);
+			// Festival
+		} else if (event instanceof Festival) {
+			Festival festival = (Festival) event;
 
-			System.out.println("\nEvent updated successfully!");
+			while (true) {
+				System.out.print("Enter new number of days (current: "
+						+ festival.getNumberOfDays() + "): ");
 
-		} catch (NumberFormatException ex) {
-			System.out.println("Invalid number format. Please try again.");
+				String daysStr = MenuUtils.cancelInput(input);
+
+				if (daysStr.isEmpty()) {
+					break;
+				}
+
+				try {
+					int days = Integer.parseInt(daysStr);
+
+					if (days > 0) {
+						festival.setNumberOfDays(days);
+						break;
+					}
+
+					System.out.println("Number of days must be greater than 0.\n");
+
+				} catch (NumberFormatException e) {
+					System.out.println("Please enter a valid whole number.\n");
+				}
+			}
+
+			boolean campingIncluded = InputValidation.getYesNoInput(
+					input,
+					"Is camping included? (Yes/No, current: "
+							+ (festival.isCampingIncluded() ? "Yes" : "No") + "): ",
+					festival.isCampingIncluded(),
+					true
+			);
+
+			festival.setCampingIncluded(campingIncluded);
+
+			// Club gig
+		} else if (event instanceof ClubGig) {
+			ClubGig clubGig = (ClubGig) event;
+
+			while (true) {
+				System.out.print("Enter new age limit (current: "
+						+ clubGig.getAgeLimit() + "): ");
+
+				String ageStr = MenuUtils.cancelInput(input);
+
+				if (ageStr.isEmpty()) {
+					break;
+				}
+
+				try {
+					int age = Integer.parseInt(ageStr);
+
+					if (age >= 0 && age <= 100) {
+						clubGig.setAgeLimit(age);
+						break;
+					}
+
+					System.out.println("Age limit must be between 0 and 100.\n");
+
+				} catch (NumberFormatException e) {
+					System.out.println("Please enter a valid whole number.\n");
+				}
+			}
+
+			while (true) {
+				System.out.print("Enter new ticket price (current: "
+						+ clubGig.getEntryFee() + "): ");
+
+				String priceStr = MenuUtils.cancelInput(input);
+
+				if (priceStr.isEmpty()) {
+					break;
+				}
+
+				try {
+					double price = Double.parseDouble(priceStr);
+
+					if (Double.isFinite(price) && price >= 0) {
+						clubGig.setEntryFee(price);
+						break;
+					}
+
+					System.out.println("Ticket price cannot be negative.\n");
+
+				} catch (NumberFormatException e) {
+					System.out.println(
+							"Please enter a valid price, e.g. 150.50.\n"
+					);
+				}
+			}
+
+			System.out.print("Enter new set times (current: "
+					+ clubGig.getOpeningHours() + "): ");
+			String setTimes = MenuUtils.cancelInput(input);
+
+			if (!setTimes.isEmpty()) {
+				clubGig.setOpeningHours(setTimes);
+			}
 		}
+
+		// Save changes
+		eventService.updateEvent(id, event);
+
+		System.out.println("\nEvent updated successfully!");
 	}
+
 
 	private void deleteEvent() {
 		System.out.println("\n==========================");
@@ -488,4 +619,5 @@ public class EventMenu {
 			System.out.println(ex.getMessage());
 		}
 	}
-}
+	}
+
