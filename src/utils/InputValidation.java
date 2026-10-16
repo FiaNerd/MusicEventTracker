@@ -4,9 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Handles and validates user input, including numbers,
+ * text, dates, yes/no answers and time ranges.
+ */
 public class InputValidation {
 
 
+	// Validates that a number is within the specified range.
 	public static int getNumberInRange(Scanner input, int min, int max, String prompt) {
 		int choice;
 
@@ -41,7 +46,7 @@ public class InputValidation {
 		return choice;
 	}
 
-
+	// Validates yes/no answers.
 	public static boolean getYesNoInput(
 			Scanner input, String prompt, Boolean currentValue, boolean required) {
 
@@ -50,8 +55,8 @@ public class InputValidation {
 
 			String answer = MenuUtils.cancelInput(input);
 
-			if (answer.isEmpty() && currentValue != null || !required) {
-				return currentValue;
+			if (answer.isEmpty() && !required) {
+				return currentValue != null && currentValue;
 			} else if (answer.equalsIgnoreCase("yes")) {
 				return true;
 			} else if (answer.equalsIgnoreCase("no")) {
@@ -62,6 +67,8 @@ public class InputValidation {
 		}
 	}
 
+
+	// Reads required or optional text input.
 	public static String getInput(Scanner input, String prompt, boolean required){
 		while (true){
 			System.out.print(prompt);
@@ -78,6 +85,7 @@ public class InputValidation {
 		}
 	}
 
+	// Validates a date and allows keeping the existing date.
 	public static String getDateInput(Scanner input, String prompt, String currentDate) {
 		while (true) {
 			System.out.print(prompt);
@@ -103,7 +111,7 @@ public class InputValidation {
 		}
 	}
 
-
+	// Validates a required or optional date.
 	public static String getRequiredDateInput(
 			Scanner input, String prompt, boolean required) {
 
@@ -141,6 +149,7 @@ public class InputValidation {
 		}
 	}
 
+	// Validates a time range in HH:mm-HH:mm format.
 	public static String getOptionalTimeRange(
 			Scanner input, String prompt, boolean required) {
 
