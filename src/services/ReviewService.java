@@ -13,6 +13,10 @@ public class ReviewService {
 	public List<EventModel> getEventsWithReviewsByArtist(
 			List<EventModel> events, String artist) {
 
+		if (events == null || artist == null || artist.isBlank()) {
+			return new ArrayList<>();
+		}
+
 		List<EventModel> matchingEvents = new ArrayList<>();
 
 		for (EventModel event : events) {
