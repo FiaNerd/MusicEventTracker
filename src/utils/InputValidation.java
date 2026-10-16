@@ -15,7 +15,7 @@ public class InputValidation {
 			String userInput = input.nextLine().trim();
 
 			if (userInput.isEmpty()) {
-				System.out.println("[!] Please enter a number option.");
+				System.out.println("[!] Please enter a number option. \n");
 				choice = min - 1;
 
 				continue;
@@ -65,9 +65,11 @@ public class InputValidation {
 	public static String getRequiredInput(Scanner input, String prompt) {
 		while (true) {
 			System.out.print(prompt);
-			String value = input.nextLine().trim();
+			// String value = input.nextLine().trim();
 
-			if (!value.isEmpty()) {
+			String value = MenuUtils.cancelInput(input);
+
+			if (!value.isBlank()) {
 				return value;
 			}
 

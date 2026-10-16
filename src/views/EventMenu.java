@@ -127,6 +127,7 @@ public class EventMenu {
 			}
 
 			if (found) {
+				MenuUtils.pressEnterToContinue(input);
 				return;
 			}
 
@@ -150,14 +151,15 @@ public class EventMenu {
 		System.out.println("[3] CLUB GIG");
 		System.out.println("[4] BACK TO EVENT");
 
-		// MenuUtils.printCancelInfo();
-
 		try {
-			int numberEvent = InputValidation.getNumberInRange(input, 1, 4,  "Choose an option (1-4): ");
+
+			int numberEvent = InputValidation.getNumberInRange(input, 1, 4,  "\nChoose an option (1-4): ");
 
 				if (numberEvent == 4) {
 					return;
 				}
+
+			MenuUtils.printCancelInfo();
 
 			String artist = InputValidation.getRequiredInput(input, "Enter artis: ");
 
@@ -303,7 +305,8 @@ public class EventMenu {
 
 			if (event == null) {
 				System.out.println("No event found with ID " + id);
-				return;
+				MenuUtils.pressEnterToContinue(input);
+				//return;
 			}
 
 			System.out.println("Event found - " + event.getArtist() + "!\nEnter new details (press enter to keep current)");

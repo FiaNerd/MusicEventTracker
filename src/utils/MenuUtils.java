@@ -21,6 +21,6 @@ public class MenuUtils {
 	}
 
 	public static void printCancelInfo() {
-		System.out.println("(Type: ESC and press Enter to return to event menu)");
+		System.out.println("(Type: ESC and press Enter to return to event menu)\n");
 	}
 }
