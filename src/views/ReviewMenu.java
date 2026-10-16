@@ -115,6 +115,8 @@ public class ReviewMenu {
 		System.out.println("      ADD REVIEW TO EVENT ");
 		System.out.println("================================");
 
+		MenuUtils.printCancelInfo();
+
 		System.out.println("Available events:");
 
 		for (var event : eventService.getAllEvents()) {
@@ -146,9 +148,16 @@ public class ReviewMenu {
 		int rating = InputValidation.getNumberInRange(input, 1, 5, "Enter rating between (1- 5): ");
 
 		// Get optional comment
+		// Get optional comment
 		System.out.print("Enter comment (optional): ");
-		String comment = input.nextLine().trim();
 
+		String comment;
+
+		try {
+			comment = MenuUtils.cancelInput(input);
+		} catch (CancellationException ex) {
+			return;
+		}
 
 		String reviewComment = comment.isEmpty() ? "No comment" : comment;
 
