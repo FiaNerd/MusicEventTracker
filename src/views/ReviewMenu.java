@@ -11,6 +11,11 @@ import utils.MenuUtils;
 import java.util.Scanner;
 import java.util.concurrent.CancellationException;
 
+/**
+ * Handles user interaction for viewing and adding event reviews.
+ * Delegates review operations to ReviewService.
+ */
+
 public class ReviewMenu {
 	private EventService eventService;
 	private ReviewService reviewService;
@@ -23,6 +28,9 @@ public class ReviewMenu {
 	}
 
 
+	/**
+	 * Displays the review menu and handles user choices.
+	 */
 	public void start() {
 		int choice = 0;
 
@@ -85,12 +93,13 @@ public class ReviewMenu {
 				continue;
 			}
 
-			// Display events and their reviews
+			// Polymorphism: displays each event using its overridden toString() method.
 			for (EventModel event : reviews) {
 				System.out.println("\n================================");
 				System.out.println(event);
 				System.out.println("================================");
 
+				// Interface polymorphism: uses Summarizable to display each review.
 				for (Review review : event.getReviews()) {
 					Summarizable summary = review;
 					System.out.println(summary.getSummary());
