@@ -21,8 +21,9 @@ public class ReviewMenu {
 		this.input = input;
 	}
 
+
 	public void start() {
-		int choice;
+		int choice = 0;
 
 		do {
 			System.out.println("=====================================");
@@ -33,9 +34,11 @@ public class ReviewMenu {
 			System.out.println("[3] Back to main menu");
 			System.out.println("=====================================");
 
-			c
+			MenuUtils.printCancelInfo();
 
-				choice = InputValidation.getNumberInRange(input, 1, 3,"\nChoose an option (1-3): " );
+			try {
+				choice = InputValidation.getNumberInRange(
+						input, 1, 3, "\nChoose an option (1-3): ");
 
 				switch (choice) {
 					case 1:
@@ -47,8 +50,14 @@ public class ReviewMenu {
 					case 3:
 						break;
 				}
+
+			} catch (CancellationException ex) {
+				return;
+			}
+
 		} while (choice != 3);
 	}
+
 
 
 	private void showReviewsByArtist() {
@@ -140,7 +149,7 @@ public class ReviewMenu {
 
 			if (selectedEvent == null) {
 				System.out.println(
-						"No event found with ID " + id + ". Please try again.");
+						"No event found with ID " + id + ". Please try again.\n");
 			}
 		}
 
