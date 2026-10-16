@@ -4,6 +4,9 @@ import models.EventModel;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Validates event data and collects any validation errors.
+ */
 public class EventValidator {
 
 	public static List<String> validate(EventModel event) {
