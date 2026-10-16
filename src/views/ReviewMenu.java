@@ -1,5 +1,6 @@
 package views;
 
+import interfaces.Summarizable;
 import models.EventModel;
 import models.Review;
 import services.EventService;
@@ -87,17 +88,12 @@ public class ReviewMenu {
 			// Display events and their reviews
 			for (EventModel event : reviews) {
 				System.out.println("\n================================");
-				System.out.println("Artist: " + event.getArtist());
-				System.out.println("Venue: " + event.getVenue());
-				System.out.println("Location: " + event.getCity()
-						+ ", " + event.getCountry());
-				System.out.println("Event date: " + event.getDate());
-				System.out.println("Description: " + event.getDescription());
+				System.out.println(event);
 				System.out.println("================================");
 
 				for (Review review : event.getReviews()) {
-					System.out.println("Rating: " + review.getRating() + "/5");
-					System.out.println("Comment: \"" + review.getComment() + "\"");
+					Summarizable summary = review;
+					System.out.println(summary.getSummary());
 					System.out.println("--------------------------------");
 				}
 			}
