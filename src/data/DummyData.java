@@ -52,7 +52,7 @@ public class DummyData {
 				"The Haunted", "Death Metal", "Mejeriet",
 				"Lund", "Sweden", "2026-11-21",
 				"Swedish old death metal group", false,
-				18, 150, "19:00-01:00"
+				18, 150.0, "19:00-01:00"
 		);
 
 		theHaunted.addReview(new Review(1, "Pure brutal energy in a small garage!"));

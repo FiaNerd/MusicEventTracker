@@ -161,20 +161,19 @@ public class EventMenu {
 
 			MenuUtils.printCancelInfo();
 
-			String artist = InputValidation.getRequiredInput(input, "Enter artis: ");
+			String artist = InputValidation.getInput(input, "Enter artis: ", true);
 
-			String genre = InputValidation.getRequiredInput(input, "Enter genre: ");
+			String genre = InputValidation.getInput(input, "Enter genre: ", true);
 
-			String venue = InputValidation.getRequiredInput(input, "Enter venue:  ");
+			String venue = InputValidation.getInput(input, "Enter venue: ", true);
 
-			String city = InputValidation.getRequiredInput(input, "Enter city: ");
+			String city = InputValidation.getInput(input, "Enter city: ", true);
 
-			String country = InputValidation.getRequiredInput(input, "Enter country:  ");
+			String country = InputValidation.getInput(input, "Enter country: ", true);
 
-			String date = InputValidation.getRequiredDateInput(input, "Enter event date (yyyy-MM-dd): ");
+			String date = InputValidation.getRequiredDateInput(input, "Enter event date (yyyy-MM-dd): ", true);
 
-			System.out.print("Enter description: ");
-			String description = input.nextLine();
+			String description = InputValidation.getInput(input, "Enter description (optional): ", false);
 
 			boolean isOutdoor  = InputValidation.getYesNoInput(input, "Is it outdoor? (Yes/No): ", null);
 
@@ -209,11 +208,10 @@ public class EventMenu {
 							seatingType = SeatingType.STANDING;
 							break;
 						default:
-							System.out.println("Invalid choice. Defaulting to Standing.");
+							System.out.println("Invalid choice. Defaulting to Standing.\n");
 							seatingType = SeatingType.STANDING;
 							break;
 					}
-
 
 					Concert concert = new Concert( artist, genre, venue, city, country, date, description, isOutdoor, supportAct, tourName, seatingType);
 					eventService.addEvent(concert);
@@ -236,51 +234,83 @@ public class EventMenu {
 					System.out.println("\nFestival added successfully!");
 					break;
 
-
 				case 3: // ClubGig
-					int ageLimit = InputValidation.getNumberInRange(
-							input, 0, 100, "Enter age limit (0-100): "
-					);
-
-					double ticketPrice;
+					Integer ageLimit = null;
 
 					while (true) {
-						System.out.print("Enter ticket price (e.g. 150.50): ");
-						String priceInput = input.nextLine().trim();
+						String ageLimitInput = InputValidation.getInput(
+								input, "Enter age limit (0-100) (optional): ", false
+						);
+
+						if (ageLimitInput.isBlank()) {
+							break;
+						}
 
 						try {
-							ticketPrice = Double.parseDouble(priceInput);
+							int value = Integer.parseInt(ageLimitInput);
 
-							if (ticketPrice >= 0) {
+							if (value >= 0 && value <= 100) {
+								ageLimit = value;
 								break;
 							}
 
-							System.out.println("Ticket price cannot be negative.");
-						} catch (NumberFormatException ex) {
-							System.out.println("Please enter a valid price, e.g. 150.50.");
+							System.out.println("Please enter a number between 0 and 100.\n");
+
+						} catch (NumberFormatException e) {
+							System.out.println("Please enter numbers only (0-100).\n");
 						}
 					}
 
-					String setTimes = InputValidation.getOptionalTimeRange(
-							input, "Enter set times (e.g. 19:00-01:00): "
+					Double price;
+
+					while (true) {
+						String priceInput = InputValidation.getInput(
+								input, "Enter ticket price (e.g. 150.50) (optional): ", false
+						);
+
+						if (priceInput.isBlank()) {
+							price = null;
+							break;
+						}
+
+						try {
+							price = Double.parseDouble(priceInput);
+
+							if (price >= 0) {
+								break;
+							}
+
+							System.out.println("Ticket price cannot be negative.\n");
+
+						} catch (NumberFormatException ex) {
+							System.out.println("Please enter a valid price, e.g. 150.50.\n");
+						}
+					}
+
+					String setTime = InputValidation.getOptionalTimeRange(
+							input, "Enter set times (e.g. 19:00-01:00) (optional): ", false
 					);
+
+					if (setTime.isBlank()) {
+						setTime = null;
+					}
 
 					ClubGig clubGig = new ClubGig(
 							artist, genre, venue, city, country, date,
-							description, isOutdoor, ageLimit, ticketPrice, setTimes
+							description, isOutdoor, ageLimit, price, setTime
 					);
 
 					eventService.addEvent(clubGig);
-					System.out.println("Club Gig added successfully!");
+					System.out.println("\nClub Gig added successfully!");
 					break;
 				default:
-					System.out.println("Invalid event type choice.");
+					System.out.println("Invalid event type choice.\n");
 			}
 
 		} catch (NumberFormatException ex) {
-			System.out.println("Not a valid number.");
+			System.out.println("Not a valid number.\n");
 		} catch (IllegalArgumentException ex) {
-			System.out.println("Could not add event:");
+			System.out.println("Could not add event:\n");
 			System.out.println(ex.getMessage());
 		}
 	}

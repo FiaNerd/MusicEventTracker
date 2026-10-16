@@ -27,12 +27,12 @@ public class InputValidation {
 				if (choice < min || choice > max) {
 					System.out.println(
 							"[!] Invalid choice. Choose between "
-									+ min + "-" + max + "."
+									+ min + "-" + max + ".\n"
 					);
 				}
 
 			} catch (NumberFormatException ex) {
-				System.out.println("[!] Invalid input. Please enter a number.");
+				System.out.println("[!] Invalid input. Please enter a number.\n");
 				choice = min - 1;
 			}
 
@@ -56,24 +56,24 @@ public class InputValidation {
 			} else if (answer.equalsIgnoreCase("no")) {
 				return false;
 			} else {
-				System.out.println("Please enter Yes or No.");
+				System.out.println("Please enter Yes or No.\n");
 			}
 		}
 	}
 
-
-	public static String getRequiredInput(Scanner input, String prompt) {
-		while (true) {
+	public static String getInput(Scanner input, String prompt, boolean required){
+		while (true){
 			System.out.print(prompt);
-			// String value = input.nextLine().trim();
 
 			String value = MenuUtils.cancelInput(input);
 
-			if (!value.isBlank()) {
+			if(!required || !value.isBlank()){
 				return value;
 			}
 
-			System.out.println("[!] This field is required. Please try again.");
+			System.out.println(
+					"[!] This field is required. Please try again.\n"
+			);
 		}
 	}
 
@@ -90,58 +90,74 @@ public class InputValidation {
 				LocalDate date = LocalDate.parse(dateInput);
 
 				if (!date.toString().equals(dateInput)) {
-					System.out.println("Invalid date format. Use yyyy-MM-dd.");
+					System.out.println("Invalid date format. Use yyyy-MM-dd.\n");
 					continue;
 				}
 
 				return dateInput;
 
 			} catch (DateTimeParseException e) {
-				System.out.println("Invalid date. Use yyyy-MM-dd.");
+				System.out.println("Invalid date. Use yyyy-MM-dd.\n");
 			}
 		}
 	}
 
 
-	public static String getRequiredDateInput(Scanner input, String prompt) {
+	public static String getRequiredDateInput(
+			Scanner input, String prompt, boolean required) {
+
 		while (true) {
 			System.out.print(prompt);
-			String dateInput = input.nextLine().trim();
 
-			if (dateInput.isEmpty()) {
-				System.out.println("[!] Date is required. Please enter a date.");
-				continue;
+			String dateInput = MenuUtils.cancelInput(input);
+
+			if (dateInput.isBlank()) {
+				if (required) {
+					System.out.println(
+							"[!] Date is required. Please enter a date.\n"
+					);
+					continue;
+				}
+
+				return "";
 			}
 
 			try {
 				LocalDate date = LocalDate.parse(dateInput);
 
 				if (!date.toString().equals(dateInput)) {
-					System.out.println("Invalid date format. Use yyyy-MM-dd.");
+					System.out.println(
+							"Invalid date format. Use yyyy-MM-dd.\n"
+					);
 					continue;
 				}
 
 				return dateInput;
 
 			} catch (DateTimeParseException e) {
-				System.out.println("Invalid date. Use yyyy-MM-dd.");
+				System.out.println("Invalid date. Use yyyy-MM-dd.\n");
 			}
 		}
 	}
 
+	public static String getOptionalTimeRange(
+			Scanner input, String prompt, boolean required) {
 
-
-	public static String getOptionalTimeRange(Scanner input, String prompt) {
 		while (true) {
 			System.out.print(prompt);
-			String value = input.nextLine().trim();
+			String value = MenuUtils.cancelInput(input);
 
-			// Empty input is allowed
-			if (value.isEmpty()) {
-				return value;
+			// Allow empty input if optional
+			if (value.isBlank()) {
+				if (!required) {
+					return "";
+				}
+
+				System.out.println("This field is required.");
+				continue;
 			}
 
-			// Validate HH:mm-HH:mm with regex
+			// Validate HH:mm-HH:mm
 			if (value.matches("([01]\\d|2[0-3]):[0-5]\\d-([01]\\d|2[0-3]):[0-5]\\d")) {
 				return value;
 			}
@@ -151,5 +167,4 @@ public class InputValidation {
 			);
 		}
 	}
-
 }

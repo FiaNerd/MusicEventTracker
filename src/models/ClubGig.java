@@ -1,7 +1,5 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a club-based music event, extending the generic EventModel.
@@ -13,8 +11,8 @@ import java.util.List;
  */
 public class ClubGig extends EventModel {
 
-	private int ageLimit;        // Minimum age required to enter the club
-	private double entryFee;     // Entry price for the club event
+	private Integer ageLimit;        // Minimum age required to enter the club
+	private Double entryFee;     // Entry price for the club event
 	private String openingHours; // Opening hours for the club night (e.g., "22:00–03:00")
 
 	/**
@@ -35,7 +33,7 @@ public class ClubGig extends EventModel {
 	 */
 	public ClubGig(String artist, String genre, String venue, String city, String country, String date,
 	               String description, boolean isOutdoor,
-	               int ageLimit, double entryFee, String openingHours) {
+	               Integer ageLimit, Double entryFee, String openingHours) {
 
 		// Pass shared event data to the superclass constructor
 		super(artist, genre, venue, city, country, date, description, isOutdoor);
@@ -48,22 +46,22 @@ public class ClubGig extends EventModel {
 	// --- GETTERS & SETTERS ---
 
 	/** @return the minimum age required to enter the club */
-	public int getAgeLimit() {
+	public Integer getAgeLimit() {
 		return ageLimit;
 	}
 
 	/** @param ageLimit sets the minimum age required to enter the club */
-	public void setAgeLimit(int ageLimit) {
+	public void setAgeLimit(Integer ageLimit) {
 		this.ageLimit = ageLimit;
 	}
 
 	/** @return the entry fee in SEK */
-	public double getEntryFee() {
+	public Double getEntryFee() {
 		return entryFee;
 	}
 
 	/** @param entryFee sets the entry fee in SEK */
-	public void setEntryFee(double entryFee) {
+	public void setEntryFee(Double entryFee) {
 		this.entryFee = entryFee;
 	}
 

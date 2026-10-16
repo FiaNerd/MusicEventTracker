@@ -11,20 +11,20 @@ public class EventValidator {
 		List<String> errors = new ArrayList<>();
 
 		if (event.getArtist() == null || event.getArtist().isBlank()) {
-			errors.add("Artist is required");
+			errors.add("Artist is required\n");
 		}
 
 		if (event.getGenre() == null || event.getGenre().isBlank()) {
-			errors.add("Genre is required");
+			errors.add("Genre is required\n");
 		}
 
 		if (event.getVenue() == null || event.getVenue().isBlank()) {
-			errors.add("Venue is required");
+			errors.add("Venue is required\n");
 		}
 
 		if (event.getDescription() != null
 				&& event.getDescription().length() > 500) {
-			errors.add("Description must be at most 500 characters");
+			errors.add("Description must be at most 500 characters\n");
 		}
 
 		return errors;
