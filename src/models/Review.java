@@ -45,4 +45,9 @@ public class Review implements Summarizable {
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
+
+	@Override
+	public String getSummary() {
+		return "Rating: " + rating + "/5 - " + comment;
+	}
 }
