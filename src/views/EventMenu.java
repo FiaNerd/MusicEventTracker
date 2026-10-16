@@ -15,11 +15,21 @@ public class EventMenu {
 	private EventService eventService;
 	private Scanner input;
 
+	/**
+	 * Handles user interaction for event management.
+	 * Displays the event menu and allows users to add, search,
+	 * update, display and delete events.
+	 * Delegates event operations to EventService.
+	 */
 	public EventMenu(EventService eventService, Scanner input) {
 		this.eventService = eventService;
 		this.input = input;
 	}
 
+	/**
+	 * Starts the event menu and handles user selections
+	 * until the user chooses to return to the main menu.
+	 */
 	public void start() {
 		int choice = 0;
 
@@ -57,7 +67,9 @@ public class EventMenu {
 		} while (choice != 6); // until the user press 6, the loop will quit
 	}
 
-
+	/**
+	 * Displays the available event management options.
+	 */
 	private void printMenu() {
 		System.out.println("\n===========================");
 		System.out.println("       MUSIC EVENT");
@@ -71,8 +83,11 @@ public class EventMenu {
 		System.out.println("=============================");
 	}
 
-	// TODO: See if its time for making count how many events it is in the list total
-
+	/**
+	 * Displays all registered events.
+	 * Uses polymorphism to call the appropriate toString()
+	 * implementation for each event type.
+	 */
 	private void showAllaEvents() {
 
 		System.out.println("\n==========================");
@@ -84,19 +99,24 @@ public class EventMenu {
 			return;
 		}
 
+		// Polymorphism: EventModel references can represent Concert, Festival or ClubGig objects.
+		// Each object's overridden toString() method is called when printed.
 		for (EventModel event : eventService.getAllEvents()) {
 			System.out.println(event);
 
 			System.out.println("--------------------------------------------------");
 		}
 	}
-
-
+	/**
+	 * Searches for events by artist, venue or city.
+	 * Displays all events matching the user's search term.
+	 */
 	private void searchEvent() {
 		System.out.println("\n==========================");
 		System.out.println("       SEARCH EVENT");
 		System.out.println("==========================");
 
+		// Display instructions for cancelling the action.
 		MenuUtils.printCancelInfo();
 
 		while (true) {
@@ -115,12 +135,15 @@ public class EventMenu {
 			System.out.println("      SEARCH RESULT");
 			System.out.println("==========================");
 
-			for (var event : eventService.getAllEvents()) {
+			for (EventModel event : eventService.getAllEvents()) {
+				// Check whether the search term matches the artist, venue or city.
 				if (event.getArtist().toLowerCase().contains(searchTerm.toLowerCase())
 						|| event.getVenue().toLowerCase().contains(searchTerm.toLowerCase())
 						|| event.getCity().toLowerCase().contains(searchTerm.toLowerCase())) {
 
 					found = true;
+
+					// Display matching events using polymorphism through the overridden toString() method.
 					System.out.println(event);
 					System.out.println("--------------------------------------------------");
 				}
@@ -139,6 +162,11 @@ public class EventMenu {
 	}
 
 
+	/**
+	 * Collects event details from the user and creates
+	 * a Concert, Festival or ClubGig.
+	 * Delegates validation and storage to EventService.
+	 */
 	private void addEvent() {
 		System.out.println("\n==========================");
 		System.out.println("          ADD EVENT");
@@ -229,6 +257,7 @@ public class EventMenu {
 					);
 
 					eventService.addEvent(festival);
+
 					System.out.println("\nFestival added successfully!");
 					break;
 
@@ -313,7 +342,11 @@ public class EventMenu {
 		}
 	}
 
-
+	/**
+	 * Allows the user to update an existing event.
+	 * Keeps current values when the user presses Enter
+	 * and handles additional fields based on the event type.
+	 */
 	private void updateEvent() {
 		System.out.println("\n==========================");
 		System.out.println("       UPDATE EVENT");
@@ -588,13 +621,17 @@ public class EventMenu {
 		System.out.println("\nEvent updated successfully!");
 	}
 
-
+	/**
+	 * Deletes an existing event selected by its ID.
+	 * Prompts the user again if the ID is invalid or not found.
+	 */
 	private void deleteEvent() {
 		System.out.println("\n==========================");
 		System.out.println("         DELETE EVENT");
 		System.out.println("==========================");
 
-		for (var event : eventService.getAllEvents()) {
+		// Display the ID and basic details of each event.
+		for (EventModel event : eventService.getAllEvents()) {
 			System.out.println("  ID " + event.getId() + ": "
 					+ event.getArtist() + " @ " + event.getVenue()
 					+ " (" + event.getDate() + ")");

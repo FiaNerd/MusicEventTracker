@@ -76,9 +76,22 @@ public class ReviewService {
 	 * @param items the objects whose reviews should be counted
 	 * @return the total number of reviews
 	 */
+	/**
+	 * Counts all reviews belonging to a collection of reviewable objects.
+	 *
+	 * @param items the objects whose reviews should be counted
+	 * @return the total number of reviews, or 0 if the list is null
+	 */
 	public int getTotalReviews(List<? extends Reviewable> items) {
 		int total = 0;
 
+		// Return 0 if no collection was provided.
+		if (items == null) {
+			return 0;
+		}
+
+		// Interface polymorphism: each item is accessed through Reviewable,
+		// regardless of its concrete event type.
 		for (Reviewable item : items) {
 			total += item.getReviews().size();
 		}
